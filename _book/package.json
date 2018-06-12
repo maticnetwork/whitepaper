@@ -1,0 +1,28 @@
+{
+  "name": "whitepaper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "bookinstall": "gitbook install",
+    "serve": "gitbook serve",
+    "publish": "bash publish_gitbook.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maticnetwork/whitepaper.git"
+  },
+  "keywords": [
+    "whitepaper"
+  ],
+  "author": "Jaynti Kanani <jdkanani@matic.network>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maticnetwork/whitepaper/issues"
+  },
+  "homepage": "https://github.com/maticnetwork/whitepaper#readme",
+  "dependencies": {
+    "gitbook-cli": "^2.3.2",
+    "gitbook-plugin-mathjax": "^1.1.2"
+  }
+}
