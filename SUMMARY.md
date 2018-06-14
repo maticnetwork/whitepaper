@@ -1,6 +1,6 @@
 # Summary
 
-* [Matic Whitepaper](README.md#white)
+* [Matic Whitepaper](README.md#whitepaper)
 * [Abstract](README.md#Abstract)
 * [Why Matic?](README.md#whymatic)
 	* [Slow Transactions](README.md#slowt)
@@ -18,7 +18,7 @@
 * [Matic Stack](README.md#stack)
 	* [Matic Deposit Bridge](README.md#mdb)
 	* [Matic POS Chain](README.md#mposc)
-	* [DPoS Delegate Layer](README.md#dposdl)
+	* [DPoS Layer](README.md#dposdl)
 	* [Matic VM](README.md#vm)
 	* [Matic Withdrawal Bridge](README.md#mvb)
 	* [Spam Protection](README.md#spam)

@@ -1,3 +1,5 @@
+# {#whitepaper}
+
 <center>
   <h1>Matic Whitepaper</h1>
 </center>
@@ -9,15 +11,20 @@
   Anurag Arjun <<a href='mailto:anurag@matic.network'>anurag@matic.network</a>><br>
 </center>
 
-# Abstract {#Abstract}
+# {#Abstract}
+<center>
+  <h3>Abstract</h3>
+</center>
 
+<div style="text-align: justify; max-width: 600px; margin: 0 auto;">
 Blockchain Smart contract platforms and cryptocurrencies,  have captured mass attention but still haven’t been able to achieve mass adoption due to the scalability and user experience issues. Even on Ethereum, which is the most widely used smart contracting platform, there have been no significant Dapps which have seen mass adoption. There have been a few cases where one or the other particular application temporarily succeeded in achieving a significant user base but it led to crippling of the entire network during the high load times. Essentially meaning that even the most advanced and widely used platforms are not ready for mass adoption.
-
-On the other hand there are a few smart contract platforms which boast of higher transaction throughput but they trade off the transaction speed with decentralization. Also many of the upcoming solutions propose their own blockchains neglecting the billions of dollars market cap Dapp and other projects already created on platforms like Ethereum etc. Even more importantly they neglect the massive developer community and developer ecosystem that exists for platforms like Ethereum.
-
-**Matic Network strives to solve the scalability and usability  issues while not compromising on decentralization and leveraging existing developer community and ecosystem. Matic Network is built on the foundation of Plasma framework as** an **off/side chain**scaling solution for existing platforms and provide scalability and superior user experience to Dapps/user functionalities built on top of these platforms.
-
-**We have chosen Ethereum as the first platform to showcase our  scalability and we already have a working implementation for  Ethereum  on Kovan Testnet. We also intend to launch the alpha version of our Mainnet with working Dapps before the ICO.** It allows instant transfers,exchange and conversion of digital assets (e.g. crypto tokens) and cryptocurrencies in future (Bitcoin  using  Swingby protocol ). It’s an adapted implementation of Plasma framework for Ethereum to start with but our “vision” is to provide **off/side chain scaling solution for blockchains in general.** Matic strives to achieve **high degree of decentralization** (explained in detailed in a section later) with trust-less and decentralized execution while ensuring near instant transfers, low fees and conducive economics for micro transactions. Matic’s open source foundation intends to provide Matic wallet, payment APIs SDKs, products, identity solutions and other enabling solutions that will allow developers to design, implement and migrate DAPPs built on base platforms like Ethereum. One of the key pillars of Matic Network’s ideology is user experience which is very poor for Blockchain applications as of now. Matic Team has already built high quality user experience Mobile/Web browser libraries which will enable businesses to create real world end user applications at large scales. Matic roadmap also includes **supporting** cross-chain transfers and **third party** Decentralized exchanges, liquidity pools etc.
+<br/><br/>
+On the other hand there are a few smart contract platforms which boast of higher transaction throughput but they trade off the transaction speed with decentralization. Also many of the upcoming solutions propose their own blockchains neglecting the billions of dollars market cap DApps and other projects already created on platforms like Ethereum etc. Even more importantly they neglect the massive developer community and developer ecosystem that exists for platforms like Ethereum.
+<br/><br/>
+<b>Matic Network strives to solve the scalability and usability  issues while not compromising on decentralization and leveraging existing developer community and ecosystem. It is built on the foundation of Plasma framework as an side chain scaling solution for existing platforms and provide scalability and superior user experience to Dapps/user functionalities.</b>
+<br/><br/>
+<b>We have chosen Ethereum as the first platform to showcase our  scalability and we already have a working implementation for  Ethereum on Kovan Testnet.</b> It allows instant transfers, exchange and conversion of digital assets (e.g. crypto tokens) and cryptocurrencies in future (Bitcoin using other stable coin protocols). It’s an adapted implementation of Plasma framework for Ethereum to start with but our “vision” is to provide off/side chain scaling solution for blockchains in general. Matic’s foundation intends to provide Matic wallet, payment APIs SDKs, products, identity solutions and other enabling solutions that will allow developers to design, implement and migrate DAPPs built on base platforms like Ethereum. One of the key pillars of Matic Network’s ideology is user experience which is very poor for Blockchain applications as of now. Matic Team has already built high quality user experience Mobile/Web browser libraries which will enable businesses to create real world end user applications at large scales. Matic roadmap also includes supporting cross-chain transfers and third party Decentralized exchanges, liquidity pools etc.
+</div>
 
 # Why Matic? {#whymatic}
 
@@ -27,7 +34,7 @@ Decentralized Apps are getting proposed in large numbers but the current blockch
 
 Blockchain transactions are very slow and have a very limited throughput. Most PoW based blockchain protocols have a limit on the block size and it takes a certain amount of time to generate a block. Each transaction also has to wait for multiple block confirmations due to potential chain re-organizations.<br/>
 PoS based blockchains try to counter these limitations using staking mechanism but those who are able to achieve high throughput are able to do so at the cost of decentralization. These limitations are often necessary for public blockchains to ensure security and decentralization as a block needs to be propagated through the network and validated by all the nodes to achieve finality.<br/>
-Matic solves this problem by using a high throughput DPoS chain with a selected set of Delegates. It then uses a Proof Of Stake layer to **validate the blocks and publish periodic proofs (merkle roots) of the blocks produced by 
+Matic solves this problem by using a high throughput DPoS chain with a selected set of Delegates. It then uses a Proof Of Stake layer to **validate the blocks and publish periodic proofs (merkle roots) of the blocks produced by
 to the Ethereum mainchain.** This helps in achieving high level of decentralization while maintaining an extremely fast **(< 2 seconds) block confirmation times.**
 
 ### Low Transaction Throughput {#ltt}
@@ -61,7 +68,7 @@ Fees are the important factor to reward validators and prevent certain kind of s
 ### Poor Usability {#pf}
 
 The user interactions on decentralized applications are extremely poor compared to their centralized counterparts. In order for Decentralization revolution to achieve mass adoption the user experience of decentralized apps have to be at par with,if not better than the centralized applications.<br/>
-Matic network is working on leading projects for Mobile and web browser integration tools and is pioneering protocols in this domain. It intends to build a ubiquitous mobile/browser app which will act as a secured interaction layer for blockchain interactions. We will be publishing the designs and prototype of the same soon. 
+Matic network is working on leading projects for Mobile and web browser integration tools and is pioneering protocols in this domain. It intends to build a ubiquitous mobile/browser app which will act as a secured interaction layer for blockchain interactions. We will be publishing the designs and prototype of the same soon.
 
 # Introducing Matic Network {#imn}
 
@@ -85,7 +92,7 @@ Remember any fungible crypto assets can be represented as ERC20 tokens on Matic 
 We have already created demo version and you can check out our contracts on GitHub:<br/>
 https://github.com/maticnetwork/contracts
 
-We expect the alpha version of the mainnet to go live very soon. 
+We expect the alpha version of the mainnet to go live very soon.
 
 ### Actors {#actors}
 
