@@ -1,5 +1,3 @@
-# {#white}
-
 <center>
   <h1>Matic Whitepaper</h1>
 </center>
