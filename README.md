@@ -40,34 +40,40 @@ to the Ethereum mainchain.** This helps in achieving high level of decentralizat
 ### Low Transaction Throughput {#ltt}
 
 Public blockchains have to maintain a certain amount of time lag between various block production so as to ensure ample time for block propagation. Also the blocks size needs to be low so as to ensure quick propagation of the block through the network. This entails that number of transactions in a particular block needs to be fairly limited.<br/>
-Matic Network solves this problem by using a **Delegate layer from its DPoS system to produce the blocks.** Delegates enable the system to produce blocks at a very fast rate. The system ensures decentralization using PoS checkpoints which are pushed to the Mainchain (Ethereum as a first chain),. **This enables Matic to theoretically achieve 2^16  transactions on a single side chain.**
+Matic Network solves this problem by using a **Delegate layer from its DPoS system to produce the blocks.** Delegates enable the system to produce blocks at a very fast rate. The system ensures decentralization using PoS checkpoints which are pushed to the Mainchain (Ethereum as a first chain),. **This enables Matic to theoretically achieve $$2^{16}$$  transactions on a single side chain.**
 
 ### Scalability {#scalability}
 
-As discussed in the previous section that Matic network easily achieves a theoretical speed of 2^16 transactions per second. **In future, Matic platform can easily add more side chains  horizontally to increase the total number of transactions on the Matic chain while using the same decentralized PoS layer.**<br/>
+As discussed in the previous section that Matic network easily achieves a theoretical speed of $$2^{16}$$ transactions per second. **In future, Matic platform can easily add more side chains  horizontally to increase the total number of transactions on the Matic chain while using the same decentralized PoS layer.**
+
 Theoretically we can add millions of transactions per second using multiple side chains. Also, the mechanism to do that is already there with the first Matic side-chain and new chains can be added readily.
 
 ### Size of Blockchain {#sob}
 
-Each block on Blockchain must be validated by multiple nodes and/or compute state in case of smart contract based blockchain.<br/>
-Each node has to manage a copy of state and blocks. While the chain is increasing as days go by, maintaining and validating the whole blockchain is getting more difficult resulting in fewer full nodes of public blockchains which is becoming a risk for decentralization.<br/>
+Each block on Blockchain must be validated by multiple nodes and/or compute state in case of smart contract based blockchain.
+
+Each node has to manage a copy of state and blocks. While the chain is increasing as days go by, maintaining and validating the whole blockchain is getting more difficult resulting in fewer full nodes of public blockchains which is becoming a risk for decentralization.
+
 For Matic Network, the primary layer which provides decentralization may choose to have only the blocks of Matic chain from previous checkpoint to the next checkpoint. All previous transaction/block proofs are anyways submitted to the mainchain. **It enables extremely low fidelity PoS nodes which can be run in very low cost machines with low storage. In future, Matic network intends to enable Mobile devices based PoS miners too.**
 
 ### Multiple micropayment channels with other off-chain solutions {#loooong}
 
 Some Payment channel solutions solve the problem of micro-payments. However, opening and managing channels with multiple DApps or users is complex and is a very bad user experience. Additionally, speed and convenience of mediated payments over channels are questionable.
-<br/>
+
 Since **Matic network uses a state based architecture on an EVM, it doesn’t require payment channels to be opened between two parties. If fact, any valid ethereum address is a valid Matic Address and receivers do not need to be on Matic chain to receive funds. They would only need to have a Matic wallet when they want to withdraw the funds to the main chain or spend it in the Matic ecosystem.**
 
 ### High Transaction Fees {#htf}
 
-With the rapid growth of Blockchain ecosystem, new crypto assets are increasingly being introduced, transferred, and exchanged between users in the form of crypto tokens. Also most decentralized apps have its own token and economy. Paying tokens for the services or doing any kind of transaction on blockchains it requires on-chain transfers. Every blockchain has a transaction cost structure for example Ethereum charges gas fees on each transaction.<br/>
-Fees are the important factor to reward validators and prevent certain kind of security attacks like DoS. But, the problem is fees varies depending upon the pending transaction pool due to the limited block size.<br/>
+With the rapid growth of Blockchain ecosystem, new crypto assets are increasingly being introduced, transferred, and exchanged between users in the form of crypto tokens. Also most decentralized apps have its own token and economy. Paying tokens for the services or doing any kind of transaction on blockchains it requires on-chain transfers. Every blockchain has a transaction cost structure for example Ethereum charges gas fees on each transaction.
+
+Fees are the important factor to reward validators and prevent certain kind of security attacks like DoS. But, the problem is fees varies depending upon the pending transaction pool due to the limited block size.
+
 **Matic Network enables low cost transactions by achieving economies of scale by doing large number of transactions on the Delegate layer which ensures low cost and then batching the proofs of the matic blocks using Merkle root of the blocks** to the highly decentralized mainchain (for ex. Ethereum) using a decentralized layer of PoS Stakers.
 
 ### Poor Usability {#pf}
 
-The user interactions on decentralized applications are extremely poor compared to their centralized counterparts. In order for Decentralization revolution to achieve mass adoption the user experience of decentralized apps have to be at par with,if not better than the centralized applications.<br/>
+The user interactions on decentralized applications are extremely poor compared to their centralized counterparts. In order for Decentralization revolution to achieve mass adoption the user experience of decentralized apps have to be at par with,if not better than the centralized applications.
+
 Matic network is working on leading projects for Mobile and web browser integration tools and is pioneering protocols in this domain. It intends to build a ubiquitous mobile/browser app which will act as a secured interaction layer for blockchain interactions. We will be publishing the designs and prototype of the same soon.
 
 # Introducing Matic Network {#imn}
@@ -104,12 +110,18 @@ Matic ecosystem will have the following actors :
 
 ### Consensus and Security {#cas}
 
-Matic uses dual strategy of Proof of Stake at the checkpointing layer and Delegates at the  to achieve the faster blocktimes while ensuring **high degree of decentralization by achieving finality on the main chains using the checkpoints and fraud proofs.**<br/>
-![](matics.png)
-Basically, Anyone can stake their Matic tokens on root contract to become a Staker in the PoS checkpointing layer(contract deployed on Ethereum chain). This provides a high degree decentralized base layer for Matic chain.<br/>
-Now, At the Matic block layer we have Delegates selected by PoS Stakers on the base layer with Proof of Solvency who will be creating the Matic Blocks. To achieve faster block generation times these Delegates will be low in number. **This layer will achieve < 2 second block generation times at extremely low to negligible transaction fees.**<br/>
-On Matic network’s checkpointing layer, basis our PoS mechanism, every few blocks on Matic block layer, a proposer will be chosen among the stakeholders to propose a checkpoint on the main chain. These checkpoints are created by proposer after validating all the blocks on the Matic block layer and creating the merkel tree of the block hashes since the last checkpoint. The merkle root is then broadcasted to the staker network for their signatures. The other stakeholders also verify the proof. They approve the proposed block, if it’s valid, by providing their signatures. The system needs ⅔ approvals of stakeholders be to propose “header block” to root contract. Once the checkpoint is proposed on the mainchain, anyone on the Ethereum mainchain can challenge the proposed checkpoint till a specified period of time. If no one challenges it till the passing of the challenge period, the checkpoint is formally included as a valid checkpoint on the main chain.<br/>
-Apart from providing finality on the mainchain, Checkpoints have a very important role to play in withdrawals as they contain the proof-of-burn of tokens in the event of user withdrawal. It enables the users to prove their remaining tokens on root contract using Patricia Merkle proof and header block proof. Note that to prove remaining tokens, header block must be committed to Root Chain through PoS (Stakeholders). Withdraw process will take Ethereum gas fees as usual.<br/>
+Matic uses dual strategy of Proof of Stake at the checkpointing layer and Delegates at the  to achieve the faster blocktimes while ensuring **high degree of decentralization by achieving finality on the main chains using the checkpoints and fraud proofs.**
+
+![Matic checkpoints](matics.png)
+
+Basically, Anyone can stake their Matic tokens on root contract to become a Staker in the PoS checkpointing layer(contract deployed on Ethereum chain). This provides a high degree decentralized base layer for Matic chain.
+
+Now, At the Matic block layer we have Delegates selected by PoS Stakers on the base layer with Proof of Solvency who will be creating the Matic Blocks. To achieve faster block generation times these Delegates will be low in number. **This layer will achieve less than 2 second block generation times at extremely low to negligible transaction fees.**
+
+On Matic network’s checkpointing layer, basis our PoS mechanism, every few blocks on Matic block layer, a proposer will be chosen among the stakeholders to propose a checkpoint on the main chain. These checkpoints are created by proposer after validating all the blocks on the Matic block layer and creating the merkel tree of the block hashes since the last checkpoint. The merkle root is then broadcasted to the staker network for their signatures. The other stakeholders also verify the proof. They approve the proposed block, if it’s valid, by providing their signatures. The system needs $$\frac{2}{3}$$ approvals of stakeholders be to propose "header block" to root contract. Once the checkpoint is proposed on the mainchain, anyone on the Ethereum mainchain can challenge the proposed checkpoint till a specified period of time. If no one challenges it till the passing of the challenge period, the checkpoint is formally included as a valid checkpoint on the main chain.
+
+Apart from providing finality on the mainchain, Checkpoints have a very important role to play in withdrawals as they contain the proof-of-burn of tokens in the event of user withdrawal. It enables the users to prove their remaining tokens on root contract using Patricia Merkle proof and header block proof. Note that to prove remaining tokens, header block must be committed to Root Chain through PoS (Stakeholders). Withdraw process will take Ethereum gas fees as usual.
+
 Through this mechanism, we achieve high transaction speed, high degree of decentralization and finality on Mainchain. In our first version which has Ethereum only as the base chain, Ethereum root contract enforces solvency and finality through header block(checkpoints) very efficiently.
 
 ### Fraud Proofs {#fraud}
@@ -126,13 +138,16 @@ The Matic bridge(s) are part of Delegate nodes and listen to the RootContract ev
 
 ### Matic POS Chain {#mposc}
 
-The Matic checkpointing layer is a PoS blockchain which has Stakers who propose the checkpoints to the mainchain.<br/>
-Currently there can be roughly upto 100 Stakers can be there at the checkpointing layer. In future with advent of more efficient signatures on Ethereum blockchain we would be able to significantly increase the number of stakers on the checkpointing layer which will further increase its degree of decentralization, perhaps equal or more to that of the leading public blockchains like Ethereum and Bitcoin.<br/>
+The Matic checkpointing layer is a PoS blockchain which has Stakers who propose the checkpoints to the mainchain.
+
+Currently there can be roughly upto 100 Stakers can be there at the checkpointing layer. In future with advent of more efficient signatures on Ethereum blockchain we would be able to significantly increase the number of stakers on the checkpointing layer which will further increase its degree of decentralization, perhaps equal or more to that of the leading public blockchains like Ethereum and Bitcoin.
+
 More details of the PoS checkpoint layers in the version 2.0 of the Whitepaper.
 
 ### DPoS Layer {#dposdl}
 
-At the lowest layer we have Delegate nodes chosen by a DPoS mechanism where the Stakers of the PoS layer will choose these Delegates by voting. These Delegates would also be required to have proof of solvency and KYC to be nominated for Delegates. These Delegates will also run the Matic Deposit bridge.<br/>
+At the lowest layer we have Delegate nodes chosen by a DPoS mechanism where the Stakers of the PoS layer will choose these Delegates by voting. These Delegates would also be required to have proof of solvency and KYC to be nominated for Delegates. These Delegates will also run the Matic Deposit bridge.
+
 More technical code level details of DPoS layer will be added in version 2.0 of whitepaper.
 
 ### Matic VM {#vm}
@@ -182,7 +197,8 @@ The network will exchange any tokens for targeted tokens by leveraging 0x liquid
 
 ### Decentralized Exchange (DEX) {#dex}
 
-Matic has all characteristics which one exchange should have — faster and cheaper trades. Matic will provide decentralized exchange and enables trust-less, reliable and easy crypto trades. The decentralized exchange is the future for digital assets and provides better security and solvency instead of centralized exchanges.<br/>
+Matic has all characteristics which one exchange should have — faster and cheaper trades. Matic will provide decentralized exchange and enables trust-less, reliable and easy crypto trades. The decentralized exchange is the future for digital assets and provides better security and solvency instead of centralized exchanges.
+
 As Matic doesn’t have the burden of gas like Ethereum chain, it would be pretty easy to do the atomic swaps like BTC <> ETH or any other blockchain assets.
 
 ### Lending & Credit Scoring platform {#lcsp}
@@ -191,9 +207,12 @@ The Matic Network will enable merchants to assess the creditworthiness of connec
 
 ### Identity {#identity}
 
-Users need a utilitarian yet user-friendly interface where MetaMask or web3 enabled browsers are not required. They don’t need to think or understand how Ethereum works under the hood.<br/>
-Decentralized apps need a way to sign transactions, but that must happen without submitting private keys on each DApp on web browsers or mobile apps. We believe user must have control over their private keys without worrying about the security. Matic will solve that with an Open-Identity system and will deliver a seamless experience to our users.<br/>
-This system will also provide a way to auto-approve certain kind of transactions depending upon criteria users choose. This will drive Matic’s recurring payments.<br/>
+Users need a utilitarian yet user-friendly interface where MetaMask or web3 enabled browsers are not required. They don’t need to think or understand how Ethereum works under the hood.
+
+Decentralized apps need a way to sign transactions, but that must happen without submitting private keys on each DApp on web browsers or mobile apps. We believe user must have control over their private keys without worrying about the security. Matic will solve that with an Open-Identity system and will deliver a seamless experience to our users.
+
+This system will also provide a way to auto-approve certain kind of transactions depending upon criteria users choose. This will drive Matic’s recurring payments.
+
 
 ### Securing Personal Data {#spd}
 
@@ -211,42 +230,57 @@ The Matic will act on the simple mantra - make it simple and seamless.  For that
 
 ### Dagger {#dagger}
 
-We have already started building infrastructure for developers, starting with Dagger. [Dagger](https://matic.network/dagger) is a tool or engine to track Ethereum accounts and events in real-time.<br/>
-Developers can use Dagger to track their own smart contracts, accounts, and transactions. They can create custom service or integrate with third-party services through IFTTT or Zapier.<br/>
-You can learn more about dagger here:<br/>
+We have already started building infrastructure for developers, starting with Dagger. [Dagger](https://matic.network/dagger) is a tool or engine to track Ethereum accounts and events in real-time.
+
+Developers can use Dagger to track their own smart contracts, accounts, and transactions. They can create custom service or integrate with third-party services through IFTTT or Zapier.
+
+You can learn more about dagger here:
+
 https://medium.com/matic-network/ethereum-in-realtime-dagger-98ee2d717c76<br/>
 and check how it works:<br/>
 https://medium.com/matic-network/understanding-dagger-453d90480c51
 
 # Challenges, security concerns and mitigation {#challenges}
 
-1. Block withhold after deposit or deposit is not processed by delegate due to unavailability of matic-bridge.<br/>
-(a) Each deposit will create new id (uint256 counter) associated with deposit even<br/>
-(b) Delegate must process deposit in next 5 checkpoint<br/>
-(c) If not processed, deposit amount will be eligible for withdraw
+1. Block withhold after deposit or deposit is not processed by delegate due to unavailability of matic-bridge.
 
-2. Block withhold after deposit, relay and before transfer<br/>
-There are two ways we can solve this:<br/>
-(a) “Withdraw only” mode: Matic can go in withdraw only mode after certain time with no checkpoints (~ around 2 days). All users must start exist process by proving tokens from last known checkpoints. Problem with this approach would be “loss of valid transactions from last checkpoints”<br/>
-(b) Start ceremony to choose next set of Delegates: ceremony will start to select next round of delegates and selected delegates will resume chain from last checkpoints and start validating pending transactions (if any)
+  - Each deposit will create new id (uint256 counter) associated with deposit even
 
-3. Checkpoint withhold after burn tokens on Matic<br/>
-(a) This will only happen when there is fraud on Matic chain. Mitigation would be the same as 2.
+  - Delegate must process deposit in next 5 checkpoint
 
-4. A Delegate changes token balance while relaying deposits.<br/>
-(a) Mitigation would be the same as 2.
+  - If not processed, deposit amount will be eligible for withdraw
 
-5. A Delegate changes token balance while transfer.<br/>
-(a) Mitigation would be the same as 2.
+2. Block withhold after deposit, relay and before transfer
 
-6. A Delegate generates token for particular address<br/>
-(a) Mitigation would be the same as 2.
+  There are two ways we can solve this:
 
-7. A Delegate generates, transfers and burns tokens between in two checkpoints<br/>
-(a) Mitigation would be the same as 2.
+  - "Withdraw only" mode: Matic can go in withdraw only mode after certain time with no checkpoints (~ around 2 days). All users must start exist process by proving tokens from last known checkpoints. Problem with this approach would be "loss of valid transactions from last checkpoints"
 
-8. A rationale of how a Delegate can be trustless entity (eventually on our roadmap)<br/>
-(a) Use appcoin security for Delegate collateral and discourage Matic token damaging + short selling
+  - Start ceremony to choose next set of Delegates: ceremony will start to select next round of delegates and selected delegates will resume chain from last checkpoints and start validating pending transactions (if any)
+
+3. Checkpoint withhold after burn tokens on Matic
+
+  This will only happen when there is fraud on Matic chain. Mitigation would be the same as 2.
+
+4. A Delegate changes token balance while relaying deposits.
+
+  Mitigation would be the same as 2.
+
+5. A Delegate changes token balance while transfer.
+
+  Mitigation would be the same as 2.
+
+6. A Delegate generates token for particular address
+
+  Mitigation would be the same as 2.
+
+7. A Delegate generates, transfers and burns tokens between in two checkpoints
+
+  Mitigation would be the same as 2.
+
+8. A rationale of how a Delegate can be trustless entity (eventually on our roadmap)
+
+  Use appcoin security for Delegate collateral and discourage Matic token damaging + short selling
 
 9. Make Solvency Proof mandatory before assigning one as a delegate. Richman can game with this Solvency Proof but appcoin above will mitigate attacking chain
 
@@ -258,19 +292,26 @@ There are two ways we can solve this:<br/>
 
 13. At given point of the time, what if there is a discrepancy between total of users’ balances and root contract’s total balances? What if root contract allows certain users to withdraw more tokens than intended (possible hack)? How one can detect that there has been hack or fraud on Matic system?
 
-14. Solvency proof of balances comes handy in this case. More info on solvency proof and single use seals - <br/>
-https://petertodd.org/2016/commitments-and-single-use-seals
+14. Solvency proof of balances comes handy in this case. More info on solvency proof and single use seals --
 
-15. Transaction censorship<br/>
-To resolve this, possible solution could be following:<br/>
-Anyone can add transaction data directly to main chain contract. That transaction must be added in next 5 checkpoints by delegates.<br/>
-Now following will happen next:<br/>
-(i) If delegate doesn’t include tx in next 5 checkpoints, tx owner can start challenge by keeping some ETH as value (some kind of bond). After certain amount of time, delegate won’t be able to produce inclusion proof, and that’s why delegates get slashed and tx owner will get slashed amount + bond (passed in challenge)<br/>
-(ii) If delegate includes tx but tx owner decides to mess with delegate - in that case, delegate produces inclusion proof and delegate get bond amount created by tx owner.
+    https://petertodd.org/2016/commitments-and-single-use-seals
 
-16. DDoS<br/>
-(a) One way to prevent DDoS is to check state validation when user submits the transaction (before tx goes to pending pool)<br/>
-(b) Node must handle state check validation part while accepting transactions. If any node decides to skip this implementation, other nodes will ignore all future transactions from particular node.
+15. Transaction censorship
+
+    To resolve this, possible solution could be following:
+
+    Anyone can add transaction data directly to main chain contract. That transaction must be added in next 5 checkpoints by delegates.
+
+    Now following will happen next -
+
+      - If delegate doesn’t include tx in next 5 checkpoints, tx owner can start challenge by keeping some ETH as value (some kind of bond). After certain amount of time, delegate won’t be able to produce inclusion proof, and that’s why delegates get slashed and tx owner will get slashed amount + bond (passed in challenge)
+
+      - If delegate includes tx but tx owner decides to mess with delegate - in that case, delegate produces inclusion proof and delegate get bond amount created by tx owner.
+
+16. DDoS
+
+  - One way to prevent DDoS is to check state validation when user submits the transaction (before tx goes to pending pool)
+  - Node must handle state check validation part while accepting transactions. If any node decides to skip this implementation, other nodes will ignore all future transactions from particular node.
 
 # Future Research Directions {#future}
 
