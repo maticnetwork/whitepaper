@@ -27,3 +27,6 @@ git push origin gh-pages
 
 # checkout to the master branch
 git checkout master
+
+# install everything
+npm install && npm run bookinstall
