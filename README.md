@@ -17,7 +17,7 @@
 </center>
 
 <div style="text-align: justify; max-width: 600px; margin: 0 auto;">
-Blockchain Smart contract platforms and cryptocurrencies,  have captured mass attention but still haven’t been able to achieve mass adoption due to the scalability and user experience issues. Even on Ethereum, which is the most widely used smart contracting platform, there have been no significant Dapps which have seen mass adoption. There have been a few cases where one or the other particular application temporarily succeeded in achieving a significant user base but it led to crippling of the entire network during the high load times. Essentially meaning that even the most advanced and widely used platforms are not ready for mass adoption.
+Blockchain Smart contract platforms and cryptocurrencies,  have captured mass attention but still haven’t been able to achieve mass adoption due to the scalability and user experience issues. Even on Ethereum, which is the most widely used smart contracting platform, there haven't been many Dapps which have seen mass adoption. There have been a few cases where one or the other particular application temporarily succeeded in achieving a significant user base but it led to crippling of the entire network during the high load times. Essentially meaning that even the most advanced and widely used platforms are not ready for mass adoption yet.
 <br/><br/>
 On the other hand there are a few smart contract platforms which boast of higher transaction throughput but they trade off the transaction speed with decentralization. Also many of the upcoming solutions propose their own blockchains neglecting the billions of dollars market cap DApps and other projects already created on platforms like Ethereum etc. Even more importantly they neglect the massive developer community and developer ecosystem that exists for platforms like Ethereum.
 <br/><br/>
@@ -28,75 +28,72 @@ On the other hand there are a few smart contract platforms which boast of higher
 
 # Why Matic? {#whymatic}
 
-Decentralized Apps are getting proposed in large numbers but the current blockchain ecosystem is not prepared to scale as per the demands of a mass adopted end user applications. Moreover the user experience of Dapps is very poor and no where conducive for average users. Slow block confirmations, High transaction fees, low scalability and poor user experience  are some of key roadblocks for the mass adoption of blockchain applications. Following section explains the problems prevailing in the current blockchain ecosystem and how matic network intends to solve them.**A detailed technical specification is provided in the further sections of the white paper.**
+Decentralized Apps are getting proposed in large numbers but the current blockchain ecosystem is not prepared to scale as per the demands of a mass adopted end user applications. Moreover the user experience of Dapps is very poor and no where conducive for average users. Slow block confirmations, high transaction fees, low scalability and poor user experience  are some of the key roadblocks for the mass adoption of blockchain applications. Following section explains the problems prevailing in the current blockchain ecosystem and how matic network intends to solve them. **A detailed technical specification is provided in the further sections of the white paper.**
 
 ### Slow Transactions {#slowt}
 
 Blockchain transactions are very slow and have a very limited throughput. Most PoW based blockchain protocols have a limit on the block size and it takes a certain amount of time to generate a block. Each transaction also has to wait for multiple block confirmations due to potential chain re-organizations.<br/>
 PoS based blockchains try to counter these limitations using staking mechanism but those who are able to achieve high throughput are able to do so at the cost of decentralization. These limitations are often necessary for public blockchains to ensure security and decentralization as a block needs to be propagated through the network and validated by all the nodes to achieve finality.<br/>
-Matic solves this problem by using a high throughput DPoS chain with a selected set of Delegates. It then uses a Proof Of Stake layer to **validate the blocks and publish periodic proofs (merkle roots) of the blocks produced by
-to the Ethereum mainchain.** This helps in achieving high level of decentralization while maintaining an extremely fast **(< 2 seconds) block confirmation times.**
+Matic solves this problem by using a high throughput DPoS chain with a selected set of Delegates. It then uses a Proof Of Stake layer to **validate the blocks and publish periodic proofs (merkle roots) of the blocks produced by Delegates to the Ethereum mainchain. This helps in achieving high level of decentralization while maintaining an extremely fast (< 2 seconds) block confirmation times.**
+
 
 ### Low Transaction Throughput {#ltt}
 
-Public blockchains have to maintain a certain amount of time lag between various block production so as to ensure ample time for block propagation. Also the blocks size needs to be low so as to ensure quick propagation of the block through the network. This entails that number of transactions in a particular block needs to be fairly limited.<br/>
-Matic Network solves this problem by using a **Delegate layer from its DPoS system to produce the blocks.** Delegates enable the system to produce blocks at a very fast rate. The system ensures decentralization using PoS checkpoints which are pushed to the Mainchain (Ethereum as a first chain),. **This enables Matic to theoretically achieve $$2^{16}$$  transactions on a single side chain.**
+Public blockchains have to maintain a certain amount of time lag between various block production so as to ensure ample time for block propagation. Also the blocks size needs to be low so as to ensure quick propagation of the block through the network. This entails that number of transactions in a particular block needs to be fairly limited.<br />
+Matic Network solves this problem by using a **Delegate layer from its DPoS system to produce the blocks.** Delegates enable the system to produce blocks at a very fast rate. The system ensures decentralization using PoS checkpoints which are pushed to the Mainchain (Ethereum as a first chain).**This enables Matic to theoretically achieve 2^16  transactions per second on a single side chain.**
 
 ### Scalability {#scalability}
 
-As discussed in the previous section that Matic network easily achieves a theoretical speed of $$2^{16}$$ transactions per second. **In future, Matic platform can easily add more side chains  horizontally to increase the total number of transactions on the Matic chain while using the same decentralized PoS layer.**
-
+As discussed in the previous section that Matic network easily achieves a theoretical speed of 2^16 transactions per second on single side chain. **In future, Matic platform can easily add more side chains  horizontally to increase the total number of transactions on the Matic chain while using the same decentralized PoS layer.**
 Theoretically we can add millions of transactions per second using multiple side chains. Also, the mechanism to do that is already there with the first Matic side-chain and new chains can be added readily.
 
 ### Size of Blockchain {#sob}
 
-Each block on Blockchain must be validated by multiple nodes and/or compute state in case of smart contract based blockchain.
-
-Each node has to manage a copy of state and blocks. While the chain is increasing as days go by, maintaining and validating the whole blockchain is getting more difficult resulting in fewer full nodes of public blockchains which is becoming a risk for decentralization.
-
-For Matic Network, the primary layer which provides decentralization may choose to have only the blocks of Matic chain from previous checkpoint to the next checkpoint. All previous transaction/block proofs are anyways submitted to the mainchain. **It enables extremely low fidelity PoS nodes which can be run in very low cost machines with low storage. In future, Matic network intends to enable Mobile devices based PoS miners too.**
+Each block on Blockchain must be validated by multiple nodes and/or compute state in case of smart contract based blockchain. 
+Each node has to manage a copy of state and blocks. While the chain increases as days go by, maintaining and validating the whole blockchain is getting more difficult resulting in fewer full nodes of public blockchains which is becoming a risk for decentralization. 
+For Matic Network, the primary layer which provides decentralization may choose to have only the blocks of Matic chain from previous checkpoint to the next checkpoint. All previous transaction/block proofs are anyways submitted to the mainchain. **It enables extremely low fidelity PoS nodes which can be run in very low cost machines with low storage. In future, Matic network intends to enable mobile device based PoS miners too.**
 
 ### Multiple micropayment channels with other off-chain solutions {#loooong}
 
 Some Payment channel solutions solve the problem of micro-payments. However, opening and managing channels with multiple DApps or users is complex and is a very bad user experience. Additionally, speed and convenience of mediated payments over channels are questionable.
 
-Since **Matic network uses a state based architecture on an EVM, it doesn’t require payment channels to be opened between two parties. If fact, any valid ethereum address is a valid Matic Address and receivers do not need to be on Matic chain to receive funds. They would only need to have a Matic wallet when they want to withdraw the funds to the main chain or spend it in the Matic ecosystem.**
+Since **Matic network uses a state based architecture on an EVM, it doesn’t require payment channels to be opened between two parties. In fact, any valid ethereum address is a valid Matic Address and receivers do not need to be on Matic chain to receive funds. They would only need to have a Matic wallet when they want to withdraw the funds to the main chain or spend it in the Matic ecosystem.**
 
 ### High Transaction Fees {#htf}
 
-With the rapid growth of Blockchain ecosystem, new crypto assets are increasingly being introduced, transferred, and exchanged between users in the form of crypto tokens. Also most decentralized apps have its own token and economy. Paying tokens for the services or doing any kind of transaction on blockchains it requires on-chain transfers. Every blockchain has a transaction cost structure for example Ethereum charges gas fees on each transaction.
-
-Fees are the important factor to reward validators and prevent certain kind of security attacks like DoS. But, the problem is fees varies depending upon the pending transaction pool due to the limited block size.
-
-**Matic Network enables low cost transactions by achieving economies of scale by doing large number of transactions on the Delegate layer which ensures low cost and then batching the proofs of the matic blocks using Merkle root of the blocks** to the highly decentralized mainchain (for ex. Ethereum) using a decentralized layer of PoS Stakers.
+With the rapid growth of Blockchain ecosystem, new crypto assets are increasingly being introduced, transferred, and exchanged between users in the form of crypto tokens. Also most decentralized apps have its own token and economy. Paying tokens for the services or doing any kind of transaction on blockchains it requires on-chain transfers. Every blockchain has a transaction cost structure. For example Ethereum charges gas fees on each transaction.
+Fees are the important factor to reward validators and prevent certain kind of security attacks like DoS. But, the problem is the variation of fees depending upon the pending transaction pool due to the limited block size.
+**Matic Network enables low cost transactions by achieving economies of scale by doing large number of transactions on the Delegate layer which ensures low cost and then batching the proofs of the matic blocks using Merkle root of the blocks** to a highly decentralized mainchain (for ex. Ethereum) using a decentralized layer of PoS Stakers.
 
 ### Poor Usability {#pf}
 
 The user interactions on decentralized applications are extremely poor compared to their centralized counterparts. In order for Decentralization revolution to achieve mass adoption the user experience of decentralized apps have to be at par with,if not better than the centralized applications.
 
-Matic network is working on leading projects for Mobile and web browser integration tools and is pioneering protocols in this domain. It intends to build a ubiquitous mobile/browser app which will act as a secured interaction layer for blockchain interactions. We will be publishing the designs and prototype of the same soon.
+Matic network is working on leading projects for Mobile and web browser integration tools and is pioneering protocols in this domain. It intends to build a ubiquitous mobile/browser app which will act as a secured interaction layer for blockchain interactions. We will be publishing the designs and prototype of the same soon. 
+
 
 # Introducing Matic Network {#imn}
 
-As discussed in brief in the section above Matic Network solves the problems by building a decentralized platform using an adapted version of [Plasma](https://plasma.io/) framework that provides a solution for faster and extremely low cost transactions with finality on a mainchain. Our current working Testnet and alpha-mainnet works with Ethereum as a mainchain.<br/>
+As discussed in brief in the section above, Matic Network solves the problems faced by blockchain ecosystem by building a decentralized platform using an adapted version of [Plasma](https://plasma.io/) Framework that provides a solution for faster and extremely low cost transactions with finality on a mainchain. Our current working Testnet and alpha-mainnet works with Ethereum as a mainchain. <br/>
 We are also building  product ecosystem including user friendly mobile apps, desktop wallets and browser extensions which will provide  a seamless experience for all users. So that users will be able to pay, transfer or hold crypto assets without worrying about the complexity of the underlying system.
+
 
 # Architecture {#architecture}
 
-When a user is transferring ETH or ERC20 tokens, they have to wait for block confirmation times which ranges from 14 seconds to 20 seconds. Also you have to wait for multiple blocks to be sure of the finality of the block inclusion in the chain. Let’s say you are buying a coffee or paying tokens to watch a movie. On each transaction ay you are not only paying fees but also wait for it to get confirmed. That’s deterrent for users to use the service.
+When a user is transferring ETH or ERC20 tokens, they have to wait for the confirmation of block which ranges from 14 seconds to 20 seconds. Even then the users have to wait for multiple block confirmations to be sure of the finality of the transaction. Let’s say you are buying a coffee or paying tokens to watch a movie. On each transaction you are not only paying high fee but also waiting for it to get confirmed. That’s deterrent for users to use the service.
 
-Moreover during peak loads large number of  transactions clog the Ethereum network and gas fees increases on each transaction to get faster confirmations.. We propose Matic as a solution to overcome these problems.
+Moreover during peak loads large number of  transactions clog the Ethereum network and gas fees increase on each transaction to get faster confirmations. We propose Matic as a solution to overcome these problems.
 
-Here are steps how Matic will work:<br/>
-1. User deposits crypto assets in Matic contract on mainchain (currently implemented with Ethereum blockchain only)
+Here are steps how Matic will work: <br/>
+1. User deposits crypto assets in Matic contract on mainchain (currently implemented with Ethereum blockchain only).
 2. Once deposited tokens get confirmed on the main chain, tokens will appear on the Matic chain using Matic Deposit bridge (technical details explained in a dedicated section below).
-3. The user can now transfer tokens to anyone they want almost instantly (Matic chain has faster blocks (approximately 1 second or less)) with an almost negligible fees.
-4. Whenever user wishes to, they can withdraw tokens to the main Ethereum chain by establishing proof of remaining tokens on Root contract (contract deployed on Ethereum chain)
+3. The user can now transfer tokens to anyone they want almost instantly (Matic chain has faster blocks (approximately 1 second or less)) for almost negligible fees.
+4. Whenever user wishes to, they can withdraw tokens to the main Ethereum chain by establishing proof of remaining tokens on Root contract (contract deployed on Ethereum chain).
 
-Remember any fungible crypto assets can be represented as ERC20 tokens on Matic chain. That way, the same method will work for any fungible crypto assets.
+Remember any fungible crypto assets can be represented as ERC20 tokens on Matic chain. That way, the same method will work for any fungible crypto assets. 
 
-We have already created demo version and you can check out our contracts on GitHub:<br/>
-https://github.com/maticnetwork/contracts
+We have already created demo version and you can check out our contracts on GitHub:   
+https://github.com/maticnetwork/contracts 
 
 We expect the alpha version of the mainnet to go live very soon.
 
@@ -104,29 +101,26 @@ We expect the alpha version of the mainnet to go live very soon.
 
 Matic ecosystem will have the following actors :
 1. End Users
-2. The Dapp developers : Developers will be the businesses who would be using Matic to scale their applications and provide a better UI/UX to their end users
+2. The Dapp developers : Developers will be the businesses who would be using Plasma Matic to scale their applications and provide a better UI/UX to their end users
 3. Stakers : The stakers will play a very important role in the Matic Network. These stakers validate the transactions and propose checkpoints on the mainchain using PoS consensus mechanism with ⅔ majority. They also choose Delegates amongst themselves which satisfy a certain criteria to act as block producers.
-4. Delegates : These are block producers chosen by Stakers who enable faster blockchain generation times. They also have to provide a large stake as well as go satisfy various criteria such as KYC to be nominated as delegates.
+4. Delegates : These are block producers chosen by Stakers who enable faster blockchain generation times. They have to provide a large stake as well as satisfy various criteria such as KYC to be nominated as delegates.
 
 ### Consensus and Security {#cas}
 
-Matic uses dual strategy of Proof of Stake at the checkpointing layer and Delegates at the  to achieve the faster blocktimes while ensuring **high degree of decentralization by achieving finality on the main chains using the checkpoints and fraud proofs.**
+Matic uses dual strategy of Proof of Stake at the checkpointing layer and Delegates at the block producer layer to achieve faster blocktimes while ensuring **high degree of decentralization by achieving finality on the main chains using the checkpoints and fraud proofs.**
 
 ![Matic checkpoints](matics.png)
 
-Basically, Anyone can stake their Matic tokens on root contract to become a Staker in the PoS checkpointing layer(contract deployed on Ethereum chain). This provides a high degree decentralized base layer for Matic chain.
-
-Now, At the Matic block layer we have Delegates selected by PoS Stakers on the base layer with Proof of Solvency who will be creating the Matic Blocks. To achieve faster block generation times these Delegates will be low in number. **This layer will achieve less than 2 second block generation times at extremely low to negligible transaction fees.**
-
-On Matic network’s checkpointing layer, basis our PoS mechanism, every few blocks on Matic block layer, a proposer will be chosen among the stakeholders to propose a checkpoint on the main chain. These checkpoints are created by proposer after validating all the blocks on the Matic block layer and creating the merkel tree of the block hashes since the last checkpoint. The merkle root is then broadcasted to the staker network for their signatures. The other stakeholders also verify the proof. They approve the proposed block, if it’s valid, by providing their signatures. The system needs $$\frac{2}{3}$$ approvals of stakeholders be to propose "header block" to root contract. Once the checkpoint is proposed on the mainchain, anyone on the Ethereum mainchain can challenge the proposed checkpoint till a specified period of time. If no one challenges it till the passing of the challenge period, the checkpoint is formally included as a valid checkpoint on the main chain.
-
+Basically, Anyone can stake their Matic tokens on root contract to become a Staker in the PoS checkpointing layer(contract deployed on Ethereum chain). This provides a highly decentralized base layer for Matic chain.
+Now, at the Matic block layer we have Delegates selected by PoS Stakers on the base layer with Proof of Solvency who will be creating the Matic Blocks. To achieve faster block generation times these Delegates will be low in number. **This layer will achieve <2 second block generation times at extremely low to negligible transaction fees.**
+On Matic network’s checkpointing layer, basing on our PoS mechanism, for every few blocks on Matic block layer, a proposer will be chosen among the stakeholders to propose a checkpoint on the main chain. These checkpoints are created by proposer after validating all the blocks on the Matic block layer and creating the merkle tree of the block hashes since the last checkpoint. The merkle root is then broadcasted to the staker network for their signatures. The other stakeholders also verify the proof. They approve the proposed block, if it’s valid, by providing their signatures. The system needs approval of ⅔ of the stakeholders to propose “header block” to root contract. Once the checkpoint is proposed on the mainchain, anyone on the Ethereum mainchain can challenge the proposed checkpoint till a specified period of time. If no one challenges it till the passing of the challenge period, the checkpoint is formally included as a valid checkpoint on the main chain.
 Apart from providing finality on the mainchain, Checkpoints have a very important role to play in withdrawals as they contain the proof-of-burn of tokens in the event of user withdrawal. It enables the users to prove their remaining tokens on root contract using Patricia Merkle proof and header block proof. Note that to prove remaining tokens, header block must be committed to Root Chain through PoS (Stakeholders). Withdraw process will take Ethereum gas fees as usual.
-
 Through this mechanism, we achieve high transaction speed, high degree of decentralization and finality on Mainchain. In our first version which has Ethereum only as the base chain, Ethereum root contract enforces solvency and finality through header block(checkpoints) very efficiently.
+
 
 ### Fraud Proofs {#fraud}
 
-To enhance the security of the transactions, Matic Network also provides Fraud Proofs on the mainchain. This contract enables any individual on the mainchain to submit the details of the transactions which he/she thinks is fraudulent. If the challenge is successful, the stakes of the parties involved in the fraud are slashed and the challenger receives the slashed funds as an incentive to detect the fraud. This can be considered an ever running high reward bounty program for any parties who want to investigate the veracity of the transactions on the Matic Network.
+To enhance the security of the transactions, Matic Network also provides Fraud Proofs on the mainchain. The mechanism enables any individual on the mainchain to submit the details of the transactions which he/she thinks is fraudulent. If the challenge is successful, the stakes of the parties involved in the fraud are slashed and the challenger receives the slashed funds as an incentive for detecting the fraud. This can be considered an ever running high reward bounty programme for any parties who want to investigate the veracity of the transactions on the Matic Network.
 
 # Matic Stack {#stack}
 
@@ -134,13 +128,11 @@ This section details out various parts of the Matic chain and its setup over Eth
 
 ### Matic Deposit Bridge {#mdb}
 
-The Matic bridge(s) are part of Delegate nodes and listen to the RootContract events on the mainchain and monitor any token/ether transfer events happening to the RootContract. The bridge does it using Matic Network’s famous tool named [Dagger](https://github.com/maticnetwork/eth-dagger.js). Once the bridge detects a deposit on the main chain they fire a Deposit event on the Matic chain and the user’s Matic address is allocated the deposited amount.
+The Matic bridge(s) are part of Delegates that listen to the RootContract events on the mainchain and monitor any token/ether transfer events happening to the RootContract. The bridge does it using Matic Network’s famous tool named [Dagger](https://github.com/maticnetwork/eth-dagger.js). Once the bridge detects a deposit on the main chain they fire a deposit event on the Matic chain and the user’s Matic address is allocated the deposited amount.
 
 ### Matic POS Chain {#mposc}
 
-The Matic checkpointing layer is a PoS blockchain which has Stakers who propose the checkpoints to the mainchain.
-
-Currently there can be roughly upto 100 Stakers can be there at the checkpointing layer. In future with advent of more efficient signatures on Ethereum blockchain we would be able to significantly increase the number of stakers on the checkpointing layer which will further increase its degree of decentralization, perhaps equal or more to that of the leading public blockchains like Ethereum and Bitcoin.
+The Matic checkpointing layer is a PoS blockchain which has Stakers who propose the checkpoints to the mainchain. Currently there can be roughly upto 100 Stakers  at the checkpointing layer. In future with advent of more efficient signatures on Ethereum blockchain we would be able to significantly increase the number of stakers on the checkpointing layer which will further increase its degree of decentralization, perhaps equal or more to that of the leading public blockchains like Ethereum and Bitcoin.
 
 More details of the PoS checkpoint layers in the version 2.0 of the Whitepaper.
 
@@ -160,7 +152,7 @@ When a Matic address submits a withdrawal request on Matic network, the tokens a
 
 ### Spam Protection {#spam}
 
-The Delegates running the block generation layer of Matic network watch the transfer state of the assets to identify the frivolous transactions. They reject any incoming transactions with zero amount in payments thereby foiling any DoS/spams attacks with zero cost transactions. Even if the Matic tokens are very low in cost and the fees are very low, due to the high TPS of Matic Network it would not be economically viable to run sustained DoS attacks on the Matic Network.
+The Delegates running the block generation layer of Matic network watch the transfer state of the assets to identify  frivolous transactions. They reject any incoming transactions with zero amount in payments thereby foiling any DoS/spam attacks with zero cost transactions. Even if the Matic tokens are very low in cost and the fees being very low, due to the high TPS of Matic Network it would not be economically viable to run sustained DoS attacks on the Matic Network.
 
 ### Gas Strcuture {#gas}
 
