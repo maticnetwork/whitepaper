@@ -40,11 +40,11 @@ Matic solves this problem by using a high throughput DPoS chain with a selected 
 ### Low Transaction Throughput {#ltt}
 
 Public blockchains have to maintain a certain amount of time lag between various block production so as to ensure ample time for block propagation. Also the blocks size needs to be low so as to ensure quick propagation of the block through the network. This entails that number of transactions in a particular block needs to be fairly limited.<br />
-Matic Network solves this problem by using a **Delegate layer from its DPoS system to produce the blocks.** Delegates enable the system to produce blocks at a very fast rate. The system ensures decentralization using PoS checkpoints which are pushed to the Mainchain (Ethereum as a first chain).**This enables Matic to theoretically achieve 2^16  transactions per second on a single side chain.**
+Matic Network solves this problem by using a **Delegate layer from its DPoS system to produce the blocks.** Delegates enable the system to produce blocks at a very fast rate. The system ensures decentralization using PoS checkpoints which are pushed to the Mainchain (Ethereum as a first chain).**This enables Matic to theoretically achieve $$2^{16}$$  transactions per second on a single side chain.**
 
 ### Scalability {#scalability}
 
-As discussed in the previous section that Matic network easily achieves a theoretical speed of 2^16 transactions per second on single side chain. **In future, Matic platform can easily add more side chains  horizontally to increase the total number of transactions on the Matic chain while using the same decentralized PoS layer.**
+As discussed in the previous section that Matic network easily achieves a theoretical speed of $$2^{16}$$ transactions per second on single side chain. **In future, Matic platform can easily add more side chains  horizontally to increase the total number of transactions on the Matic chain while using the same decentralized PoS layer.**
 Theoretically we can add millions of transactions per second using multiple side chains. Also, the mechanism to do that is already there with the first Matic side-chain and new chains can be added readily.
 
 ### Size of Blockchain {#sob}
@@ -160,7 +160,11 @@ The Matic chain uses the EVM on the mainchain with Geth node. The configuration 
 
 # Network Economics {#economics}
 
-Detailed Network economics along with the scenarios to be added soon.
+Detailed Network economics along with the scenarios to be added soon
+
+# Governance
+
+Detailed Governance along with the scenarios to be added soon
 
 # Focus on User Experience {#usere}
 
@@ -168,11 +172,11 @@ Detailed account of how matic looks at improving the User Experience of Dapps wi
 
 # Potential Use Cases {#potential}
 
-Matic foundation is committed to provide a, scalable and user friendly ecosystem for third party Decentralized Applications to thrive on. Matic Network foundation like Ethereum and other platform Foundations will promote various Base chain Dapps(like Dapps built Ethereum currently, and NEO,EOS in future) to build and migrate their user facing applications/transactions on Matic Network. It will also award grants and funding to third party app developers to build various user cases on top of Matic Network like :
+Matic foundation is committed to provide a scalable and user friendly ecosystem for third party Decentralized Applications to thrive on. Matic Network foundation like Ethereum and other platform Foundations, will promote various Base chain Dapps(like Dapps built on Ethereum currently, and on NEO,EOS in future) to build and migrate their user facing applications/transactions on Matic Network. It will also award grants and funding to third party app developers to build various user cases on top of Matic Network like :
 
 ### Payments {#payment}
 
-Matic will provide an interface for users and payment APIs and SDKs for DApps, merchant, and users to instantly accept or pay in crypto assets (e.g., ERC20 tokens, Ethers).
+Matic will provide an interface for users, payment APIs and SDKs for DApps, merchant and users to instantly accept or pay in crypto assets (e.g., ERC20 tokens, Ethers).
 
 We have plans to roll-out this system in three phases:
 1. Ethereum and ERC20 token payments
@@ -189,7 +193,7 @@ The network will exchange any tokens for targeted tokens by leveraging 0x liquid
 
 ### Decentralized Exchange (DEX) {#dex}
 
-Matic has all characteristics which one exchange should have — faster and cheaper trades. Matic will provide decentralized exchange and enables trust-less, reliable and easy crypto trades. The decentralized exchange is the future for digital assets and provides better security and solvency instead of centralized exchanges.
+Matic has all characteristics which one exchange platform should have — faster and cheaper trades. Matic will enable protocols for decentralized exchange and enables trustless, reliable and easy crypto trades. The decentralized exchanges are the future for digital assets and provides better security and solvency instead of centralized exchanges.
 
 As Matic doesn’t have the burden of gas like Ethereum chain, it would be pretty easy to do the atomic swaps like BTC <> ETH or any other blockchain assets.
 
@@ -203,22 +207,22 @@ Users need a utilitarian yet user-friendly interface where MetaMask or web3 enab
 
 Decentralized apps need a way to sign transactions, but that must happen without submitting private keys on each DApp on web browsers or mobile apps. We believe user must have control over their private keys without worrying about the security. Matic will solve that with an Open-Identity system and will deliver a seamless experience to our users.
 
-This system will also provide a way to auto-approve certain kind of transactions depending upon criteria users choose. This will drive Matic’s recurring payments.
-
+This system will also provide a way to auto-approve certain kind of transactions depending upon the criteria chose by the users. This will drive Matic’s recurring payments.
 
 ### Securing Personal Data {#spd}
 
-Building upon our Identity feature, we will enable users to secure their personal data on the Identity chain. This data will be encrypted and queried using zero-knowledge proofs only, thereby limiting access to sensitive, personal data by external services.
+Building upon our Identity feature, we will enable users to secure their personal data on the Identity chain. This data will be encrypted and queried using zero-knowledge proofs only, thereby limiting access to sensitive, personal data by external services. 
 
-Currently, each third-party service stores data in their servers for each customer, which poses the tremendous security risk for the users in case of a data breach, as well as huge reputational risks for the service. Matic will reduce the need to have user personal data shared with each service, and provide a tiered, auditable mechanism to track sharing of personal data. Businesses will also find that storing less personal data reduces the overall cost of maintaining user data securely.
+Currently, each third-party service stores data in their servers for each customer, which poses a tremendous security risk for the users in case of a data breach, as well as huge reputational risks for the service. Matic will reduce the need to have user personal data shared with each service, and provide a tiered, auditable mechanism to track sharing of personal data. Businesses will also find that storing less personal data reduces the overall cost of maintaining user data securely.
 
 Currently, most users don’t even know the extent of data that is shared with publishers and how much value they lose in trading convenience or free application usage for their personal data. Matic will enable easy porting of data from third-party services to the Identity chain, wherein even Matic will not have access to the personal data.
 
 Users can also choose to share their data with publishers in a much more transparent manner, and can also look to monetize the usage of their data by charging a sharing fee. This could be done via a multi-tier sharing mechanism, with data such as location tracking being offered a higher fee, etc.
 
+
 ### Infrastructure {#infrastructure}
 
-The Matic will act on the simple mantra - make it simple and seamless.  For that, We will provide new infrastructure around Matic Network including user-friendly wallets for individual users and merchants, payroll dashboard, payment SDKs and other open source tools.
+The Matic will act on the simple mantra - make it simple and seamless.  For that, We will provide a new infrastructure around Matic Network including user-friendly wallets for individual users and merchants, payroll dashboard, payment SDKs and other open source tools.
 
 ### Dagger {#dagger}
 
