@@ -128,7 +128,7 @@ This section details out various parts of the Matic chain and its setup over Eth
 
 ### Matic Deposit Bridge {#mdb}
 
-The Matic bridge(s) are part of Delegates that listen to the RootContract events on the mainchain and monitor any token/ether transfer events happening to the RootContract. The bridge does it using Matic Network’s famous tool named [Dagger](https://github.com/maticnetwork/eth-dagger.js). Once the bridge detects a deposit on the main chain they fire a deposit event on the Matic chain and the user’s Matic address is allocated the deposited amount.
+The Matic bridge(s) are part of Delegates(dPoS nodes) that listen to the RootContract events on the mainchain and monitor any token/ether transfer events happening to the RootContract. This bridge is using Matic Network’s famous tool named [Dagger](https://github.com/maticnetwork/eth-dagger.js). Once the bridge detects a deposit on the mainchain they fire a deposit event on the Matic chain and the user’s Matic address is allocated the deposited amount.
 
 ### Matic POS Chain {#mposc}
 
@@ -152,7 +152,7 @@ When a Matic address submits a withdrawal request on Matic network, the tokens a
 
 ### Spam Protection {#spam}
 
-The Delegates running the block generation layer of Matic network watch the transfer state of the assets to identify  frivolous transactions. They reject any incoming transactions with zero amount in payments thereby foiling any DoS/spam attacks with zero cost transactions. Even if the Matic tokens are very low in cost and the fees being very low, due to the high TPS of Matic Network it would not be economically viable to run sustained DoS attacks on the Matic Network.
+The Delegates running the block generation layer of Matic network watch the transfer state of the assets to identify frivolous transactions. They reject any incoming transactions with zero amount in payments thereby foiling any DoS/spam attacks with zero cost transactions. Even if the Matic tokens are very low in cost and the fees being very low, due to the high TPS of Matic Network it would not be economically viable to run sustained DoS attacks on the Matic Network.
 
 ### Gas Strcuture {#gas}
 
