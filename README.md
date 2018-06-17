@@ -261,6 +261,10 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 4. A Delegate changes token balance while relaying deposits.
 
   Mitigation would be the same as 2.
+    - Q. How can we know it? Until comparing root receipt with modified data, still blocks can be generated on childchain. And if detection is getting to be late, block amount to be rolled back are somehow big, and double spend can be.
+    - A. We must make detection faster.
+      - Q. How do you make it faster?
+      - A. No idea for now...
 
 5. A Delegate changes token balance while transfer.
 
@@ -277,6 +281,10 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 8. A rationale of how a Delegate can be trustless entity (eventually on our roadmap)
 
   Use appcoin security for Delegate collateral and discourage Matic token damaging + short selling
+    - Q. How about blackswan event happen despite of huge appcoin collateral?
+    - A. We need to anticipate its existance and we must refrect it to token value
+      - Q. Hey, it is trustful.
+      - A. No idea for now...
 
 9. Make Solvency Proof mandatory before assigning one as a delegate. Richman can game with this Solvency Proof but appcoin above will mitigate attacking chain
 
@@ -308,6 +316,20 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 
   - One way to prevent DDoS is to check state validation when user submits the transaction (before tx goes to pending pool)
   - Node must handle state check validation part while accepting transactions. If any node decides to skip this implementation, other nodes will ignore all future transactions from particular node.
+
+17. Exit
+
+  - Q. Why Matic doesn't have Exit despite of it is like Plasma?
+  - A. Exit is not necessarily needed for sidechain. It is one of security model to achieve customer asset preservation. In our model, Delegates reselection ceremony and fast chain resuming are the security model for assets.
+
+18. Network layer censorship
+
+  - Q. Ethereum doesn't have network layer censorship-resistance for now, but bitcoin have. The reason why Ethereum doesn't have: Using UDP on network layer and cannot use Tor for hidden-mode. If geth apply libp2p, it is possible to be censorship-resistant. Then, how about Matic? Matic is using geth.
+  - A. Bitcoin and Ethereum have been regarded as commodity by U.S. SEC. Now it's lower possibility to censor comodity-cryptocurrency for now. In the future, depends on priority, Geth will implement it and we also apply it on Matic.
+
+19. Delegates reselection ceremony and fast chain resuming
+  - Q. Worst case duration of detecting malicious behaviro is matter. How do you guarantee detection? Otherwise, rollback is getting to be long and double spend can be serious.
+  - A. No idea for now...
 
 # Future Research Directions {#future}
 
