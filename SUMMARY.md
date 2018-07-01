@@ -13,7 +13,7 @@
 * [Introducing Matic Network](README.md#imn)
 * [Architecture](README.md#architecture)
 	* [Actors](README.md#actors)
-	* [Consensus and Security](README.md#cas)
+	* [Consensus](README.md#con)
 	* [Fraud Proofs](README.md#fraud)
 * [Matic Stack](README.md#stack)
 	* [Matic Deposit Bridge](README.md#mdb)

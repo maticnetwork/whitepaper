@@ -77,14 +77,8 @@ Matic network is working on leading projects for Mobile and web browser integrat
 As discussed in brief in the section above, Matic Network solves the problems faced by blockchain ecosystem by building a decentralized platform using an adapted version of [Plasma](https://plasma.io/) Framework that provides a solution for faster and extremely low cost transactions with finality on a mainchain. Our current working Testnet and alpha-mainnet works with Ethereum as a mainchain. <br/>
 We are also building  product ecosystem including user friendly mobile apps, desktop wallets and browser extensions which will provide  a seamless experience for all users. So that users will be able to pay, transfer or hold crypto assets without worrying about the complexity of the underlying system.
 
-
 # Architecture {#architecture}
-
-When a user is transferring ETH or ERC20 tokens, they have to wait for the confirmation of block which ranges from 14 seconds to 20 seconds. Even then the users have to wait for multiple block confirmations to be sure of the finality of the transaction. Let’s say you are buying a coffee or paying tokens to watch a movie. On each transaction you are not only paying high fee but also waiting for it to get confirmed. That’s deterrent for users to use the service.
-
-Moreover during peak loads large number of  transactions clog the Ethereum network and gas fees increase on each transaction to get faster confirmations. We propose Matic as a solution to overcome these problems.
-
-Here are steps how Matic will work: <br/>
+Since Matic Network's core focus is on mass user adoption, it is ideal that a deep dive into Matic Network's tech architecture should start from a user journey. Here are steps how a user will have to take in order to bring his/her assets from Ethereum main chain to Matic Network <br/>
 1. User deposits crypto assets in Matic contract on mainchain (currently implemented with Ethereum blockchain only).
 2. Once deposited tokens get confirmed on the main chain, tokens will appear on the Matic chain using Matic Deposit bridge (technical details explained in a dedicated section below).
 3. The user can now transfer tokens to anyone they want almost instantly (Matic chain has faster blocks (approximately 1 second or less)) for almost negligible fees.
@@ -97,7 +91,7 @@ https://github.com/maticnetwork/contracts
 
 We expect the alpha version of the mainnet to go live very soon.
 
-### Actors {#actors}
+## Actors {#actors}
 
 Matic ecosystem will have the following actors :
 1. End Users
@@ -105,58 +99,118 @@ Matic ecosystem will have the following actors :
 3. Stakers : The stakers will play a very important role in the Matic Network. These stakers validate the transactions and propose checkpoints on the mainchain using PoS consensus mechanism with ⅔ majority. They also choose Delegates amongst themselves which satisfy a certain criteria to act as block producers.
 4. Delegates : These are block producers chosen by Stakers who enable faster blockchain generation times. They have to provide a large stake as well as satisfy various criteria such as KYC to be nominated as delegates.
 
-### Consensus and Security {#cas}
+## Consensus {#con}
 
 Matic uses dual strategy of Proof of Stake at the checkpointing layer and Delegates at the block producer layer to achieve faster blocktimes while ensuring **high degree of decentralization by achieving finality on the main chains using the checkpoints and fraud proofs.**
 
 ![Matic checkpoints](matics.png)
 
-Basically, Anyone can stake their Matic tokens on root contract to become a Staker in the PoS checkpointing layer(contract deployed on Ethereum chain). This provides a highly decentralized base layer for Matic chain.
-Now, at the Matic block layer we have Delegates selected by PoS Stakers on the base layer with Proof of Solvency who will be creating the Matic Blocks. To achieve faster block generation times these Delegates will be low in number. **This layer will achieve <2 second block generation times at extremely low to negligible transaction fees.**
-On Matic network’s checkpointing layer, basing on our PoS mechanism, for every few blocks on Matic block layer, a proposer will be chosen among the stakeholders to propose a checkpoint on the main chain. These checkpoints are created by proposer after validating all the blocks on the Matic block layer and creating the merkle tree of the block hashes since the last checkpoint. The merkle root is then broadcasted to the staker network for their signatures. The other stakeholders also verify the proof. They approve the proposed block, if it’s valid, by providing their signatures. The system needs approval of ⅔ of the stakeholders to propose “header block” to root contract. Once the checkpoint is proposed on the mainchain, anyone on the Ethereum mainchain can challenge the proposed checkpoint till a specified period of time. If no one challenges it till the passing of the challenge period, the checkpoint is formally included as a valid checkpoint on the main chain.
-Apart from providing finality on the mainchain, Checkpoints have a very important role to play in withdrawals as they contain the proof-of-burn of tokens in the event of user withdrawal. It enables the users to prove their remaining tokens on root contract using Patricia Merkle proof and header block proof. Note that to prove remaining tokens, header block must be committed to Root Chain through PoS (Stakeholders). Withdraw process will take Ethereum gas fees as usual.
-Through this mechanism, we achieve high transaction speed, high degree of decentralization and finality on Mainchain. In our first version which has Ethereum only as the base chain, Ethereum root contract enforces solvency and finality through header block(checkpoints) very efficiently.
+Through this mechanism, we achieve high transaction speed, high degree of decentralization and finality on Mainchain. In our first version which has Ethereum only as the base chain, Ethereum root contract enforces solvency and finality through header block(checkpoints) very efficiently. The various elements and mechanisms of the system are described below:
+
+## Checkpointing Layer
+
+Basically, Anyone can stake their Matic tokens on root contract to become a Staker in the checkpointing layer(contract deployed on Ethereum chain). This provides a highly decentralized public base layer for Matic side chains.
+
+## Delegates (Block Producers)
+
+At the Matic blockchain layer we have Delegates selected by PoS Stakers on the base layer with Proof of Solvency who will be creating the Matic Blocks. To achieve faster block generation times these Delegates will be low in number. **This layer will achieve ~1 second block generation times at extremely low to negligible transaction fees.**
+
+## Checkpointing Mechanism
+
+On Matic network’s checkpointing layer for every checkpoint interval, a proposer will be chosen among the stakers to propose a checkpoint on the main chain. These checkpoints are created by the proposer after validating all the blocks on the Matic block layer and creating the merkle tree of the block hashes since the last checkpoint. The merkle root is then broadcasted to the staker network for the signatures of the other stakers in the network. The other stakeholders also verify the proof. They approve the proposed block, if it’s valid, by providing their signatures. The system needs approval of ⅔ of the stakeholders to propose “header block” to root contract. Once the checkpoint is proposed on the mainchain, anyone on the Ethereum mainchain can challenge the proposed checkpoint till a specified period of time. If no one challenges it till the passing of the challenge period, the checkpoint is formally included as a valid checkpoint on the main chain.<br/>
+Apart from providing finality on the mainchain, Checkpoints have a very important role to play in withdrawals as they contain the proof-of-burn of tokens in the event of user withdrawal. It enables the users to prove their remaining tokens on root contract using Patricia Merkle proof <<TODO - Add patricia merkle formula here>> and header block proof. Note that to prove remaining tokens, header block must be committed to Root Chain through PoS (Stakeholders). Withdraw process will take Ethereum gas fees as usual.
+
+## Delegate Selection
+
+Delegates are chosen by Stakers in the checkpointing layer by voting on the mainchain. A Delegate is selected for 3 months untill slashed/removed by the network consensus mechanism or is unable to participate in the block production due to any external issue.
+
+### Seeding of the network
+```
+1. Matic Network will ask for applications from the public to run the Delegate nodes
+2. It will also run 2 Block Producer nodes itself during the seeding stage of the network
+3. At the epoch the public stakers would select 3-5 block producer nodes
+4. These 4-5 nodes will be kickstarted with a Matic Chain N(number of) genesis configuration
+```
+
+### Delegate application process
+```
+1. The Delegates have to apply with staking the Delegate Stake requirement amount in Matic Tokens on the mainchain
+2. The eligible Delegates are expected to complete their KYC
+3. Delegates need to demonstrate a Proof of Computing Capacity
+4. The Network will maintain a pool of interested Delegates (A reward system for the Delegate nominee would be devised to have ample Delegates in pipeline)
+
+<< TODO What are critierias basis which voters will decide to vote for a particular nominee>>
+```
+
+### Selections by Voting at tenure completion 
+```
+1. Voting process is scheduled and completed one week before the completion of one tenure
+2. Existing delegates can re-appear in the elections
+3. Stakers vote for Delegates from the pool of Nominees
+```
+
+### Replacement of a Delegate during the ongoing tenure
+
+In an event of untimely removal/incapability of a Delegate to take part in block production, a new Delegate from the transaction pool will be recruited. The mechanism to have a prioritized/preferred list of Delegates as per the stakers' vote will be devised to maintain a healty pool of Delegates
+
+## Multi Chain Support (Horizontal Sharding)
+
+Matic Network public checkpointing layer supports multiple side chains by design. Theoretically there can be an infinite number of side chains working under the secured and decentralized layer of checkpoints. Businesses can have their dedicated side chains connected to the public checkpointing layer having control of their execution environments while still have the immutability, provability and security of transactions via checkpointing mechanism.
+Key factors influencing design of this sharding process are :
+1. Scheduling of checkpointing layer to periodically propose checkpoints for different side chains
+2. Movement of assets accross multple side chains
+   2.1 User will be able to send assets accross side chains using chain ids and receipts 
+   2.2 Users will be provided with an intuitive wallet interface to perform inter-chain transactions
+3. Movement of the assets from one chain to another will be managed at the checkpointing layer and may not require any interaction with the mainchain. Research is currently underway to facilitate faster (possibly instant) inter sidechain transfers
+
+## Interoperability
+
+As mentioned in the early part of this whitepaper, Ethereum mainchain is first base/mainchain that Matic Network securely interconnects with using the adapted implementation of Plasma framework. It intends to connect to multiple such leading smart contract platforms as well as leading cryptocurrencies like Bitcoin etc to provide a homogenized platform for the users to be able to use/exchange their assets from various diseparate blockchains.
+
+It can also provide a strong foundation for large DEXs hosting assets from multiple blockchains. Also having a singleton platform with assets from multiple blockchains can also give rise various unforeseen usecases which the developer ecosystems can envision their future products on. It's an exciting area of exploration for Matic Development teams.
+
+## General State Channels
 
 
-### Fraud Proofs {#fraud}
+
+
+# Security
+
+## Fraud Proofs {#fraud}
 
 To enhance the security of the transactions, Matic Network also provides Fraud Proofs on the mainchain. The mechanism enables any individual on the mainchain to submit the details of the transactions which he/she thinks is fraudulent. If the challenge is successful, the stakes of the parties involved in the fraud are slashed and the challenger receives the slashed funds as an incentive for detecting the fraud. This can be considered an ever running high reward bounty programme for any parties who want to investigate the veracity of the transactions on the Matic Network.
 
-# Matic Stack {#stack}
+### Single level txn proof
 
-This section details out various parts of the Matic chain and its setup over Ethereum chain.
+```js
+  // validate ERC20 TX
+  function validateERC20TransferTx(
+    uint256 headerNumber,
+    bytes headerProof,
 
-### Matic Deposit Bridge {#mdb}
+    uint256 blockNumber,
+    uint256 blockTime,
+    bytes32 txRoot,
+    bytes32 receiptRoot,
+    bytes path,
 
-The Matic bridge(s) are part of Delegates(dPoS nodes) that listen to the RootContract events on the mainchain and monitor any token/ether transfer events happening to the RootContract. This bridge is using Matic Network’s famous tool named [Dagger](https://github.com/maticnetwork/eth-dagger.js). Once the bridge detects a deposit on the mainchain they fire a deposit event on the Matic chain and the user’s Matic address is allocated the deposited amount.
+    bytes txBytes,
+    bytes txProof,
 
-### Matic POS Chain {#mposc}
+    bytes receiptBytes,
+    bytes receiptProof
+  ) public {
+    // validate tx receipt existence
+  }
+```
 
-The Matic checkpointing layer is a PoS blockchain which has Stakers who propose the checkpoints to the mainchain. Currently there can be roughly upto 100 Stakers  at the checkpointing layer. In future with advent of more efficient signatures on Ethereum blockchain we would be able to significantly increase the number of stakers on the checkpointing layer which will further increase its degree of decentralization, perhaps equal or more to that of the leading public blockchains like Ethereum and Bitcoin.
+<< ToDo Mention the various kinds of fraud proofs and mention some parts of the code>>
 
-More details of the PoS checkpoint layers in the version 2.0 of the Whitepaper.
+### Iterative txn proof 
+Details to be updated soon
 
-### DPoS Layer {#dposdl}
-
-At the lowest layer we have Delegate nodes chosen by a DPoS mechanism where the Stakers of the PoS layer will choose these Delegates by voting. These Delegates would also be required to have proof of solvency and KYC to be nominated for Delegates. These Delegates will also run the Matic Deposit bridge.
-
-More technical code level details of DPoS layer will be added in version 2.0 of whitepaper.
-
-### Matic VM {#vm}
-
-Matic uses standard EVM which is run by the Delegate nodes to generate blocks. Using the EVM allows Matic to be able to build and deploy protocols like ERC protocols as well as other protocols like Kyber Network, ZRX etc.
-
-### Matic Withdrawal Bridge {#mvb}
-
-When a Matic address submits a withdrawal request on Matic network, the tokens are burnt on the Matic chain and this transaction is pushed on to the Matic chain. After specified checkpoint interval the PoS checkpoint layer will publish the the checkpoint to the main chain which will include the proof of burn of these tokens on the Matic chain. Once this checkpoint is committed on the mainchain the user can claim their withdrawn tokens.
-
-### Spam Protection {#spam}
-
-The Delegates running the block generation layer of Matic network watch the transfer state of the assets to identify frivolous transactions. They reject any incoming transactions with zero amount in payments thereby foiling any DoS/spam attacks with zero cost transactions. Even if the Matic tokens are very low in cost and the fees being very low, due to the high TPS of Matic Network it would not be economically viable to run sustained DoS attacks on the Matic Network.
-
-### Gas Strcuture {#gas}
-
-The Matic chain uses the EVM on the mainchain with Geth node. The configuration on the geth nodes is setup with 0 gas. The mechanism to protect DDoS attacks using this configuration has been detailed in the Risks section.
+## Spam and DOS Protection
+Explained in more details in the Matic Stack section 
 
 # Network Economics {#economics}
 
@@ -169,6 +223,42 @@ Detailed Governance along with the scenarios to be added soon
 # Focus on User Experience {#usere}
 
 Detailed account of how matic looks at improving the User Experience of Dapps will be updated soon.
+
+# Matic Stack {#stack}
+
+This section details out various parts of the Matic chain and its setup over Ethereum chain.
+
+## Matic Deposit Bridge {#mdb}
+
+The Matic bridge(s) are part of Delegates(dPoS nodes) that listen to the RootContract events on the mainchain and monitor any token/ether transfer events happening to the RootContract. This bridge is using Matic Network’s famous tool named [Dagger](https://github.com/maticnetwork/eth-dagger.js). Once the bridge detects a deposit on the mainchain they fire a deposit event on the Matic chain and the user’s Matic address is allocated the deposited amount.
+
+## Matic POS Chain {#mposc}
+
+The Matic checkpointing layer is a PoS blockchain which has Stakers who propose the checkpoints to the mainchain. Currently there can be roughly upto 100 Stakers  at the checkpointing layer. In future with advent of more efficient signatures on Ethereum blockchain we would be able to significantly increase the number of stakers on the checkpointing layer which will further increase its degree of decentralization, perhaps equal or more to that of the leading public blockchains like Ethereum and Bitcoin.
+
+More details of the PoS checkpoint layers in the version 2.0 of the Whitepaper.
+
+## DPoS Layer {#dposdl}
+
+At the lowest layer we have Delegate nodes chosen by a DPoS mechanism where the Stakers of the PoS layer will choose these Delegates by voting. These Delegates would also be required to have proof of solvency and KYC to be nominated for Delegates. These Delegates will also run the Matic Deposit bridge.
+
+More technical code level details of DPoS layer will be added in version 2.0 of whitepaper.
+
+## Matic VM {#vm}
+
+Matic uses standard EVM which is run by the Delegate nodes to generate blocks. Using the EVM allows Matic to be able to build and deploy protocols like ERC protocols as well as other protocols like Kyber Network, ZRX etc.
+
+## Matic Withdrawal Bridge {#mvb}
+
+When a Matic address submits a withdrawal request on Matic network, the tokens are burnt on the Matic chain and this transaction is pushed on to the Matic chain. After specified checkpoint interval the PoS checkpoint layer will publish the the checkpoint to the main chain which will include the proof of burn of these tokens on the Matic chain. Once this checkpoint is committed on the mainchain the user can claim their withdrawn tokens.
+
+## Spam Protection {#spam}
+
+The Delegates running the block generation layer of Matic network watch the transfer state of the assets to identify frivolous transactions. They reject any incoming transactions with zero amount in payments thereby foiling any DoS/spam attacks with zero cost transactions. Even if the Matic tokens are very low in cost and the fees being very low, due to the high TPS of Matic Network it would not be economically viable to run sustained DoS attacks on the Matic Network.
+
+## Gas Strcuture {#gas}
+
+The Matic chain uses the EVM on the mainchain with Geth node. The configuration on the geth nodes is setup with 0 gas. The mechanism to protect DDoS attacks using this configuration has been detailed in the Risks section.
 
 # Potential Use Cases {#potential}
 
