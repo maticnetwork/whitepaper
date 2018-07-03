@@ -151,7 +151,7 @@ Delegates are chosen by Stakers in the checkpointing layer by voting on the main
 
 ### Replacement of a Delegate during the ongoing tenure
 
-In an event of untimely removal/incapability of a Delegate to take part in block production, a new Delegate from the transaction pool will be recruited. The mechanism to have a prioritized/preferred list of Delegates as per the stakers' vote will be devised to maintain a healty pool of Delegates
+In an event of untimely removal/incapability of a Delegate to take part in block production, a new Delegate from the transaction pool will be recruited. The incentive mechanism to have a prioritized/preferred list of Delegates as per the stakers' vote will be devised to maintain a healty pool of Delegates
 
 ## Multi Chain Support (Horizontal Sharding)
 
