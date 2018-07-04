@@ -108,11 +108,12 @@ We expect the alpha version of the mainnet to go live very soon.
 
 ## Actors {#actors}
 
-Matic ecosystem will have the following actors :
+The Matic ecosystem will have the following actors :
+
 1. End Users
-2. The Dapp developers : Developers will be the businesses who would be using Plasma Matic to scale their applications and provide a better UI/UX to their end users
-3. Stakers : The stakers will play a very important role in the Matic Network. These stakers validate the transactions and propose checkpoints on the mainchain using PoS consensus mechanism with ⅔ majority. They also choose Delegates amongst themselves which satisfy a certain criteria to act as block producers.
-4. Delegates : These are block producers chosen by Stakers who enable faster blockchain generation times. They have to provide a large stake as well as satisfy various criteria such as KYC to be nominated as delegates.
+2. DApp developers : Developers will be the businesses who would be using Plasma Matic to scale their applications and provide a better UI/UX to their end users
+3. Stakers : The stakers will play a very important role in the Matic Network. These stakers validate the transactions and propose checkpoints on the mainchain using PoS consensus mechanism with ⅔ majority. They also choose Delegates amongst themselves, who satisfy a certain criteria, to act as block producers.
+4. Delegates : These are block producers chosen by Stakers who in turn enable faster blockchain generation times. They have to provide a large stake as well as satisfy various criteria such as KYC to be nominated as delegates.
 
 ## Consensus {#con}
 
@@ -124,26 +125,27 @@ Through this mechanism, we achieve high transaction speed, high degree of decent
 
 ## Checkpointing Layer
 
-Basically, Anyone can stake their Matic tokens on root contract to become a Staker in the checkpointing layer(contract deployed on Ethereum chain). This provides a highly decentralized public base layer for Matic side chains.
+Basically, Anyone can stake their Matic tokens on root contract to become a Staker in the PoS checkpointing layer(contract deployed on Ethereum chain). This provides a highly decentralized base layer for Matic chain.
 
 ## Delegates (Block Producers)
 
-At the Matic blockchain layer we have Delegates selected by PoS Stakers on the base layer with Proof of Solvency who will be creating the Matic Blocks. To achieve faster block generation times these Delegates will be low in number. **This layer will achieve ~1 second block generation times at extremely low to negligible transaction fees.**
+At the Matic blockchain layer we have Delegates selected by PoS Stakers on the base layer with Proof of Solvency who will be creating the Matic Blocks. To achieve faster block generation times, these Delegates will be low in number. **This layer will achieve ~1 second block generation times at extremely low to negligible transaction fees.**
 
 ## Checkpointing Mechanism
 
-On Matic network’s checkpointing layer for every checkpoint interval, a proposer will be chosen among the stakers to propose a checkpoint on the main chain. These checkpoints are created by the proposer after validating all the blocks on the Matic block layer and creating the merkle tree of the block hashes since the last checkpoint. The merkle root is then broadcasted to the staker network for the signatures of the other stakers in the network. The other stakeholders also verify the proof. They approve the proposed block, if it’s valid, by providing their signatures. The system needs approval of ⅔ of the stakeholders to propose “header block” to root contract. Once the checkpoint is proposed on the mainchain, anyone on the Ethereum mainchain can challenge the proposed checkpoint till a specified period of time. If no one challenges it till the passing of the challenge period, the checkpoint is formally included as a valid checkpoint on the main chain.<br/>
-Apart from providing finality on the mainchain, Checkpoints have a very important role to play in withdrawals as they contain the proof-of-burn of tokens in the event of user withdrawal. It enables the users to prove their remaining tokens on root contract using Patricia Merkle proof <<TODO - Add patricia merkle formula here>> and header block proof. Note that to prove remaining tokens, header block must be committed to Root Chain through PoS (Stakeholders). Withdraw process will take Ethereum gas fees as usual.
+On Matic Network’s checkpointing layer, basis our PoS mechanism, for every few blocks on the Matic block layer, a proposer will be chosen among the stakeholders to propose a checkpoint on the main chain. These checkpoints are created by the proposer after validating all the blocks on the Matic block layer and creating the Merkle tree of the block hashes since the last checkpoint. The Merkle root is then broadcasted to the staker network for their signatures. The other stakeholders also verify the proof. They approve the proposed block, if it’s valid, by providing their signatures. The system needs approval of ⅔ of the stakeholders to propose “header block” to root contract. Once the checkpoint is proposed on the mainchain, anyone on the Ethereum mainchain can challenge the proposed checkpoint till a specified period of time. If no one challenges it till the passing of the challenge period, the checkpoint is formally included as a valid checkpoint on the main chain.
+Apart from providing finality on the mainchain, Checkpoints have a very important role to play in withdrawals as they contain the proof-of-burn of tokens in the event of user withdrawal. It enables the users to prove their remaining tokens on root contract using Patricia Merkle proof and header block proof. Note that to prove remaining tokens, the header block must be committed to the Root Chain through PoS (Stakeholders). The Withdraw process will incur Ethereum gas fees as usual.
+Through this mechanism, we achieve high transaction speed, high degree of decentralization and finality on Mainchain. In our first version which has Ethereum as the base chain, the Ethereum root contract enforces solvency and finality through header block(checkpoints) very efficiently.
 
 ## Delegate Selection
 
-Delegates are chosen by Stakers in the checkpointing layer by voting on the mainchain. A Delegate is selected for 3 months untill slashed/removed by the network consensus mechanism or is unable to participate in the block production due to any external issue.
+Delegates are chosen by Stakers in the checkpointing layer by voting on the mainchain. A Delegate is selected for 3 months until slashed/removed by the network consensus mechanism or is unable to participate in the block production due to any external issue.
 
 ### Seeding of the network
 ```
 1. Matic Network will ask for applications from the public to run the Delegate nodes
-2. It will also run 2 Block Producer nodes itself during the seeding stage of the network
-3. At the epoch the public stakers would select 3-5 block producer nodes
+2. It will also run 3 Block Producer nodes itself during the seed stage of the network
+3. At the epoch, the public stakers will select 3-5 block producer nodes
 4. These 4-5 nodes will be kickstarted with a Matic Chain N(number of) genesis configuration
 ```
 
@@ -154,7 +156,7 @@ Delegates are chosen by Stakers in the checkpointing layer by voting on the main
 3. Delegates need to demonstrate a Proof of Computing Capacity
 4. The Network will maintain a pool of interested Delegates (A reward system for the Delegate nominee would be devised to have ample Delegates in pipeline)
 
-<< TODO What are critierias basis which voters will decide to vote for a particular nominee>>
+<< TODO Basis of criteria on which voters decide to vote for a particular nominee>>
 ```
 
 ### Selections by Voting at tenure completion 
@@ -166,34 +168,35 @@ Delegates are chosen by Stakers in the checkpointing layer by voting on the main
 
 ### Replacement of a Delegate during the ongoing tenure
 
-In an event of untimely removal/incapability of a Delegate to take part in block production, a new Delegate from the transaction pool will be recruited. The incentive mechanism to have a prioritized/preferred list of Delegates as per the stakers' vote will be devised to maintain a healty pool of Delegates
+In an event of untimely removal/incapability of a Delegate to take part in block production, a new Delegate from the transient pool will be recruited. The incentive mechanism to have a prioritized/preferred list of Delegates as per the stakers' vote will be devised to maintain a healty pool of Delegates.
 
 ## Multi Chain Support (Horizontal Sharding)
 
-Matic Network public checkpointing layer supports multiple side chains by design. Theoretically there can be an infinite number of side chains working under the secured and decentralized layer of checkpoints. Businesses can have their dedicated side chains connected to the public checkpointing layer having control of their execution environments while still have the immutability, provability and security of transactions via checkpointing mechanism.
+The Matic Network public checkpointing layer supports multiple side chains by design. Theoretically there can be an infinite number of side chains working under the secured and decentralized layer of checkpoints. Businesses can have their dedicated side chains connected to the public checkpointing layer having control of their execution environments, while still have the immutability, provability and security of transactions via checkpointing mechanism.
+
 Key factors influencing design of this sharding process are :
 1. Scheduling of checkpointing layer to periodically propose checkpoints for different side chains
 2. Movement of assets accross multple side chains
-   2.1 User will be able to send assets accross side chains using chain ids and receipts 
+   2.1 User will be able to send assets across side chains using chain ids and receipts 
    2.2 Users will be provided with an intuitive wallet interface to perform inter-chain transactions
-3. Movement of the assets from one chain to another will be managed at the checkpointing layer and may not require any interaction with the mainchain. Research is currently underway to facilitate faster (possibly instant) inter sidechain transfers
+3. Movement of the assets from one chain to another will be managed at the checkpointing layer and may not require any interaction with the mainchain. Research is currently underway to facilitate faster (possibly instant) inter sidechain transfers.
 
 ## Interoperability
 
-As mentioned in the early part of this whitepaper, Ethereum mainchain is first base/mainchain that Matic Network securely interconnects with using the adapted implementation of Plasma framework. It intends to connect to multiple such leading smart contract platforms as well as leading cryptocurrencies like Bitcoin etc to provide a homogenized platform for the users to be able to use/exchange their assets from various diseparate blockchains.
+As mentioned in the early part of this whitepaper, Ethereum mainchain is the first base/mainchain that Matic Network securely interconnects with, using the adapted implementation of Plasma framework. It intends to connect to multiple such leading smart contract platforms as well as leading cryptocurrencies like Bitcoin, etc to provide a homogenized platform for the users to be able to use/exchange their assets from various blockchains.
 
-It can also provide a strong foundation for large DEXs hosting assets from multiple blockchains. Also having a singleton platform with assets from multiple blockchains can also give rise various unforeseen usecases which the developer ecosystems can envision their future products on. It's an exciting area of exploration for Matic Development teams.
+It can also provide a strong foundation for large DEXs hosting assets from multiple blockchains. Also having a single platform with assets from multiple blockchains can also give rise to dramatically new usecases, which the developer ecosystems can conceptualise their future products on. It's an exciting area of exploration for the Matic Development team.
 
 ## General State Channels
 
-
+<<TODO>>
 
 
 # Security
 
 ## Fraud Proofs {#fraud}
 
-To enhance the security of the transactions, Matic Network also provides Fraud Proofs on the mainchain. The mechanism enables any individual on the mainchain to submit the details of the transactions which he/she thinks is fraudulent. If the challenge is successful, the stakes of the parties involved in the fraud are slashed and the challenger receives the slashed funds as an incentive for detecting the fraud. This can be considered an ever running high reward bounty programme for any parties who want to investigate the veracity of the transactions on the Matic Network.
+To enhance the security of the transactions, Matic Network also provides Fraud Proofs on the mainchain. The mechanism enables any individual on the mainchain to submit the details of the transactions which he/she thinks is fraudulent. If the challenge is successful, the stakes of the parties involved in the fraud are slashed and the challenger receives the slashed funds as an incentive for detecting the fraud. This can be considered an always-running high reward bounty program for any parties who wish to investigate the veracity of the transactions on the Matic Network.
 
 ### Single level txn proof
 
