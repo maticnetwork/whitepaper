@@ -228,7 +228,7 @@ To enhance the security of the transactions, Matic Network also provides Fraud P
 Details to be updated soon
 
 ## Spam and DOS Protection
-Explained in more details in the Matic Stack section 
+Explained in more detail in the Matic Stack section 
 
 # Network Economics {#economics}
 
@@ -240,47 +240,57 @@ Detailed Governance along with the scenarios to be added soon
 
 # Focus on User Experience {#usere}
 
-Detailed account of how matic looks at improving the User Experience of Dapps will be updated soon.
+A detailed account of how Matic will strive to improve the User Experience of Dapps will be updated soon.
 
 # Matic Stack {#stack}
 
-This section details out various parts of the Matic chain and its setup over Ethereum chain.
+This section details out various parts of the Matic chain and components in the Ethereum chain.
 
 ## Matic Deposit Bridge {#mdb}
 
-The Matic bridge(s) are part of Delegates(dPoS nodes) that listen to the RootContract events on the mainchain and monitor any token/ether transfer events happening to the RootContract. This bridge is using Matic Network’s famous tool named [Dagger](https://github.com/maticnetwork/eth-dagger.js). Once the bridge detects a deposit on the mainchain they fire a deposit event on the Matic chain and the user’s Matic address is allocated the deposited amount.
+The Matic bridge(s) are part of Delegate nodes that listen to the RootContract events on the mainchain and monitor any token/ether transfer events happening to the RootContract. This bridge is using Matic Network’s famous tool named [Dagger](https://github.com/maticnetwork/eth-dagger.js). Once the bridge detects a deposit on the mainchain, it fires a Deposit event on the Matic chain and the user’s Matic address is allocated the deposited amount.
 
-## Matic POS Chain {#mposc}
+### Matic PoS {#mpos}
 
-The Matic checkpointing layer is a PoS blockchain which has Stakers who propose the checkpoints to the mainchain. Currently there can be roughly upto 100 Stakers  at the checkpointing layer. In future with advent of more efficient signatures on Ethereum blockchain we would be able to significantly increase the number of stakers on the checkpointing layer which will further increase its degree of decentralization, perhaps equal or more to that of the leading public blockchains like Ethereum and Bitcoin.
+The Matic checkpointing mechanism is a PoS enabled layer which has Stakers who propose the checkpoints to the mainchain. Currently there will be about 100-150 Stakers at the checkpointing layer. In future with the advent of more efficient signatures on Ethereum blockchain, we will be able to significantly increase the number of stakers on the checkpointing layer which will further increase its degree of decentralization, perhaps equal or more to that of the leading public blockchains like Ethereum and Bitcoin.
 
-More details of the PoS checkpoint layers in the version 2.0 of the Whitepaper.
+More details of the PoS checkpoint layers will be given in a later version of the Whitepaper.
 
-## DPoS Layer {#dposdl}
+### Block Producer Layer {#bplay}
 
-At the lowest layer we have Delegate nodes chosen by a DPoS mechanism where the Stakers of the PoS layer will choose these Delegates by voting. These Delegates would also be required to have proof of solvency and KYC to be nominated for Delegates. These Delegates will also run the Matic Deposit bridge.
+At the base layer, we have Delegate nodes chosen by the Stakers of the PoS layer by voting for every checkpointing interval. These Delegates will be required to have Proof of Solvency and KYC to be nominated for Delegates. These Delegates will also run the Matic Deposit bridge.
 
-More technical code level details of DPoS layer will be added in version 2.0 of whitepaper.
+Block Producers accept transactions through the Matic VM and create a block every 1 second.
 
-## Matic VM {#vm}
+More technical and code level details of the Block Producer layer will be added in a later version of the whitepaper.
 
-Matic uses standard EVM which is run by the Delegate nodes to generate blocks. Using the EVM allows Matic to be able to build and deploy protocols like ERC protocols as well as other protocols like Kyber Network, ZRX etc.
+### Matic Virtual Machine {#vm}
 
-## Matic Withdrawal Bridge {#mvb}
+Matic uses a standard EVM based state machine, which is run by the Delegate nodes to generate blocks. Using the EVM allows Matic to be able to build and deploy protocols like ERC protocols as well as other protocols like Kyber Network, ZRX etc.
 
-When a Matic address submits a withdrawal request on Matic network, the tokens are burnt on the Matic chain and this transaction is pushed on to the Matic chain. After specified checkpoint interval the PoS checkpoint layer will publish the the checkpoint to the main chain which will include the proof of burn of these tokens on the Matic chain. Once this checkpoint is committed on the mainchain the user can claim their withdrawn tokens.
+The beauty of the Matic Network architecture is that since we use an EVM-compatible state machine, it becomes very easy to port DApps and smart contracts running on the Ethereum blockchain to the Matic Network. We intend to support generalized state transitions on the Matic Network, and this architecture provides a smooth foundation to build upon.
+
+### Matic Withdrawal Bridge {#mvb}
+
+When a Matic address submits a withdrawal request on the Matic network, the tokens are burnt on the Matic chain and this transaction is pushed on to the Matic chain. After the specified checkpoint interval, the PoS checkpoint layer will publish the checkpoint to the main chain, which will include the proof of burn of these tokens on the Matic chain. Once this checkpoint is committed on the mainchain, the user can claim their withdrawn tokens.
 
 ## Spam Protection {#spam}
 
-The Delegates running the block generation layer of Matic network watch the transfer state of the assets to identify frivolous transactions. They reject any incoming transactions with zero amount in payments thereby foiling any DoS/spam attacks with zero cost transactions. Even if the Matic tokens are very low in cost and the fees being very low, due to the high TPS of Matic Network it would not be economically viable to run sustained DoS attacks on the Matic Network.
+The Delegates running the block producer layer of Matic network watch the transfer state of the assets to identify frivolous transactions. They reject any incoming transactions with zero amount in payments thereby foiling any DoS/spam attacks with zero cost transactions. Even if the Matic tokens are very low in cost and the fees being very low, due to the high TPS of Matic Network, it would not be economically viable to run sustained DoS attacks on the Matic Network.
 
-## Gas Strcuture {#gas}
+We maintain payment transfer event logs in a UTXO-like data structure, which allows for efficient verification of inputs and outputs. This allows for a variety of security measures.
 
-The Matic chain uses the EVM on the mainchain with Geth node. The configuration on the geth nodes is setup with 0 gas. The mechanism to protect DDoS attacks using this configuration has been detailed in the Risks section.
+Additional checks are run to mitigate spam based on this:
+
+- For each input, the referenced output must exist and cannot already be spent
+- Check if the sum of input values is less than sum of output values.
+- Check if transaction fee is too low.
+- Check for duplicate transactions with same outputs in the transaction pool.
+- Check for duplicate transactions with same transaction fee in the pool.
 
 # Potential Use Cases {#potential}
 
-Matic foundation is committed to provide a scalable and user friendly ecosystem for third party Decentralized Applications to thrive on. Matic Network foundation like Ethereum and other platform Foundations, will promote various Base chain Dapps(like Dapps built on Ethereum currently, and on NEO,EOS in future) to build and migrate their user facing applications/transactions on Matic Network. It will also award grants and funding to third party app developers to build various user cases on top of Matic Network like :
+Matic Foundation is committed to provide a scalable and user friendly ecosystem for third party Decentralized applications to thrive on. Matic Foundation, like Ethereum and other platform foundations, will promote various Base chain DApps(like DApps built on Ethereum currently, and NEO, EOS in future) to build and migrate their user facing applications / transactions on Matic Network. It will also award grants and funding to third party app developers to build various user cases on top of Matic Network like:
 
 ### Payments {#payment}
 
@@ -301,19 +311,19 @@ The network will exchange any tokens for targeted tokens by leveraging 0x liquid
 
 ### Decentralized Exchange (DEX) {#dex}
 
-Matic has all characteristics which one exchange platform should have — faster and cheaper trades. Matic will enable protocols for decentralized exchange and enables trustless, reliable and easy crypto trades. The decentralized exchanges are the future for digital assets and provides better security and solvency instead of centralized exchanges.
+Matic has all characteristics which an exchange platform should have — faster and cheaper trades. Matic will provide support for decentralized exchanges and enable trust-less, reliable and easy crypto trades. The decentralized exchange are the future for digital assets and provides better security and solvency instead of centralized exchanges.
 
 As Matic doesn’t have the burden of gas like Ethereum chain, it would be pretty easy to do the atomic swaps like BTC <> ETH or any other blockchain assets.
 
 ### Lending & Credit Scoring platform {#lcsp}
 
-The Matic Network will enable merchants to assess the creditworthiness of connected users via their transaction history. This enables merchants to lend tokens to users on the network when transacting with users that do not have sufficient funds. This will use Dharma protocol to provide tokenized debt to users.
+The Matic Network will enable platforms for merchants to assess the creditworthiness of connected users via their transaction history. This enables merchants to lend tokens to users on the network when transacting with users that do not have sufficient funds. This will use Dharma protocol to provide tokenized debt to users.
 
 ### Identity {#identity}
 
 Users need a utilitarian yet user-friendly interface where MetaMask or web3 enabled browsers are not required. They don’t need to think or understand how Ethereum works under the hood.
 
-Decentralized apps need a way to sign transactions, but that must happen without submitting private keys on each DApp on web browsers or mobile apps. We believe user must have control over their private keys without worrying about the security. Matic will solve that with an Open-Identity system and will deliver a seamless experience to our users.
+Decentralized apps need a way to sign transactions, but that must happen without submitting private keys on each DApp on web browsers or mobile apps. We believe users must have control over their private keys without worrying about the security. Matic will solve that with an Open-Identity system and will deliver a seamless experience to our users.
 
 This system will also provide a way to auto-approve certain kind of transactions depending upon the criteria chose by the users. This will drive Matic’s recurring payments.
 
@@ -330,7 +340,7 @@ Users can also choose to share their data with publishers in a much more transpa
 
 ### Infrastructure {#infrastructure}
 
-The Matic will act on the simple mantra - make it simple and seamless.  For that, We will provide a new infrastructure around Matic Network including user-friendly wallets for individual users and merchants, payroll dashboard, payment SDKs and other open source tools.
+The Matic will act on the simple mantra - make it simple and seamless.  For that, We will provide new infrastructure around Matic Network including user-friendly wallets for individual users and merchants, payroll dashboard, payment SDKs and other open source tools.
 
 ### Dagger {#dagger}
 
@@ -338,7 +348,7 @@ We have already started building infrastructure for developers, starting with Da
 
 Developers can use Dagger to track their own smart contracts, accounts, and transactions. They can create custom service or integrate with third-party services through IFTTT or Zapier.
 
-You can learn more about dagger here:
+You can learn more about Dagger here:
 
 https://medium.com/matic-network/ethereum-in-realtime-dagger-98ee2d717c76<br/>
 and check how it works:<br/>
@@ -346,11 +356,11 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 
 # Challenges, security concerns and mitigation {#challenges}
 
-1. Block withhold after deposit or deposit is not processed by delegate due to unavailability of matic-bridge.
+1. Block withhold after deposit or deposit is not processed by delegate due to unavailability of the Matic bridge
 
-  - Each deposit will create new id (uint256 counter) associated with deposit even
+  - Each deposit will create new id (uint256 counter) associated with a Deposit event
 
-  - Delegate must process deposit in next 5 checkpoint
+  - Delegate must process deposit in next 5 checkpoints
 
   - If not processed, deposit amount will be eligible for withdraw
 
@@ -358,7 +368,7 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 
   There are two ways we can solve this:
 
-  - "Withdraw only" mode: Matic can go in withdraw only mode after certain time with no checkpoints (~ around 2 days). All users must start exist process by proving tokens from last known checkpoints. Problem with this approach would be "loss of valid transactions from last checkpoints"
+  - "Withdraw only" mode: Matic can go in withdraw only mode after certain time with no checkpoints (~ around 2 days). All users must start exit process by proving tokens from last known checkpoints. Problem with this approach would be "loss of valid transactions from last checkpoints"
 
   - Start ceremony to choose next set of Delegates: ceremony will start to select next round of delegates and selected delegates will resume chain from last checkpoints and start validating pending transactions (if any)
 
@@ -421,13 +431,13 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 
 1. Generalized states and fraud proofs for the same.
 2. Evaluate the approach to expand Staker base in the checkpointing layer with the future Threshold based signatures implementations on Ethereum, if any.
-3. Robust structure and design pattern for upgradable smart contracts.
+3. Robust structure and design pattern for upgradeable smart contracts.
 
 # Team {#team}
 
-- Jaynti Kanani. Co-founder. Contributor to Web3, Plasma, Walletconnect. Previously data scientist at Housing.com.<br/>
+- Jaynti Kanani. Co-founder and Chief Executive Officer. Contributor to Web3, Plasma, WalletConnect. Previously data scientist at Housing.com.<br/>
 https://www.linkedin.com/in/jdkanani/
-- Anurag Arjun. Co-founder. Fintech product guy. Previously AVP (Product Management), IRIS Business.<br/>
+- Anurag Arjun. Co-founder and Chief Product Officer. Previously AVP (Product Management), IRIS Business. Stints at SNL Financial, Dexter Consultancy and Cognizant Tech.<br/>
 https://www.linkedin.com/in/anuragarjun/
-- Sandeep Nailwal. Co-founder. Blockchain Programmer and Entrepreneur. Previously CEO Scopeweaver, CTO (Ecommerce) Welspun Group.<br/>
+- Sandeep Nailwal. Co-founder and Chief Operating Officer. Blockchain Programmer and Entrepreneur. Previously CEO Scopeweaver, CTO (Ecommerce) Welspun Group.<br/>
 https://www.linkedin.com/in/sandeep-nailwal-60709a33/
