@@ -80,19 +80,28 @@ Matic Network is working on leading projects for Mobile and Web browser integrat
 
 # Introducing Matic Network {#imn}
 
-As discussed in brief in the section above, Matic Network solves the problems faced by blockchain ecosystem by building a decentralized platform using an adapted version of [Plasma](https://plasma.io/) Framework that provides a solution for faster and extremely low cost transactions with finality on a mainchain. Our current working Testnet and alpha-mainnet works with Ethereum as a mainchain. <br/>
-We are also building  product ecosystem including user friendly mobile apps, desktop wallets and browser extensions which will provide  a seamless experience for all users. So that users will be able to pay, transfer or hold crypto assets without worrying about the complexity of the underlying system.
+As discussed in brief in the section above, Matic Network solves the problems faced by blockchain ecosystem by building a decentralized platform using an adapted version of [Plasma](https://plasma.io/) framework that provides a solution for fast and extremely low cost transactions with finality on a mainchain. Our current working Testnet and alpha-Mainnet works with Ethereum as a mainchain. <br/>
+
+We are also building a product ecosystem including user friendly mobile apps, desktop wallets and browser extensions which will provide a seamless experience for all users. So that users will be able to pay, transfer or hold crypto assets without worrying about the complexity of the underlying system.
 
 # Architecture {#architecture}
-Since Matic Network's core focus is on mass user adoption, it is ideal that a deep dive into Matic Network's tech architecture should start from a user journey. Here are steps how a user will have to take in order to bring his/her assets from Ethereum main chain to Matic Network <br/>
-1. User deposits crypto assets in Matic contract on mainchain (currently implemented with Ethereum blockchain only).
+
+Since Matic Network's core focus is on mass user adoption, it is ideal that a deep dive into Matic Network's technical architecture should start from a user journey.
+
+When a user is transferring ETH or ERC20 tokens on the Ethereum network, they have to wait for the confirmation of the block which ranges from 14 seconds to 20 seconds. Even then the users have to wait for multiple block confirmations to be sure of the finality of the transaction. Let’s say you are buying a coffee or paying tokens to watch a movie. On each transaction you are not only paying a high fee, but also waiting for it to get confirmed. That’s a deterrent for users to use the service.
+
+Moreover during peak loads, large number of transactions clog the Ethereum network and gas fees increase on each transaction to get faster confirmations. We propose Matic as a solution to overcome these problems.
+
+Here is how Matic will work: <br/>
+
+1. User deposits crypto assets in Matic contract on the mainchain (currently implemented with Ethereum blockchain only).
 2. Once deposited tokens get confirmed on the main chain, tokens will appear on the Matic chain using Matic Deposit bridge (technical details explained in a dedicated section below).
-3. The user can now transfer tokens to anyone they want almost instantly (Matic chain has faster blocks (approximately 1 second or less)) for almost negligible fees.
-4. Whenever user wishes to, they can withdraw tokens to the main Ethereum chain by establishing proof of remaining tokens on Root contract (contract deployed on Ethereum chain).
+3. The user can now transfer tokens to anyone they want almost instantly (Matic chain has faster blocks - approximately 1 second or less) for almost negligible fees.
+4. Whenever the user wishes to, they can withdraw tokens to the main Ethereum chain by establishing proof of remaining tokens on Root contract (contract deployed on Ethereum chain).
 
 Remember any fungible crypto assets can be represented as ERC20 tokens on Matic chain. That way, the same method will work for any fungible crypto assets. 
 
-We have already created demo version and you can check out our contracts on GitHub:   
+We have already created a demo version and you can check out our contracts on GitHub:   
 https://github.com/maticnetwork/contracts 
 
 We expect the alpha version of the mainnet to go live very soon.
