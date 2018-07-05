@@ -117,7 +117,7 @@ The Matic ecosystem will have the following actors :
 
 ## Consensus {#con}
 
-Matic uses dual strategy of Proof of Stake at the checkpointing layer and Delegates at the block producer layer to achieve faster blocktimes while ensuring **high degree of decentralization by achieving finality on the main chains using the checkpoints and fraud proofs.**
+Matic uses a dual strategy of Proof of Stake at the checkpointing layer and Delegates at the block producer layer to achieve faster blocktimes while ensuring **high degree of decentralization by achieving finality on the main chains using the checkpoints and fraud proofs.**
 
 ![Matic checkpoints](matics.png)
 
@@ -125,11 +125,11 @@ Through this mechanism, we achieve high transaction speed, high degree of decent
 
 ## Checkpointing Layer
 
-Basically, Anyone can stake their Matic tokens on root contract to become a Staker in the PoS checkpointing layer(contract deployed on Ethereum chain). This provides a highly decentralized base layer for Matic chain.
+Basically, anyone can stake their Matic tokens on root contract to become a Staker in the PoS checkpointing layer(contract deployed on Ethereum chain). This provides a highly decentralized base layer for Matic chain.
 
 ## Delegates (Block Producers)
 
-At the Matic blockchain layer we have Delegates selected by PoS Stakers on the base layer with Proof of Solvency who will be creating the Matic Blocks. To achieve faster block generation times, these Delegates will be low in number. **This layer will achieve ~1 second block generation times at extremely low to negligible transaction fees.**
+At the Matic blockchain layer, we have Delegates selected by PoS Stakers on the base layer with Proof of Solvency who will be creating the Matic Blocks. To achieve faster block generation times, these Delegates will be low in number. **This layer will achieve ~1 second block generation times at extremely low to negligible transaction fees.**
 
 ## Checkpointing Mechanism
 
@@ -139,27 +139,33 @@ Through this mechanism, we achieve high transaction speed, high degree of decent
 
 ## Delegate Selection
 
-Delegates are chosen by Stakers in the checkpointing layer by voting on the mainchain. A Delegate is selected for 3 months until slashed/removed by the network consensus mechanism or is unable to participate in the block production due to any external issue.
+Delegates are chosen by Stakers in the checkpointing layer by voting on the mainchain. A Delegate is selected for a pre-determined interval of time until slashed/removed by the network consensus mechanism or is unable to participate in the block production due to any external issue.
 
 ### Seeding of the network
 ```
 1. Matic Network will ask for applications from the public to run the Delegate nodes
 2. It will also run 3 Block Producer nodes itself during the seed stage of the network
-3. At the epoch, the public stakers will select 3-5 block producer nodes
-4. These 4-5 nodes will be kickstarted with a Matic Chain N(number of) genesis configuration
+3. At the epoch, the public stakers will select a total of 5-7 block producer nodes
+4. These nodes will be kickstarted with a Matic Chain N(number of) genesis configuration
 ```
 
 ### Delegate application process
 ```
-1. The Delegates have to apply with staking the Delegate Stake requirement amount in Matic Tokens on the mainchain
+1. The Delegates have to apply by staking the Delegate Stake requirement amount in Matic Tokens on the mainchain
 2. The eligible Delegates are expected to complete their KYC
 3. Delegates need to demonstrate a Proof of Computing Capacity
-4. The Network will maintain a pool of interested Delegates (A reward system for the Delegate nominee would be devised to have ample Delegates in pipeline)
+4. The Network will maintain a pool of interested Delegates (A reward system for the Delegate nominee would be devised to have ample Delegates in the pipeline)
 
-<< TODO Basis of criteria on which voters decide to vote for a particular nominee>>
+Criteria on the basis on which Stakers will decide to vote for a particular nominee for Delegate are as follows:
+
+- Uptime history
+- Technical specifications
+- Dynamic scaling capability
+- Location diversity
+- Other factors under consideration
 ```
 
-### Selections by Voting at tenure completion 
+### Selection by Voting at tenure completion 
 ```
 1. Voting process is scheduled and completed one week before the completion of one tenure
 2. Existing delegates can re-appear in the elections
@@ -168,24 +174,27 @@ Delegates are chosen by Stakers in the checkpointing layer by voting on the main
 
 ### Replacement of a Delegate during the ongoing tenure
 
-In an event of untimely removal/incapability of a Delegate to take part in block production, a new Delegate from the transient pool will be recruited. The incentive mechanism to have a prioritized/preferred list of Delegates as per the stakers' vote will be devised to maintain a healty pool of Delegates.
+In an event of untimely removal/incapability of a Delegate to take part in block production, a new Delegate from the transient pool will be recruited. An appropriate incentive mechanism to have a prioritized/preferred list of Delegates as per the stakers' vote will be devised to maintain a healthy pool of Delegates.
 
 ## Multi Chain Support (Horizontal Sharding)
 
 The Matic Network public checkpointing layer supports multiple side chains by design. Theoretically there can be an infinite number of side chains working under the secured and decentralized layer of checkpoints. Businesses can have their dedicated side chains connected to the public checkpointing layer having control of their execution environments, while still have the immutability, provability and security of transactions via checkpointing mechanism.
-
+ 
 Key factors influencing design of this sharding process are :
 1. Scheduling of checkpointing layer to periodically propose checkpoints for different side chains
-2. Movement of assets accross multple side chains
+2. Movement of assets accross multiple side chains
    2.1 User will be able to send assets across side chains using chain ids and receipts 
    2.2 Users will be provided with an intuitive wallet interface to perform inter-chain transactions
+   2.3 Developers will be provided with API/SDKs to build programmable interfaces for inter-chain transactions
 3. Movement of the assets from one chain to another will be managed at the checkpointing layer and may not require any interaction with the mainchain. Research is currently underway to facilitate faster (possibly instant) inter sidechain transfers.
 
 ## Interoperability
 
-As mentioned in the early part of this whitepaper, Ethereum mainchain is the first base/mainchain that Matic Network securely interconnects with, using the adapted implementation of Plasma framework. It intends to connect to multiple such leading smart contract platforms as well as leading cryptocurrencies like Bitcoin, etc to provide a homogenized platform for the users to be able to use/exchange their assets from various blockchains.
+As mentioned earlier in the whitepaper, the Ethereum mainchain is the first base/mainchain that Matic Network securely integrates with, using an adapted implementation of the Plasma framework. It intends to connect to multiple leading smart contract platforms as well as leading cryptocurrencies like Bitcoin and others to provide an universal platform for the users to be able to use/exchange their assets from various blockchains.
 
-It can also provide a strong foundation for large DEXs hosting assets from multiple blockchains. Also having a single platform with assets from multiple blockchains can also give rise to dramatically new usecases, which the developer ecosystems can conceptualise their future products on. It's an exciting area of exploration for the Matic Development team.
+It can also provide a strong foundation for large DEXs (Decentralized exchanges) hosting assets from multiple blockchains. Also having a single platform with assets from multiple blockchains can also give rise to dramatically new usecases, which the developer ecosystems can conceptualise their future products on. It's an exciting area of exploration for the Matic Development team.
+
+Judging from the proliferation of Layer 1 blockchains, it is a given that there might be more than 2-3 public blockchains that will be adopted by the mainstream eventually, rather than only a single winning blockchain platform. Therefore, we will see hitherto unseen usecases, arising from the Decentralized application movement across these blockchains. Our vision is to provide infrastructure and interfaces such that anyone who wishes to build decentralized applications on any blockchain, will be able to do it easily - and communicate and transfer value across multiple blockchains.
 
 ## General State Channels
 
@@ -340,7 +349,7 @@ Users can also choose to share their data with publishers in a much more transpa
 
 ### Infrastructure {#infrastructure}
 
-The Matic will act on the simple mantra - make it simple and seamless.  For that, We will provide new infrastructure around Matic Network including user-friendly wallets for individual users and merchants, payroll dashboard, payment SDKs and other open source tools.
+The Matic will act on the simple mantra - make it simple and seamless.  For that, we will provide new infrastructure around Matic Network including user-friendly wallets for individual users and merchants, payroll dashboard, payment SDKs and other open source tools.
 
 ### Dagger {#dagger}
 
@@ -394,35 +403,35 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 
 8. A rationale of how a Delegate can be trustless entity (eventually on our roadmap)
 
-  Use appcoin security for Delegate collateral and discourage Matic token damaging + short selling
+  - Use appcoin security for Delegate collateral and discourage Matic token damaging + short selling
+  
+  - Make Solvency Proof mandatory before assigning one as a Delegate. Rich man can game with this Solvency Proof but appcoin   above will mitigate attacking chain
 
-9. Make Solvency Proof mandatory before assigning one as a delegate. Richman can game with this Solvency Proof but appcoin above will mitigate attacking chain
+  - Validator-level censorship can be mitigated via forcing Delegate to include TX in next 5 (or so) checkpoints
+  
+  - If government gets to know who is maintaining Matic chain and bans that entity’s activity, slash that node and choose 
+    alternative from outside of that country
 
-10. Validator-level censorship can be mitigated via forcing delegate to include TX in next 5 (or so) checkpoints
+9. Discrepancy between users’ balances and root contract’s total balances
 
-11. If government gets to know who is maintaining Matic chain and ban that entity’s activity, slash that node and choose alternative from outside of that country
+   At any given point in time, what if there is a discrepancy between total of users’ balances and root contract’s total balances? What if root contract allows certain users to withdraw more tokens than intended (possible hack)? How one can detect that there has been hack or fraud on Matic system?
 
-12. Discrepancy between users’ balances and root contract’s total balances
-
-13. At given point of the time, what if there is a discrepancy between total of users’ balances and root contract’s total balances? What if root contract allows certain users to withdraw more tokens than intended (possible hack)? How one can detect that there has been hack or fraud on Matic system?
-
-14. Solvency proof of balances comes handy in this case. More info on solvency proof and single use seals --
-
+   Solvency proof of balances comes handy in this case. For more info on solvency proof and single use seals, see
     https://petertodd.org/2016/commitments-and-single-use-seals
 
-15. Transaction censorship
+10. Transaction censorship
 
-    To resolve this, possible solution could be following:
+    To resolve this, a possible solution could be following:
 
-    Anyone can add transaction data directly to main chain contract. That transaction must be added in next 5 checkpoints by delegates.
+    Anyone can add transaction data directly to the main chain contract. That transaction must be added in next 5 checkpoints by delegates.
 
-    Now following will happen next -
+    The following might happen next -
 
       - If delegate doesn’t include tx in next 5 checkpoints, tx owner can start challenge by keeping some ETH as value (some kind of bond). After certain amount of time, delegate won’t be able to produce inclusion proof, and that’s why delegates get slashed and tx owner will get slashed amount + bond (passed in challenge)
 
       - If delegate includes tx but tx owner decides to mess with delegate - in that case, delegate produces inclusion proof and delegate get bond amount created by tx owner.
 
-16. DDoS
+11. DDoS
 
   - One way to prevent DDoS is to check state validation when user submits the transaction (before tx goes to pending pool)
   - Node must handle state check validation part while accepting transactions. If any node decides to skip this implementation, other nodes will ignore all future transactions from particular node.
