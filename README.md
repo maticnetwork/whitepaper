@@ -379,7 +379,7 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 
   - "Withdraw only" mode: Matic can go in withdraw only mode after certain time with no checkpoints (~ around 2 days). All users must start exit process by proving tokens from last known checkpoints. Problem with this approach would be "loss of valid transactions from last checkpoints"
 
-  - Start ceremony to choose next set of Delegates: ceremony will start to select next round of delegates and selected delegates will resume chain from last checkpoints and start validating pending transactions (if any)
+  - Start ceremony(ref #12) to choose next set of Delegates: ceremony will start to select next round of delegates and selected delegates will resume chain from last checkpoints and start validating pending transactions (if any)
 
 3. Checkpoint withhold after burn tokens on Matic
 
@@ -435,6 +435,15 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 
   - One way to prevent DDoS is to check state validation when user submits the transaction (before tx goes to pending pool)
   - Node must handle state check validation part while accepting transactions. If any node decides to skip this implementation, other nodes will ignore all future transactions from particular node.
+
+12. Ceremony
+  - Matic has the same security with Ethereum until the latest checkpoint. But after the latest checkpoint, some blocks aren't robust as same as Ethereum. Now, Byzantine party occupied 51% of dPoS Delegates by gaming KYC registration and by locking tons of collateral. He can cancel his specific deposit transaction to deceive centralized exchanges (e.g. updating 10~20 confirmations).
+
+  - The chain is able to detect withholding, censhorship, or any fraudulent activity via checkpoint voting. These voters are independent from Byzantine Delegates party.
+
+  - In order to make ceremony smooth, online state Delegates must be queued as redundancy for multi delegates slashing event.
+
+  - The frequency of ceremony could be mitigated by those fast restart, fraudulent record recovery, KYC, and collateral slashing. Furthermore, once Matic is getting to be popular, security of Matic chain is gonna be robust as well.
 
 # Future Research Directions {#future}
 
