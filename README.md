@@ -441,6 +441,8 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 
   - The chain is able to detect withholding, censhorship, or any fraudulent activity via checkpoint voting. These voters are independent from Byzantine Delegates party.
 
+  - Byzantine Delegates are slashed and the collaterized funds are redistributed to community.
+
   - In order to make ceremony smooth, online state Delegates must be queued as redundancy for multi delegates slashing event.
 
   - The frequency of ceremony could be mitigated by those fast restart, fraudulent record recovery, KYC, and collateral slashing. Furthermore, once Matic is getting to be popular, security of Matic chain is gonna be robust as well.
