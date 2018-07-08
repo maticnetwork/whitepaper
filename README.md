@@ -377,7 +377,7 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 
   There are two ways we can solve this:
 
-  - "Withdraw only" mode: Matic can go in withdraw only mode after certain time with no checkpoints (~ around 2 days). All users must start exit process by proving tokens from last known checkpoints. Problem with this approach would be "loss of valid transactions from last checkpoints"
+  - "Withdraw only" mode: Matic can go in withdraw only mode after certain time with no checkpoints (~ around 2 days). All users must start exit process(ref #13) by proving tokens from last known checkpoints. Problem with this approach would be "loss of valid transactions from last checkpoints"
 
   - Start ceremony to choose next set of Delegates: ceremony will start to select next round of delegates and selected delegates will resume chain from last checkpoints and start validating pending transactions (if any)
 
@@ -435,6 +435,11 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 
   - One way to prevent DDoS is to check state validation when user submits the transaction (before tx goes to pending pool)
   - Node must handle state check validation part while accepting transactions. If any node decides to skip this implementation, other nodes will ignore all future transactions from particular node.
+
+13. Exit
+  - As we mentioned in #2, we only use exit procedure when a checkpoint doesn't signed by enough checkpoint-stakers as anomary handling. Otherwise it is normal system hence we always able to use "Simple Fast Withdrawal"-esque construction (a.k.a. Matic Withdrawal Bridge).
+
+  - As we mentioned in #2, when the checkpoint-stakers are Byzantine, Matic will go to "withdraw only mode". It means Matic doesn't need Mass Exit as Plasma security model. When Tx-chain's Delegates are Byzantine, the Ceremony will be and it is seamless than "withdraw only mode". This 2 phase construction is virtue of Matic's simple and seamless philosophy.
 
 # Future Research Directions {#future}
 
