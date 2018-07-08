@@ -162,7 +162,7 @@ Criteria on the basis on which Stakers will decide to vote for a particular nomi
 - Technical specifications
 - Dynamic scaling capability
 - Location diversity
-- Other factors under consideration
+- Other factors under consideration (e.g. [Zcash Board Nominations](https://github.com/ZcashFoundation/Elections/blob/master/2018-Q2/Board-Nominations/Sokolov_selfnomination.md) )
 ```
 
 ### Selection by Voting at tenure completion 
