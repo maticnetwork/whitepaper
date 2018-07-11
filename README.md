@@ -328,7 +328,31 @@ Details to be updated in a later version of the whitepaper
 
 # Network Economics {#economics}
 
-Detailed Network economics along with the scenarios to be added soon
+## Transaction Fee Determinative Factors and Trade-off
+1.  blocksize = (Average Transaction Amount)/(Block)
+- 100Txs/Block is insanely expensive.
+- ETH is 600~1000Txs/Block
+- If we permit 3000Txs/Block, this variable is gonna be predominant factor over other factors. But network layer censorship-resistance will be harmed like BCH-Tor problem.
+
+2. Delegates amount
+- More Delegates, more Tx fee allocation.
+- 7 Delegates setting is cost efficient.
+- 120 Delegates setting increase Tx fee.
+
+3. Checkpoint stakers amount
+- 10000 stakers setting is somehow expensive to pay reward.
+- 100 stakers setting is reasonable against Tx fee.
+- Fewer is better, but decentralization would be lost.
+
+4. Blocktime 
+- We assign 2~3sec for blocktime.
+- 0.5sec blocktime still works regarding block propagation. But somehow no effect for user experience.
+- Matic Tx Chain aims to achieve 35k Tx/sec on a chain. If this node through-put is bottleneck, blocksize would be 70k~105k Tx/Block. This is about to be ~10MB/Block.
+
+5. Checkpoint duration
+- 3600sec is out setting.
+- Shorter duration means faster Maliciousness detection. But also means higher commit Gas fee.
+- If a Byzantine behavior (e.g. Double Spend by Tx deletion) occurs just after checkpoint creation, this duration is the worst-case time until the Ceremony. If some Delegate have deleted Tx, we can recovered that canceled Tx, and double spend would be simply failed.
 
 # Governance
 
