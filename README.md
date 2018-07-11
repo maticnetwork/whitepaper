@@ -61,7 +61,7 @@ For Matic Network, the primary layer which provides decentralization may choose 
 
 Some payment channel solutions solve the problem of micro-payments. However, the process of opening and managing channels with multiple DApps or users is complex. Additionally, the speed and convenience of mediated payments over channels is still up for debate.
 
-Since **Matic network uses a state based architecture on an EVM, it doesn’t require payment channels to be opened between two parties. In fact, any valid Ethereum address is a valid Matic Address and receivers do not need to be on Matic chain to receive funds. They would only need to have a Matic wallet when they want to withdraw the funds to the main chain or spend it in the Matic ecosystem.**
+Since **Matic network uses a state based architecture on an EVM (Ethereum Virtual Machine), it doesn’t require payment channels to be opened between two parties. In fact, any valid Ethereum address is a valid Matic Address and receivers do not need to be on Matic chain to receive funds. They would only need to have a Matic wallet when they want to withdraw the funds to the main chain or spend it in the Matic ecosystem.**
 
 ### High Transaction Fees {#htf}
 
@@ -196,18 +196,53 @@ It can also provide a strong foundation for large DEXs (Decentralized exchanges)
 
 Judging from the proliferation of Layer 1 blockchains, it is a given that there might be more than 2-3 public blockchains that will be adopted by the mainstream eventually, rather than only a single winning blockchain platform. Therefore, we will see hitherto unseen usecases, arising from the Decentralized application movement across these blockchains. Our vision is to provide infrastructure and interfaces such that anyone who wishes to build decentralized applications on any blockchain, will be able to do it easily - and communicate and transfer value across multiple blockchains.
 
-## General State Channels
+## Generalized State Scaling
 
-<<TODO>>
+Generalized State scaling is the next frontier for Matic, once we are done with implementing micropayments, asset transfers and swaps in the first phase of development of the Matic Network. We are working along side leading partner firms to solve this problem as well. This is a research problem, and it will take time and effort to accomplish a breakthrough here. However one of the approaches that we are following is very promising.
 
+One of the main approaches that we have taken involves a Plasma sidechain implementation that can run EVM-compatible smart contracts - i.e. the Matic Virtual Machine. Since the philosophy of Matic heavily revolves around an incentive mechanism of security deposits on the main chain, it can be instructive to think about an efficient way of identifying the data involved in fraud challenges.
+
+Validation of consensus rules can be enforced through a system of challenges, using a [TrueBit](https://truebit.io/)-like verification. The main motivation is to run software as similar as what we currently have on the mainchain. The security deposit makes it easier to estimate the security of the sidechain in monetary terms. When working correctly, the stakers frequently commit the sidechain blocks to the root chain.
+
+A set of validations keeps the stakers honest. There are a number of insurance contracts incentivizing the verification of the chain. These contracts combined would make for a complete set of consensus validation rules on the root blockchain. Such rules include:
+
+  - Withholding challenges: The delegates might have submitted blocks to the blockchain, but have withheld the contents. The stakers must present a preimage or get slashed.
+  - Parsing challenges: The delegates submitted an invalid block structure.
+  - Transaction censorship: Submit a transaction on the root chain, requesting for it to be included in the sidechain within a certain timeframe.
+  - Invalid block signature: The stakers provided an invalid signature of the block.
+  - Invalid previous block hash, height, or previous state, among other block verifications.
+  - Any other consensus failure checks, like transaction receipts posting an invalid after state.
+  - Invalid transaction execution: an on-chain way to verify a transaction.
+
+The last step is the most complex technically, but using a Truebit-like binary search, we would only need to verify one EVM state transition. 
+
+A precompile is required to run the EVM inside an EVM. by having a stepper contract that can compute a EVM state transition.
+
+Some work on this already started (see [solevm](https://github.com/Ohalo-Ltd/solevm)), but the focus will be to correctly encode the whole EVM state in such a way that it can fit inside a transaction in the root chain, for the purposes of verifying it with an interactive Truebit game. We believe that a large security deposit, plus other economic interests that participants might have in the correct operation of the sidechain, would lead to less risks.
+
+Overall, if we can efficiently identify the problematic EVM state transition for verification, through an EVM-in-an-EVM construction, we can subject it to challenges, and thereby securing it.
 
 # Security
 
 ## Fraud Proofs {#fraud}
 
-To enhance the security of the transactions, Matic Network also provides Fraud Proofs on the mainchain. The mechanism enables any individual on the mainchain to submit the details of the transactions which he/she thinks is fraudulent. If the challenge is successful, the stakes of the parties involved in the fraud are slashed and the challenger receives the slashed funds as an incentive for detecting the fraud. This can be considered an always-running high reward bounty program for any parties who wish to investigate the veracity of the transactions on the Matic Network.
+To enhance the security of the transactions, Matic Network also provides Fraud Proofs on the mainchain. The mechanism enables any individual on the mainchain to submit the details of the transactions which he/she thinks is fraudulent. If the challenge is successful, the stakes of the parties involved in the fraud are slashed and the challenger receives the slashed funds as an incentive for detecting the fraud. This can be considered as an always-running high reward bounty program for any parties who wish to investigate the veracity of the transactions on the Matic Network.
 
-### Single level txn proof
+### Basic proofs
+
+Each proof must be submitted with corresponding following proofs whenever necessary:
+
+  - Merkle proof for transaction inclusion: This type of proof is needed to prove that the given transaction is included in the block
+
+  - Merkle proof for block inclusion: This type of proof is needed to prove that the block is included in the given checkpoint
+
+### Block
+
+This proof is needed to prove that the block is in sequence with a valid referenced hash.
+
+### Transaction
+
+#### Single level txn proof
 
 ```js
   // validate ERC20 TX
@@ -231,13 +266,65 @@ To enhance the security of the transactions, Matic Network also provides Fraud P
   }
 ```
 
-<< ToDo Mention the various kinds of fraud proofs and mention some parts of the code>>
+#### Nonce validation
+
+  - To check if there are transactions with duplicate nonces
+
+  - To check for transactions with missing nonce values (skipping multiple nonces in between)
+    This is an interactive fraud proof. The Delegate must submit missing nonce transaction in certain amount of time when challenged for this type of transaction.
+
+  - To check for transactions with non-ordered nonces
+
+```js
+  function validateMisMatchedNonce(
+    bytes tx1,
+    bytes tx2
+  ) public {
+    // check if both transactions are not the same    
+    ...
+
+    // validate first transaction
+    ...
+
+    // validate second transaction
+    ...
+
+    // check if sender is the same in both transactions
+    ...
+
+    // make sure 2 is included after tx1    
+    ...
+
+    // check if both nonce values are same or nonce2 < nonce1, just call slasher    
+    ...
+
+    // revert the operation    
+    ...
+}
+```
+
+#### Receipt validation
+
+  - To check receipt fields, events, topics and data types in given receipt
+
+#### Deposit
+
+- Validate deposit transactions
+  Validates deposit transaction on the mainchain and see if it matches with DepositBlock object in rootchain.
+
+- Duplicate deposit transactions
+  This proof validates if there are duplicate transactions that have the same DepositId and that each DepositID is included only once
+
+- Validate deposited amount and the depositor address
+
+#### ERC20 transfer
+
+  - To validate ERC20 transaction data, receipt logs and values
+
+  - To check if UTXO-style input in log receipt log equals that of an UTXO-style output of a recent transaction log receipt
 
 ### Iterative txn proof 
-Details to be updated soon
-
-## Spam and DOS Protection
-Explained in more detail in the Matic Stack section 
+Details to be updated in a later version of the whitepaper
 
 # Network Economics {#economics}
 
@@ -249,7 +336,11 @@ Detailed Governance along with the scenarios to be added soon
 
 # Focus on User Experience {#usere}
 
-A detailed account of how Matic will strive to improve the User Experience of Dapps will be updated soon.
+We are developing a wallet implementing the [WalletConnect](https://walletconnect.org/) protocol, which is an open protocol to connect web-based distributed applications to mobile crypto assets.
+
+This wallet will help users to interact with DApps and sign transactions easily, while still keeping their private keys safe on their mobile. This should go a long way in making blockchains accessible to mainstream users.
+
+Other than this, we are also looking at Context specific ether less accounts and Gas relay abstraction on identity to enable ether-less sign transactions, which can be a huge booster for mainstream user adoption.
 
 # Matic Stack {#stack}
 
