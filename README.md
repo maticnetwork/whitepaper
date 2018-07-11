@@ -562,6 +562,12 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
   - In order to make ceremony smooth, online state Delegates must be queued as redundancy for multi delegates slashing event.
 
   - The frequency of ceremony could be mitigated by those fast restart, fraudulent record recovery, KYC, and collateral slashing. Furthermore, once Matic is getting to be popular, security of Matic chain is gonna be robust as well.
+ 
+13. Exit
+
+  - As we mentioned in #2, we only use exit procedure when a checkpoint doesn't signed by enough checkpoint-stakers as anomary handling. Otherwise it is normal system hence we always able to use "Simple Fast Withdrawal"-esque construction (a.k.a. Matic Withdrawal Bridge).
+ 
+  - As we mentioned in #2, when the checkpoint-stakers are Byzantine, Matic will go to "withdraw only mode". It means Matic doesn't need Mass Exit as Plasma security model. When Tx-chain's Delegates are Byzantine, the Ceremony will be and it is seamless than "withdraw only mode". This 2 phase construction is virtue of Matic's simple and seamless philosophy.
 
 # Future Research Directions {#future}
 
