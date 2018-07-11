@@ -61,7 +61,7 @@ For Matic Network, the primary layer which provides decentralization may choose 
 
 Some payment channel solutions solve the problem of micro-payments. However, the process of opening and managing channels with multiple DApps or users is complex. Additionally, the speed and convenience of mediated payments over channels is still up for debate.
 
-Since **Matic network uses a state based architecture on an EVM, it doesn’t require payment channels to be opened between two parties. In fact, any valid Ethereum address is a valid Matic Address and receivers do not need to be on Matic chain to receive funds. They would only need to have a Matic wallet when they want to withdraw the funds to the main chain or spend it in the Matic ecosystem.**
+Since **Matic network uses a state based architecture on an EVM (Ethereum Virtual Machine), it doesn’t require payment channels to be opened between two parties. In fact, any valid Ethereum address is a valid Matic Address and receivers do not need to be on Matic chain to receive funds. They would only need to have a Matic wallet when they want to withdraw the funds to the main chain or spend it in the Matic ecosystem.**
 
 ### High Transaction Fees {#htf}
 
@@ -162,7 +162,7 @@ Criteria on the basis on which Stakers will decide to vote for a particular nomi
 - Technical specifications
 - Dynamic scaling capability
 - Location diversity
-- Other factors under consideration
+- Other factors under consideration (e.g. [Zcash Board Nominations](https://github.com/ZcashFoundation/Elections/blob/master/2018-Q2/Board-Nominations/Sokolov_selfnomination.md) )
 ```
 
 ### Selection by Voting at tenure completion 
@@ -196,18 +196,53 @@ It can also provide a strong foundation for large DEXs (Decentralized exchanges)
 
 Judging from the proliferation of Layer 1 blockchains, it is a given that there might be more than 2-3 public blockchains that will be adopted by the mainstream eventually, rather than only a single winning blockchain platform. Therefore, we will see hitherto unseen usecases, arising from the Decentralized application movement across these blockchains. Our vision is to provide infrastructure and interfaces such that anyone who wishes to build decentralized applications on any blockchain, will be able to do it easily - and communicate and transfer value across multiple blockchains.
 
-## General State Channels
+## Generalized State Scaling
 
-<<TODO>>
+Generalized State scaling is the next frontier for Matic, once we are done with implementing micropayments, asset transfers and swaps in the first phase of development of the Matic Network. We are working along side leading partner firms to solve this problem as well. This is a research problem, and it will take time and effort to accomplish a breakthrough here. However one of the approaches that we are following is very promising.
 
+One of the main approaches that we have taken involves a Plasma sidechain implementation that can run EVM-compatible smart contracts - i.e. the Matic Virtual Machine. Since the philosophy of Matic heavily revolves around an incentive mechanism of security deposits on the main chain, it can be instructive to think about an efficient way of identifying the data involved in fraud challenges.
+
+Validation of consensus rules can be enforced through a system of challenges, using a [TrueBit](https://truebit.io/)-like verification. The main motivation is to run software as similar as what we currently have on the mainchain. The security deposit makes it easier to estimate the security of the sidechain in monetary terms. When working correctly, the stakers frequently commit the sidechain blocks to the root chain.
+
+A set of validations keeps the stakers honest. There are a number of insurance contracts incentivizing the verification of the chain. These contracts combined would make for a complete set of consensus validation rules on the root blockchain. Such rules include:
+
+  - Withholding challenges: The delegates might have submitted blocks to the blockchain, but have withheld the contents. The stakers must present a preimage or get slashed.
+  - Parsing challenges: The delegates submitted an invalid block structure.
+  - Transaction censorship: Submit a transaction on the root chain, requesting for it to be included in the sidechain within a certain timeframe.
+  - Invalid block signature: The stakers provided an invalid signature of the block.
+  - Invalid previous block hash, height, or previous state, among other block verifications.
+  - Any other consensus failure checks, like transaction receipts posting an invalid after state.
+  - Invalid transaction execution: an on-chain way to verify a transaction.
+
+The last step is the most complex technically, but using a Truebit-like binary search, we would only need to verify one EVM state transition. 
+
+A precompile is required to run the EVM inside an EVM. by having a stepper contract that can compute a EVM state transition.
+
+Some work on this already started (see [solevm](https://github.com/Ohalo-Ltd/solevm)), but the focus will be to correctly encode the whole EVM state in such a way that it can fit inside a transaction in the root chain, for the purposes of verifying it with an interactive Truebit game. We believe that a large security deposit, plus other economic interests that participants might have in the correct operation of the sidechain, would lead to less risks.
+
+Overall, if we can efficiently identify the problematic EVM state transition for verification, through an EVM-in-an-EVM construction, we can subject it to challenges, and thereby securing it.
 
 # Security
 
 ## Fraud Proofs {#fraud}
 
-To enhance the security of the transactions, Matic Network also provides Fraud Proofs on the mainchain. The mechanism enables any individual on the mainchain to submit the details of the transactions which he/she thinks is fraudulent. If the challenge is successful, the stakes of the parties involved in the fraud are slashed and the challenger receives the slashed funds as an incentive for detecting the fraud. This can be considered an always-running high reward bounty program for any parties who wish to investigate the veracity of the transactions on the Matic Network.
+To enhance the security of the transactions, Matic Network also provides Fraud Proofs on the mainchain. The mechanism enables any individual on the mainchain to submit the details of the transactions which he/she thinks is fraudulent. If the challenge is successful, the stakes of the parties involved in the fraud are slashed and the challenger receives the slashed funds as an incentive for detecting the fraud. This can be considered as an always-running high reward bounty program for any parties who wish to investigate the veracity of the transactions on the Matic Network.
 
-### Single level txn proof
+### Basic proofs
+
+Each proof must be submitted with corresponding following proofs whenever necessary:
+
+  - Merkle proof for transaction inclusion: This type of proof is needed to prove that the given transaction is included in the block
+
+  - Merkle proof for block inclusion: This type of proof is needed to prove that the block is included in the given checkpoint
+
+### Block
+
+This proof is needed to prove that the block is in sequence with a valid referenced hash.
+
+### Transaction
+
+#### Single level txn proof
 
 ```js
   // validate ERC20 TX
@@ -231,17 +266,93 @@ To enhance the security of the transactions, Matic Network also provides Fraud P
   }
 ```
 
-<< ToDo Mention the various kinds of fraud proofs and mention some parts of the code>>
+#### Nonce validation
+
+  - To check if there are transactions with duplicate nonces
+
+  - To check for transactions with missing nonce values (skipping multiple nonces in between)
+    This is an interactive fraud proof. The Delegate must submit missing nonce transaction in certain amount of time when challenged for this type of transaction.
+
+  - To check for transactions with non-ordered nonces
+
+```js
+  function validateMisMatchedNonce(
+    bytes tx1,
+    bytes tx2
+  ) public {
+    // check if both transactions are not the same    
+    ...
+
+    // validate first transaction
+    ...
+
+    // validate second transaction
+    ...
+
+    // check if sender is the same in both transactions
+    ...
+
+    // make sure 2 is included after tx1    
+    ...
+
+    // check if both nonce values are same or nonce2 < nonce1, just call slasher    
+    ...
+
+    // revert the operation    
+    ...
+}
+```
+
+#### Receipt validation
+
+  - To check receipt fields, events, topics and data types in given receipt
+
+#### Deposit
+
+- Validate deposit transactions
+  Validates deposit transaction on the mainchain and see if it matches with DepositBlock object in rootchain.
+
+- Duplicate deposit transactions
+  This proof validates if there are duplicate transactions that have the same DepositId and that each DepositID is included only once
+
+- Validate deposited amount and the depositor address
+
+#### ERC20 transfer
+
+  - To validate ERC20 transaction data, receipt logs and values
+
+  - To check if UTXO-style input in log receipt log equals that of an UTXO-style output of a recent transaction log receipt
 
 ### Iterative txn proof 
-Details to be updated soon
-
-## Spam and DOS Protection
-Explained in more detail in the Matic Stack section 
+Details to be updated in a later version of the whitepaper
 
 # Network Economics {#economics}
 
-Detailed Network economics along with the scenarios to be added soon
+## Transaction Fee Determinative Factors and Trade-off
+1.  blocksize = (Average Transaction Amount)/(Block)
+- 100Txs/Block is insanely expensive.
+- ETH is 600~1000Txs/Block
+- If we permit 3000Txs/Block, this variable is gonna be predominant factor over other factors. But network layer censorship-resistance will be harmed like BCH-Tor problem.
+
+2. Delegates amount
+- More Delegates, more Tx fee allocation.
+- 7 Delegates setting is cost efficient.
+- 120 Delegates setting increase Tx fee.
+
+3. Checkpoint stakers amount
+- 10000 stakers setting is somehow expensive to pay reward.
+- 100 stakers setting is reasonable against Tx fee.
+- Fewer is better, but decentralization would be lost.
+
+4. Blocktime 
+- We assign 2~3sec for blocktime.
+- 0.5sec blocktime still works regarding block propagation. But somehow no effect for user experience.
+- Matic Tx Chain aims to achieve 35k Tx/sec on a chain. If this node through-put is bottleneck, blocksize would be 70k~105k Tx/Block. This is about to be ~10MB/Block.
+
+5. Checkpoint duration
+- 3600sec is out setting.
+- Shorter duration means faster Maliciousness detection. But also means higher commit Gas fee.
+- If a Byzantine behavior (e.g. Double Spend by Tx deletion) occurs just after checkpoint creation, this duration is the worst-case time until the Ceremony. If some Delegate have deleted Tx, we can recovered that canceled Tx, and double spend would be simply failed.
 
 # Governance
 
@@ -249,7 +360,11 @@ Detailed Governance along with the scenarios to be added soon
 
 # Focus on User Experience {#usere}
 
-A detailed account of how Matic will strive to improve the User Experience of Dapps will be updated soon.
+We are developing a wallet implementing the [WalletConnect](https://walletconnect.org/) protocol, which is an open protocol to connect web-based distributed applications to mobile crypto assets.
+
+This wallet will help users to interact with DApps and sign transactions easily, while still keeping their private keys safe on their mobile. This should go a long way in making blockchains accessible to mainstream users.
+
+Other than this, we are also looking at Context specific ether less accounts and Gas relay abstraction on identity to enable ether-less sign transactions, which can be a huge booster for mainstream user adoption.
 
 # Matic Stack {#stack}
 
@@ -379,7 +494,7 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 
   - "Withdraw only" mode: Matic can go in withdraw only mode after certain time with no checkpoints (~ around 2 days). All users must start exit process(ref #13) by proving tokens from last known checkpoints. Problem with this approach would be "loss of valid transactions from last checkpoints"
 
-  - Start ceremony to choose next set of Delegates: ceremony will start to select next round of delegates and selected delegates will resume chain from last checkpoints and start validating pending transactions (if any)
+  - Start ceremony(ref #12) to choose next set of Delegates: ceremony will start to select next round of delegates and selected delegates will resume chain from last checkpoints and start validating pending transactions (if any)
 
 3. Checkpoint withhold after burn tokens on Matic
 
@@ -436,10 +551,17 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
   - One way to prevent DDoS is to check state validation when user submits the transaction (before tx goes to pending pool)
   - Node must handle state check validation part while accepting transactions. If any node decides to skip this implementation, other nodes will ignore all future transactions from particular node.
 
-13. Exit
-  - As we mentioned in #2, we only use exit procedure when a checkpoint doesn't signed by enough checkpoint-stakers as anomary handling. Otherwise it is normal system hence we always able to use "Simple Fast Withdrawal"-esque construction (a.k.a. Matic Withdrawal Bridge).
+12. Ceremony
 
-  - As we mentioned in #2, when the checkpoint-stakers are Byzantine, Matic will go to "withdraw only mode". It means Matic doesn't need Mass Exit as Plasma security model. When Tx-chain's Delegates are Byzantine, the Ceremony will be and it is seamless than "withdraw only mode". This 2 phase construction is virtue of Matic's simple and seamless philosophy.
+  - Matic has the same security with Ethereum until the latest checkpoint. But after the latest checkpoint, some blocks aren't robust as same as Ethereum. Now, Byzantine party occupied 51% of dPoS Delegates by gaming KYC registration and by locking tons of collateral. He can cancel his specific deposit transaction to deceive centralized exchanges (e.g. updating 10~20 confirmations).
+
+  - The chain is able to detect withholding, censhorship, or any fraudulent activity via checkpoint voting. These voters are independent from Byzantine Delegates party.
+
+  - Byzantine Delegates are slashed and the collaterized funds are redistributed to community.
+
+  - In order to make ceremony smooth, online state Delegates must be queued as redundancy for multi delegates slashing event.
+
+  - The frequency of ceremony could be mitigated by those fast restart, fraudulent record recovery, KYC, and collateral slashing. Furthermore, once Matic is getting to be popular, security of Matic chain is gonna be robust as well.
 
 # Future Research Directions {#future}
 
