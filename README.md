@@ -565,7 +565,7 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
  
   - As we mentioned in #2, when the checkpoint-stakers are Byzantine, Matic will go to "withdraw only mode". It means Matic doesn't need Mass Exit as Plasma security model. When Tx-chain's Delegates are Byzantine, the Ceremony will be and it is seamless than "withdraw only mode". This 2 phase construction is virtue of Matic's simple and seamless philosophy.
 
-# Future Research Directions {#future}
+# Features on our Roadmap {#future}
 
 1. Generalized states and fraud proofs for the same.
 2. Evaluate the approach to expand Staker base in the checkpointing layer with the future Threshold based signatures implementations on Ethereum, if any.
