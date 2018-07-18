@@ -329,34 +329,30 @@ Details to be updated in a later version of the whitepaper
 # Network Economics {#economics}
 
 ## Transaction Fee Determinative Factors and Trade-off
-1.  blocksize = (Average Transaction Amount)/(Block)
-- 100Txs/Block is insanely expensive.
-- ETH is 600~1000Txs/Block
-- If we permit 3000Txs/Block, this variable is gonna be predominant factor over other factors. But network layer censorship-resistance will be harmed like BCH-Tor problem.
+1. Block Size = (Average Transaction Amount)/(Block)
+  - 100Txs/Block is insanely expensive.
+  - ETH is 600~1000Txs/Block
+  - If we permit 3000Txs/Block, this variable is gonna be predominant factor over other factors. But network layer censorship-resistance will be harmed like BCH-Tor problem.
 
-2. Delegates amount
-- More Delegates, more Tx fee allocation.
-- 7 Delegates setting is cost efficient.
-- 120 Delegates setting increase Tx fee.
+2. Number of Delegates
+  - If there are more Delegates, transaction fee allocation will be more.
+  - Delegates setting of 7 is cost efficient.
+  - If we increase the number of Delegates to say, 120, the transaction fee increases.
 
-3. Checkpoint stakers amount
-- 10000 stakers setting is somehow expensive to pay reward.
-- 100 stakers setting is reasonable against Tx fee.
-- Fewer is better, but decentralization would be lost.
+3. Number of Checkpoint stakers
+  - If number of stakers is 10,000, then it will be expensive to structure rewards.
+  - 100-150 stakers will result in an optimum transaction fee.
+  - Fewer stakers are better, but decentralization is slightly lower.
 
-4. Blocktime 
-- We assign 2~3sec for blocktime.
-- 0.5sec blocktime still works regarding block propagation. But somehow no effect for user experience.
-- Matic Tx Chain aims to achieve 35k Tx/sec on a chain. If this node through-put is bottleneck, blocksize would be 70k~105k Tx/Block. This is about to be ~10MB/Block.
+4. Block Time 
+  - We could assign 2~3sec for block time.
+  - 0.5sec block time still works with regards to block propagation, and it has no effect on user experience.
+  - Let's say , a single Matic sidechain aims to achieve ~35k Tx/sec on a chain. If node through-put is the bottleneck, then blocksize would be 70k~105k Tx/Block. This is about ~10MB/Block.
 
 5. Checkpoint duration
-- 3600sec is out setting.
-- Shorter duration means faster Maliciousness detection. But also means higher commit Gas fee.
-- If a Byzantine behavior (e.g. Double Spend by Tx deletion) occurs just after checkpoint creation, this duration is the worst-case time until the Ceremony. If some Delegate have deleted Tx, we can recovered that canceled Tx, and double spend would be simply failed.
-
-# Governance
-
-Detailed Governance along with the scenarios to be added soon
+  - A checkpoint duration of 3600sec is optimum.
+  - A shorter duration means faster Maliciousness detection, but it also means a higher commit Gas fee.
+  - If a Byzantine behavior (e.g. Double Spend by Tx deletion) occurs just after checkpoint creation, this duration is the worst-case time until the Ceremony. If some Delegate have deleted transactions, we can recover the canceled Tx, and double spend would be simply foiled.
 
 # Focus on User Experience {#usere}
 
@@ -574,6 +570,10 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 1. Generalized states and fraud proofs for the same.
 2. Evaluate the approach to expand Staker base in the checkpointing layer with the future Threshold based signatures implementations on Ethereum, if any.
 3. Robust structure and design pattern for upgradeable smart contracts.
+4. Context specific Ether less accounts and Gas Relay Abstractions on Identity
+5. Privacy-enabled transactions
+6. Blockchain interoperability 
+7. State channels on top of the sidechain
 
 # Team {#team}
 
