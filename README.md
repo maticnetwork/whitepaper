@@ -162,7 +162,7 @@ Criteria on the basis on which Stakers will decide to vote for a particular nomi
 - Technical specifications
 - Dynamic scaling capability
 - Location diversity
-- Other factors under consideration
+- Other factors under consideration (e.g. [Zcash Board Nominations](https://github.com/ZcashFoundation/Elections/blob/master/2018-Q2/Board-Nominations/Sokolov_selfnomination.md) )
 ```
 
 ### Selection by Voting at tenure completion 
@@ -328,7 +328,31 @@ Details to be updated in a later version of the whitepaper
 
 # Network Economics {#economics}
 
-Detailed Network economics along with the scenarios to be added soon
+## Transaction Fee Determinative Factors and Trade-off
+1.  blocksize = (Average Transaction Amount)/(Block)
+- 100Txs/Block is insanely expensive.
+- ETH is 600~1000Txs/Block
+- If we permit 3000Txs/Block, this variable is gonna be predominant factor over other factors. But network layer censorship-resistance will be harmed like BCH-Tor problem.
+
+2. Delegates amount
+- More Delegates, more Tx fee allocation.
+- 7 Delegates setting is cost efficient.
+- 120 Delegates setting increase Tx fee.
+
+3. Checkpoint stakers amount
+- 10000 stakers setting is somehow expensive to pay reward.
+- 100 stakers setting is reasonable against Tx fee.
+- Fewer is better, but decentralization would be lost.
+
+4. Blocktime 
+- We assign 2~3sec for blocktime.
+- 0.5sec blocktime still works regarding block propagation. But somehow no effect for user experience.
+- Matic Tx Chain aims to achieve 35k Tx/sec on a chain. If this node through-put is bottleneck, blocksize would be 70k~105k Tx/Block. This is about to be ~10MB/Block.
+
+5. Checkpoint duration
+- 3600sec is out setting.
+- Shorter duration means faster Maliciousness detection. But also means higher commit Gas fee.
+- If a Byzantine behavior (e.g. Double Spend by Tx deletion) occurs just after checkpoint creation, this duration is the worst-case time until the Ceremony. If some Delegate have deleted Tx, we can recovered that canceled Tx, and double spend would be simply failed.
 
 # Governance
 
@@ -468,9 +492,9 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 
   There are two ways we can solve this:
 
-  - "Withdraw only" mode: Matic can go in withdraw only mode after certain time with no checkpoints (~ around 2 days). All users must start exit process by proving tokens from last known checkpoints. Problem with this approach would be "loss of valid transactions from last checkpoints"
+  - "Withdraw only" mode: Matic can go in withdraw only mode after certain time with no checkpoints (~ around 2 days). All users must start exit process(ref #13) by proving tokens from last known checkpoints. Problem with this approach would be "loss of valid transactions from last checkpoints"
 
-  - Start ceremony to choose next set of Delegates: ceremony will start to select next round of delegates and selected delegates will resume chain from last checkpoints and start validating pending transactions (if any)
+  - Start ceremony(ref #12) to choose next set of Delegates: ceremony will start to select next round of delegates and selected delegates will resume chain from last checkpoints and start validating pending transactions (if any)
 
 3. Checkpoint withhold after burn tokens on Matic
 
@@ -526,6 +550,24 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 
   - One way to prevent DDoS is to check state validation when user submits the transaction (before tx goes to pending pool)
   - Node must handle state check validation part while accepting transactions. If any node decides to skip this implementation, other nodes will ignore all future transactions from particular node.
+
+12. Ceremony
+
+  - Matic has the same security with Ethereum until the latest checkpoint. But after the latest checkpoint, some blocks aren't robust as same as Ethereum. Now, Byzantine party occupied 51% of dPoS Delegates by gaming KYC registration and by locking tons of collateral. He can cancel his specific deposit transaction to deceive centralized exchanges (e.g. updating 10~20 confirmations).
+
+  - The chain is able to detect withholding, censhorship, or any fraudulent activity via checkpoint voting. These voters are independent from Byzantine Delegates party.
+
+  - Byzantine Delegates are slashed and the collaterized funds are redistributed to community.
+
+  - In order to make ceremony smooth, online state Delegates must be queued as redundancy for multi delegates slashing event.
+
+  - The frequency of ceremony could be mitigated by those fast restart, fraudulent record recovery, KYC, and collateral slashing. Furthermore, once Matic is getting to be popular, security of Matic chain is gonna be robust as well.
+ 
+13. Exit
+
+  - As we mentioned in #2, we only use exit procedure when a checkpoint doesn't signed by enough checkpoint-stakers as anomary handling. Otherwise it is normal system hence we always able to use "Simple Fast Withdrawal"-esque construction (a.k.a. Matic Withdrawal Bridge).
+ 
+  - As we mentioned in #2, when the checkpoint-stakers are Byzantine, Matic will go to "withdraw only mode". It means Matic doesn't need Mass Exit as Plasma security model. When Tx-chain's Delegates are Byzantine, the Ceremony will be and it is seamless than "withdraw only mode". This 2 phase construction is virtue of Matic's simple and seamless philosophy.
 
 # Future Research Directions {#future}
 
