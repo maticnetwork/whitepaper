@@ -123,7 +123,7 @@ Matic uses a dual strategy of Proof of Stake at the checkpointing layer and Dele
 
 Through this mechanism, we achieve high transaction speed, high degree of decentralization and finality on Mainchain. In our first version which has Ethereum only as the base chain, Ethereum root contract enforces solvency and finality through header block(checkpoints) very efficiently. The various elements and mechanisms of the system are described below:
 
-## Checkpointing Layer
+## Checkpointing Layer {#checklayer}
 
 Basically, anyone can stake their Matic tokens on root contract to become a Staker in the PoS checkpointing layer(contract deployed on Ethereum chain). This provides a highly decentralized base layer for Matic chain.
 
@@ -176,7 +176,7 @@ Criteria on the basis on which Stakers will decide to vote for a particular nomi
 
 In an event of untimely removal/incapability of a Delegate to take part in block production, a new Delegate from the transient pool will be recruited. An appropriate incentive mechanism to have a prioritized/preferred list of Delegates as per the stakers' vote will be devised to maintain a healthy pool of Delegates.
 
-## Multi Chain Support (Horizontal Sharding)
+## Multi Chain Support (Horizontal Sharding) {#multichain}
 
 The Matic Network public checkpointing layer supports multiple side chains by design. Theoretically there can be an infinite number of side chains working under the secured and decentralized layer of checkpoints. Businesses can have their dedicated side chains connected to the public checkpointing layer having control of their execution environments, while still have the immutability, provability and security of transactions via checkpointing mechanism.
  
@@ -188,7 +188,7 @@ Key factors influencing design of this sharding process are :
    2.3 Developers will be provided with API/SDKs to build programmable interfaces for inter-chain transactions
 3. Movement of the assets from one chain to another will be managed at the checkpointing layer and may not require any interaction with the mainchain. Research is currently underway to facilitate faster (possibly instant) inter sidechain transfers.
 
-## Interoperability
+## Interoperability {#interoper}
 
 As mentioned earlier in the whitepaper, the Ethereum mainchain is the first base/mainchain that Matic Network securely integrates with, using an adapted implementation of the Plasma framework. It intends to connect to multiple leading smart contract platforms as well as leading cryptocurrencies like Bitcoin and others to provide an universal platform for the users to be able to use/exchange their assets from various blockchains.
 
@@ -196,7 +196,7 @@ It can also provide a strong foundation for large DEXs (Decentralized exchanges)
 
 Judging from the proliferation of Layer 1 blockchains, it is a given that there might be more than 2-3 public blockchains that will be adopted by the mainstream eventually, rather than only a single winning blockchain platform. Therefore, we will see hitherto unseen usecases, arising from the Decentralized application movement across these blockchains. Our vision is to provide infrastructure and interfaces such that anyone who wishes to build decentralized applications on any blockchain, will be able to do it easily - and communicate and transfer value across multiple blockchains.
 
-## Generalized State Scaling
+## Generalized State Scaling {#genscaling}
 
 Generalized State scaling is the next frontier for Matic, once we are done with implementing micropayments, asset transfers and swaps in the first phase of development of the Matic Network. We are working along side leading partner firms to solve this problem as well. This is a research problem, and it will take time and effort to accomplish a breakthrough here. However one of the approaches that we are following is very promising.
 
@@ -228,7 +228,7 @@ Overall, if we can efficiently identify the problematic EVM state transition for
 
 To enhance the security of the transactions, Matic Network also provides Fraud Proofs on the mainchain. The mechanism enables any individual on the mainchain to submit the details of the transactions which he/she thinks is fraudulent. If the challenge is successful, the stakes of the parties involved in the fraud are slashed and the challenger receives the slashed funds as an incentive for detecting the fraud. This can be considered as an always-running high reward bounty program for any parties who wish to investigate the veracity of the transactions on the Matic Network.
 
-### Basic proofs
+### Basic proofs {#basicp}
 
 Each proof must be submitted with corresponding following proofs whenever necessary:
 
@@ -236,13 +236,13 @@ Each proof must be submitted with corresponding following proofs whenever necess
 
   - Merkle proof for block inclusion: This type of proof is needed to prove that the block is included in the given checkpoint
 
-### Block
+### Block {#blockp}
 
 This proof is needed to prove that the block is in sequence with a valid referenced hash.
 
 ### Transaction
 
-#### Single level txn proof
+#### Single level txn proof {#singletp}
 
 ```js
   // validate ERC20 TX
@@ -266,7 +266,7 @@ This proof is needed to prove that the block is in sequence with a valid referen
   }
 ```
 
-#### Nonce validation
+#### Nonce validation {#noncevp}
 
   - To check if there are transactions with duplicate nonces
 
@@ -303,11 +303,11 @@ This proof is needed to prove that the block is in sequence with a valid referen
 }
 ```
 
-#### Receipt validation
+#### Receipt validation {#recvalp}
 
   - To check receipt fields, events, topics and data types in given receipt
 
-#### Deposit
+#### Deposit {#depositp}
 
 - Validate deposit transactions
   Validates deposit transaction on the mainchain and see if it matches with DepositBlock object in rootchain.
@@ -317,7 +317,7 @@ This proof is needed to prove that the block is in sequence with a valid referen
 
 - Validate deposited amount and the depositor address
 
-#### ERC20 transfer
+#### ERC20 transfer {#erc20tp}
 
   - To validate ERC20 transaction data, receipt logs and values
 
