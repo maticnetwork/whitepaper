@@ -43,7 +43,7 @@ Matic solves this problem by using a high throughput blockchain with consensus p
 
 Public blockchains have to maintain a certain amount of time lag between the production of adjacent blocks so as to ensure ample time for block propagation. Also the block size needs to be less so as to ensure quick propagation of the block through the network. This entails that the number of transactions in a particular block need to be fairly limited.<br />
 
-Matic Network solves this problem by using a **Delegate layer from its DPoS system to produce the blocks.** Delegates enable the system to produce blocks at a very fast rate. The system ensures decentralization using PoS checkpoints which are pushed to the Mainchain (Ethereum as a first chain).**This enables Matic to theoretically achieve $$2^{16}$$  transactions per second on a single side chain.**
+Matic Network solves this problem by using a **Delegate layer to produce the blocks.** Delegates enable the system to produce blocks at a very fast rate. The system ensures decentralization using PoS checkpoints which are pushed to the Mainchain (Ethereum as a first chain).**This enables Matic to theoretically achieve $$2^{16}$$  transactions per second on a single side chain.**
 
 ### Scalability {#scalability}
 
@@ -549,11 +549,11 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 
 12. Ceremony
 
-  - Matic has the same security with Ethereum until the latest checkpoint. But after the latest checkpoint, some blocks aren't robust as same as Ethereum. Now, Byzantine party occupied 51% of dPoS Delegates by gaming KYC registration and by locking tons of collateral. He can cancel his specific deposit transaction to deceive centralized exchanges (e.g. updating 10~20 confirmations).
+  - Matic has the same security with Ethereum until the latest checkpoint. But after the latest checkpoint, some blocks aren't robust as same as Ethereum. Now, it can happen that Byzantine party could control 51% of Delegates by gaming KYC registration and by locking tons of collateral. He can cancel his specific deposit transaction to deceive centralized exchanges (e.g. updating 10~20 confirmations).
 
   - The chain is able to detect withholding, censhorship, or any fraudulent activity via checkpoint voting. These voters are independent from Byzantine Delegates party.
 
-  - Byzantine Delegates are slashed and the collaterized funds are redistributed to community.
+  - If such a scenario occurs, Byzantine Delegates are slashed and the collaterized funds are redistributed to community.
 
   - In order to make ceremony smooth, online state Delegates must be queued as redundancy for multi delegates slashing event.
 
