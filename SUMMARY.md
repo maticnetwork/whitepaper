@@ -46,5 +46,5 @@
 	* [Infrastructure](README.md#infrastructure)
 	    * [Dagger](README.md#dagger)
 * [Challenges, security concerns and mitigation](README.md#challenges)
-* [Future Research Directions](README.md#future)
+* [Features on our Roadmap](README.md#future)
 * [Team](README.md#team)
