@@ -36,14 +36,14 @@ Blockchain transactions are very slow and have a very limited throughput. Most P
 
 PoS ([Proof-of-Stake](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQs#what-is-proof-of-stake)) based blockchains try to counter these limitations using staking mechanism, but the blockchains that are able to achieve high throughput with PoS are able to do so at the cost of decentralization. These limitations are often necessary for public blockchains to ensure security and decentralization as a block needs to be propagated through the network and validated by all the nodes to achieve finality.<br/>
 
-Matic solves this problem by using a high throughput blockchain with consensus provided by a selected set of Delegates, chosen for every checkpoint by a set of Stakers. It then uses a Proof Of Stake layer to **validate the blocks and publish periodic proofs (merkle roots) of the blocks produced by Delegates to the Ethereum mainchain. This helps in achieving high level of decentralization while maintaining an extremely fast (< 2 seconds) block confirmation times.**
+Matic solves this problem by using a high throughput blockchain with consensus provided by a selected set of Block Producers, chosen for every checkpoint by a set of Stakers. It then uses a Proof Of Stake layer to **validate the blocks and publish periodic proofs (merkle roots) of the blocks produced by the Block Producers to the Ethereum mainchain. This helps in achieving high level of decentralization while maintaining an extremely fast (< 2 seconds) block confirmation times.**
 
 
 ### Low Transaction Throughput {#ltt}
 
 Public blockchains have to maintain a certain amount of time lag between the production of adjacent blocks so as to ensure ample time for block propagation. Also the block size needs to be less so as to ensure quick propagation of the block through the network. This entails that the number of transactions in a particular block need to be fairly limited.<br />
 
-Matic Network solves this problem by using a **Delegate layer to produce the blocks.** Delegates enable the system to produce blocks at a very fast rate. The system ensures decentralization using PoS checkpoints which are pushed to the Mainchain (Ethereum as a first chain).**This enables Matic to theoretically achieve $$2^{16}$$  transactions per second on a single side chain.**
+Matic Network solves this problem by using a **Block Producer layer to produce the blocks.** Block Producers enable the system to produce blocks at a very fast rate. The system ensures decentralization using PoS checkpoints which are pushed to the Mainchain (Ethereum as a first chain).**This enables Matic to theoretically achieve $$2^{16}$$  transactions per second on a single side chain.**
 
 ### Scalability {#scalability}
 
@@ -69,7 +69,7 @@ With the rapid growth of the blockchain ecosystem, new crypto assets are increas
 
 Fees are the important factor to reward validators and prevent certain kind of security attacks like DoS. But, the problem is the variation of fees depending upon the pending transaction pool due to the limited block size.
 
-**Matic Network enables low cost transactions by achieving economies of scale by doing large number of transactions on the Delegate layer which ensures low cost and then batching the proofs of the Matic blocks using the Merkle root of the blocks** to a highly decentralized mainchain (for ex. Ethereum) using a decentralized layer of PoS Stakers.
+**Matic Network enables low cost transactions by achieving economies of scale by doing large number of transactions on the Block Producer layer which ensures low cost and then batching the proofs of the Matic blocks using the Merkle root of the blocks** to a highly decentralized mainchain (for ex. Ethereum) using a decentralized layer of PoS Stakers.
 
 ### Poor Usability {#pf}
 
@@ -112,12 +112,12 @@ The Matic ecosystem will have the following actors :
 
 1. End Users
 2. DApp developers : Developers will be the businesses who would be using Plasma Matic to scale their applications and provide a better UI/UX to their end users
-3. Stakers : The stakers will play a very important role in the Matic Network. These stakers validate the transactions and propose checkpoints on the mainchain using PoS consensus mechanism with ⅔ majority. They also choose Delegates amongst themselves, who satisfy a certain criteria, to act as block producers.
-4. Delegates : These are block producers chosen by Stakers who in turn enable faster blockchain generation times. They have to provide a large stake as well as satisfy various criteria such as KYC to be nominated as delegates.
+3. Stakers : The stakers will play a very important role in the Matic Network. These stakers validate the transactions and propose checkpoints on the mainchain using PoS consensus mechanism with ⅔ majority. They also choose Block Producers amongst themselves, who satisfy a certain criteria, to act as block producers.
+4. Block Producers : These are block producers chosen by Stakers who in turn enable faster blockchain generation times. They have to provide a large stake as well as satisfy various criteria such as KYC to be nominated.
 
 ## Consensus {#con}
 
-Matic uses a dual strategy of Proof of Stake at the checkpointing layer and Delegates at the block producer layer to achieve faster blocktimes while ensuring **high degree of decentralization by achieving finality on the main chains using the checkpoints and fraud proofs.**
+Matic uses a dual strategy of Proof of Stake at the checkpointing layer and Block Producers at the block producer layer to achieve faster blocktimes while ensuring **high degree of decentralization by achieving finality on the main chains using the checkpoints and fraud proofs.**
 
 ![Matic checkpoints](matics.png)
 
@@ -127,9 +127,9 @@ Through this mechanism, we achieve high transaction speed, high degree of decent
 
 Basically, anyone can stake their Matic tokens on root contract to become a Staker in the PoS checkpointing layer(contract deployed on Ethereum chain). This provides a highly decentralized base layer for Matic chain.
 
-## Delegates (Block Producers)
+## Block Producers
 
-At the Matic blockchain layer, we have Delegates selected by PoS Stakers on the base layer with Proof of Solvency who will be creating the Matic Blocks. To achieve faster block generation times, these Delegates will be low in number. **This layer will achieve ~1 second block generation times at extremely low to negligible transaction fees.**
+At the Matic blockchain layer, we have Block Producers selected by PoS Stakers on the base layer with Proof of Solvency who will be creating the Matic Blocks. To achieve faster block generation times, these Block Producers will be low in number. **This layer will achieve ~1 second block generation times at extremely low to negligible transaction fees.**
 
 ## Checkpointing Mechanism
 
@@ -137,26 +137,26 @@ On Matic Network’s checkpointing layer, basis our PoS mechanism, for every few
 Apart from providing finality on the mainchain, Checkpoints have a very important role to play in withdrawals as they contain the proof-of-burn of tokens in the event of user withdrawal. It enables the users to prove their remaining tokens on root contract using Patricia Merkle proof and header block proof. Note that to prove remaining tokens, the header block must be committed to the Root Chain through PoS (Stakeholders). The Withdraw process will incur Ethereum gas fees as usual.
 Through this mechanism, we achieve high transaction speed, high degree of decentralization and finality on Mainchain. In our first version which has Ethereum as the base chain, the Ethereum root contract enforces solvency and finality through header block(checkpoints) very efficiently.
 
-## Delegate Selection
+## Block Producer Selection
 
-Delegates are chosen by Stakers in the checkpointing layer by voting on the mainchain. A Delegate is selected for a pre-determined interval of time until slashed/removed by the network consensus mechanism or is unable to participate in the block production due to any external issue.
+Block Producers are chosen by Stakers in the checkpointing layer by voting on the mainchain. A Block Producer is selected for a pre-determined interval of time until slashed/removed by the network consensus mechanism or is unable to participate in the block production due to any external issue.
 
 ### Seeding of the network
 ```
-1. Matic Network will ask for applications from the public to run the Delegate nodes
+1. Matic Network will ask for applications from the public to run the Block Producer nodes
 2. It will also run 3 Block Producer nodes itself during the seed stage of the network
 3. At the epoch, the public stakers will select a total of 5-7 block producer nodes
 4. These nodes will be kickstarted with a Matic Chain N(number of) genesis configuration
 ```
 
-### Delegate application process
+### Block Producer application process
 ```
-1. The Delegates have to apply by staking the Delegate Stake requirement amount in Matic Tokens on the mainchain
-2. The eligible Delegates are expected to complete their KYC
-3. Delegates need to demonstrate a Proof of Computing Capacity
-4. The Network will maintain a pool of interested Delegates (A reward system for the Delegate nominee would be devised to have ample Delegates in the pipeline)
+1. The Block Producers have to apply by staking the Block Producer Stake requirement amount in Matic Tokens on the mainchain
+2. The eligible Block Producers are expected to complete their KYC
+3. Block Producers need to demonstrate a Proof of Computing Capacity
+4. The Network will maintain a pool of interested Block Producers (A reward system for the Block Producer nominee would be devised to have ample Block Producers in the pipeline)
 
-Criteria on the basis on which Stakers will decide to vote for a particular nominee for Delegate are as follows:
+Criteria on the basis on which Stakers will decide to vote for a particular nominee for Block Producer are as follows:
 
 - Uptime history
 - Technical specifications
@@ -168,13 +168,13 @@ Criteria on the basis on which Stakers will decide to vote for a particular nomi
 ### Selection by Voting at tenure completion 
 ```
 1. Voting process is scheduled and completed one week before the completion of one tenure
-2. Existing delegates can re-appear in the elections
-3. Stakers vote for Delegates from the pool of Nominees
+2. Existing Block Producers can re-appear in the elections
+3. Stakers vote for Block Producers from the pool of Nominees
 ```
 
-### Replacement of a Delegate during the ongoing tenure
+### Replacement of a Block Producer during the ongoing tenure
 
-In an event of untimely removal/incapability of a Delegate to take part in block production, a new Delegate from the transient pool will be recruited. An appropriate incentive mechanism to have a prioritized/preferred list of Delegates as per the stakers' vote will be devised to maintain a healthy pool of Delegates.
+In an event of untimely removal/incapability of a Block Producer to take part in block production, a new Block Producer from the transient pool will be recruited. An appropriate incentive mechanism to have a prioritized/preferred list of Block Producers as per the stakers' vote will be devised to maintain a healthy pool of Block Producers.
 
 ## Multi Chain Support (Horizontal Sharding) {#multichain}
 
@@ -206,8 +206,8 @@ Validation of consensus rules can be enforced through a system of challenges, us
 
 A set of validations keeps the stakers honest. There are a number of insurance contracts incentivizing the verification of the chain. These contracts combined would make for a complete set of consensus validation rules on the root blockchain. Such rules include:
 
-  - Withholding challenges: The delegates might have submitted blocks to the blockchain, but have withheld the contents. The stakers must present a preimage or get slashed.
-  - Parsing challenges: The delegates submitted an invalid block structure.
+  - Withholding challenges: The Block Producers might have submitted blocks to the blockchain, but have withheld the contents. The stakers must present a preimage or get slashed.
+  - Parsing challenges: The Block Producers submitted an invalid block structure.
   - Transaction censorship: Submit a transaction on the root chain, requesting for it to be included in the sidechain within a certain timeframe.
   - Invalid block signature: The stakers provided an invalid signature of the block.
   - Invalid previous block hash, height, or previous state, among other block verifications.
@@ -271,7 +271,7 @@ This proof is needed to prove that the block is in sequence with a valid referen
   - To check if there are transactions with duplicate nonces
 
   - To check for transactions with missing nonce values (skipping multiple nonces in between)
-    This is an interactive fraud proof. The Delegate must submit missing nonce transaction in certain amount of time when challenged for this type of transaction.
+    This is an interactive fraud proof. The Block Producer must submit missing nonce transaction in certain amount of time when challenged for this type of transaction.
 
   - To check for transactions with non-ordered nonces
 
@@ -334,10 +334,10 @@ Details to be updated in a later version of the whitepaper
   - ETH is 600~1000Txs/Block
   - If we permit 3000Txs/Block, this variable is gonna be predominant factor over other factors. But network layer censorship-resistance will be harmed like BCH-Tor problem.
 
-2. Number of Delegates
-  - If there are more Delegates, transaction fee allocation will be more.
-  - Delegates setting of 7 is cost efficient.
-  - If we increase the number of Delegates to say, 120, the transaction fee increases.
+2. Number of Block Producers
+  - If there are more Block Producers, transaction fee allocation will be more.
+  - Block Producers setting of 7 is cost efficient.
+  - If we increase the number of Block Producers to say, 120, the transaction fee increases.
 
 3. Number of Checkpoint stakers
   - If number of stakers is 10,000, then it will be expensive to structure rewards.
@@ -352,7 +352,7 @@ Details to be updated in a later version of the whitepaper
 5. Checkpoint duration
   - A checkpoint duration of 3600sec is optimum.
   - A shorter duration means faster Maliciousness detection, but it also means a higher commit Gas fee.
-  - If a Byzantine behavior (e.g. Double Spend by Tx deletion) occurs just after checkpoint creation, this duration is the worst-case time until the Ceremony. If some Delegate have deleted transactions, we can recover the canceled Tx, and double spend would be simply foiled.
+  - If a Byzantine behavior (e.g. Double Spend by Tx deletion) occurs just after checkpoint creation, this duration is the worst-case time until the Ceremony. If some Block Producer have deleted transactions, we can recover the canceled Tx, and double spend would be simply foiled.
 
 # Focus on User Experience {#usere}
 
@@ -368,7 +368,7 @@ This section details out various parts of the Matic chain and components in the 
 
 ## Matic Deposit Bridge {#mdb}
 
-The Matic bridge(s) are part of Delegate nodes that listen to the RootContract events on the mainchain and monitor any token/ether transfer events happening to the RootContract. This bridge is using Matic Network’s famous tool named [Dagger](https://github.com/maticnetwork/eth-dagger.js). Once the bridge detects a deposit on the mainchain, it fires a Deposit event on the Matic chain and the user’s Matic address is allocated the deposited amount.
+The Matic bridge(s) are part of Block Producer nodes that listen to the RootContract events on the mainchain and monitor any token/ether transfer events happening to the RootContract. This bridge is using Matic Network’s famous tool named [Dagger](https://github.com/maticnetwork/eth-dagger.js). Once the bridge detects a deposit on the mainchain, it fires a Deposit event on the Matic chain and the user’s Matic address is allocated the deposited amount.
 
 ### Matic PoS {#mpos}
 
@@ -378,7 +378,7 @@ More details of the PoS checkpoint layers will be given in a later version of th
 
 ### Block Producer Layer {#bplay}
 
-At the base layer, we have Delegate nodes chosen by the Stakers of the PoS layer by voting for every checkpointing interval. These Delegates will be required to have Proof of Solvency and KYC to be nominated for Delegates. These Delegates will also run the Matic Deposit bridge.
+At the base layer, we have Block Producer nodes chosen by the Stakers of the PoS layer by voting for every checkpointing interval. These Block Producers will be required to have Proof of Solvency and KYC to be nominated for Block Producers. These Block Producers will also run the Matic Deposit bridge.
 
 Block Producers accept transactions through the Matic VM and create a block every 1 second.
 
@@ -386,7 +386,7 @@ More technical and code level details of the Block Producer layer will be added 
 
 ### Matic Virtual Machine {#vm}
 
-Matic uses a standard EVM based state machine, which is run by the Delegate nodes to generate blocks. Using the EVM allows Matic to be able to build and deploy protocols like ERC protocols as well as other protocols like Kyber Network, ZRX etc.
+Matic uses a standard EVM based state machine, which is run by the Block Producer nodes to generate blocks. Using the EVM allows Matic to be able to build and deploy protocols like ERC protocols as well as other protocols like Kyber Network, ZRX etc.
 
 The beauty of the Matic Network architecture is that since we use an EVM-compatible state machine, it becomes very easy to port DApps and smart contracts running on the Ethereum blockchain to the Matic Network. We intend to support generalized state transitions on the Matic Network, and this architecture provides a smooth foundation to build upon.
 
@@ -396,7 +396,7 @@ When a Matic address submits a withdrawal request on the Matic network, the toke
 
 ## Spam Protection {#spam}
 
-The Delegates running the block producer layer of Matic network watch the transfer state of the assets to identify frivolous transactions. They reject any incoming transactions with zero amount in payments thereby foiling any DoS/spam attacks with zero cost transactions. Even if the Matic tokens are very low in cost and the fees being very low, due to the high TPS of Matic Network, it would not be economically viable to run sustained DoS attacks on the Matic Network.
+The Block Producers running the block producer layer of Matic network watch the transfer state of the assets to identify frivolous transactions. They reject any incoming transactions with zero amount in payments thereby foiling any DoS/spam attacks with zero cost transactions. Even if the Matic tokens are very low in cost and the fees being very low, due to the high TPS of Matic Network, it would not be economically viable to run sustained DoS attacks on the Matic Network.
 
 We maintain payment transfer event logs in a UTXO-like data structure, which allows for efficient verification of inputs and outputs. This allows for a variety of security measures.
 
@@ -476,11 +476,11 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 
 # Challenges, security concerns and mitigation {#challenges}
 
-1. Block withhold after deposit or deposit is not processed by delegate due to unavailability of the Matic bridge
+1. Block withhold after deposit or deposit is not processed by Block Producer due to unavailability of the Matic bridge
 
   - Each deposit will create new id (uint256 counter) associated with a Deposit event
 
-  - Delegate must process deposit in next 5 checkpoints
+  - Block Producer must process deposit in next 5 checkpoints
 
   - If not processed, deposit amount will be eligible for withdraw
 
@@ -490,35 +490,35 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 
   - "Withdraw only" mode: Matic can go in withdraw only mode after certain time with no checkpoints (~ around 2 days). All users must start exit process(ref #13) by proving tokens from last known checkpoints. Problem with this approach would be "loss of valid transactions from last checkpoints"
 
-  - Start ceremony(ref #12) to choose next set of Delegates: ceremony will start to select next round of delegates and selected delegates will resume chain from last checkpoints and start validating pending transactions (if any)
+  - Start ceremony(ref #12) to choose next set of Block Producers: ceremony will start to select next round of Block Producers and selected Block Producers will resume chain from last checkpoints and start validating pending transactions (if any)
 
 3. Checkpoint withhold after burn tokens on Matic
 
   This will only happen when there is fraud on Matic chain. Mitigation would be the same as 2.
 
-4. A Delegate changes token balance while relaying deposits.
+4. A Block Producer changes token balance while relaying deposits.
 
   Mitigation would be the same as 2.
 
-5. A Delegate changes token balance while transfer.
+5. A Block Producer changes token balance while transfer.
 
   Mitigation would be the same as 2.
 
-6. A Delegate generates token for particular address
+6. A Block Producer generates token for particular address
 
   Mitigation would be the same as 2.
 
-7. A Delegate generates, transfers and burns tokens between in two checkpoints
+7. A Block Producer generates, transfers and burns tokens between in two checkpoints
 
   Mitigation would be the same as 2.
 
-8. A rationale of how a Delegate can be trustless entity (eventually on our roadmap)
+8. A rationale of how a Block Producer can be trustless entity (eventually on our roadmap)
 
-  - Use appcoin security for Delegate collateral and discourage Matic token damaging + short selling
+  - Use appcoin security for Block Producer collateral and discourage Matic token damaging + short selling
   
-  - Make Solvency Proof mandatory before assigning one as a Delegate. Rich man can game with this Solvency Proof but appcoin   above will mitigate attacking chain
+  - Make Solvency Proof mandatory before assigning one as a Block Producer. Rich man can game with this Solvency Proof but appcoin   above will mitigate attacking chain
 
-  - Validator-level censorship can be mitigated via forcing Delegate to include TX in next 5 (or so) checkpoints
+  - Validator-level censorship can be mitigated via forcing Block Producer to include TX in next 5 (or so) checkpoints
   
   - If government gets to know who is maintaining Matic chain and bans that entity’s activity, slash that node and choose 
     alternative from outside of that country
@@ -534,13 +534,13 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 
     To resolve this, a possible solution could be following:
 
-    Anyone can add transaction data directly to the main chain contract. That transaction must be added in next 5 checkpoints by delegates.
+    Anyone can add transaction data directly to the main chain contract. That transaction must be added in next 5 checkpoints by Block Producers.
 
     The following might happen next -
 
-      - If delegate doesn’t include tx in next 5 checkpoints, tx owner can start challenge by keeping some ETH as value (some kind of bond). After certain amount of time, delegate won’t be able to produce inclusion proof, and that’s why delegates get slashed and tx owner will get slashed amount + bond (passed in challenge)
+      - If Block Producer doesn’t include the transaction in the next 5 checkpoints, the transaction owner can start challenge by keeping some ETH as value (some kind of bond). After certain amount of time, Block Producer won’t be able to produce inclusion proof, and that’s why Block Producers get slashed and transaction owner will get slashed amount + bond (passed in challenge)
 
-      - If delegate includes tx but tx owner decides to mess with delegate - in that case, delegate produces inclusion proof and delegate get bond amount created by tx owner.
+      - If Block Producer includes the transaction, but transaction owner decides to mess with Block Producer - in that case, Block Producer produces inclusion proof and gets bond amount created by the transaction owner.
 
 11. DDoS
 
@@ -549,13 +549,13 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 
 12. Ceremony
 
-  - Matic has the same security with Ethereum until the latest checkpoint. But after the latest checkpoint, some blocks aren't robust as same as Ethereum. Now, it can happen that Byzantine party could control 51% of Delegates by gaming KYC registration and by locking tons of collateral. He can cancel his specific deposit transaction to deceive centralized exchanges (e.g. updating 10~20 confirmations).
+  - Matic has the same security with Ethereum until the latest checkpoint. But after the latest checkpoint, some blocks aren't robust as same as Ethereum. Now, it can happen that Byzantine party could control 51% of Block Producers by gaming KYC registration and by locking tons of collateral. He can cancel his specific deposit transaction to deceive centralized exchanges (e.g. updating 10~20 confirmations).
 
-  - The chain is able to detect withholding, censhorship, or any fraudulent activity via checkpoint voting. These voters are independent from Byzantine Delegates party.
+  - The chain is able to detect withholding, censhorship, or any fraudulent activity via checkpoint voting. These voters are independent of the byzantine Block Producers.
 
-  - If such a scenario occurs, Byzantine Delegates are slashed and the collaterized funds are redistributed to community.
+  - If such a scenario occurs, byzantine Block Producers are slashed and the collaterized funds are redistributed to community.
 
-  - In order to make ceremony smooth, online state Delegates must be queued as redundancy for multi delegates slashing event.
+  - In order to make the ceremony smooth, online Block Producers must be queued as redundancy for multi Block Producers' slashing event.
 
   - The frequency of ceremony could be mitigated by those fast restart, fraudulent record recovery, KYC, and collateral slashing. Furthermore, once Matic is getting to be popular, security of Matic chain is gonna be robust as well.
  
@@ -563,7 +563,7 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 
   - As we mentioned in #2, we only use exit procedure when a checkpoint doesn't signed by enough checkpoint-stakers as anomary handling. Otherwise it is normal system hence we always able to use "Simple Fast Withdrawal"-esque construction (a.k.a. Matic Withdrawal Bridge).
  
-  - As we mentioned in #2, when the checkpoint-stakers are Byzantine, Matic will go to "withdraw only mode". It means Matic doesn't need Mass Exit as Plasma security model. When Tx-chain's Delegates are Byzantine, the Ceremony will be and it is seamless than "withdraw only mode". This 2 phase construction is virtue of Matic's simple and seamless philosophy.
+  - As we mentioned in #2, when the checkpoint-stakers are Byzantine, Matic will go to "withdraw only mode". It means Matic doesn't need Mass Exit as Plasma security model. When Transaction-chain's Block Producers are byzantine, the Ceremony will be triggered and it is seamless than "withdraw only mode". This 2 phase construction is virtue of Matic's simple and seamless philosophy.
 
 # Features on our Roadmap {#future}
 
