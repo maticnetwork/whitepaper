@@ -48,3 +48,4 @@
 * [Challenges, security concerns and mitigation](README.md#challenges)
 * [Features on our Roadmap](README.md#future)
 * [Team](README.md#team)
+* [Risks](README.md#risks)
