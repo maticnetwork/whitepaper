@@ -604,7 +604,7 @@ https://www.linkedin.com/in/anuragarjun/
 https://www.linkedin.com/in/sandeep-nailwal-60709a33/
 
 
-# RISKS {#risk}
+# Risks {#risks}
 
 You acknowledge and agree that there are numerous risks associated with purchasing Matic Token, holding Matic Token, and using Matic Token for participation in the Matic Network. In the worst scenario, this could lead to the loss of all or part of the Matic Token which had been purchased. IF YOU DECIDE TO PURCHASE Matic Token, YOU EXPRESSLY ACKNOWLEDGE, ACCEPT AND ASSUME THE FOLLOWING RISKS:
 
