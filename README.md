@@ -183,9 +183,9 @@ The Matic Network public checkpointing layer supports multiple side chains by de
 Key factors influencing design of this sharding process are expected to be:
 1. Scheduling of checkpointing layer to periodically propose checkpoints for different side chains
 2. Movement of assets across multiple side chains
-  2.1 User will be able to send assets across side chains using chain ids and receipts
-  2.2 Users will be provided with an intuitive wallet interface to perform inter-chain transactions
-  2.3 Developers will be provided with API/SDKs to build programmable interfaces for inter-chain transactions
+  - User will be able to send assets across side chains using chain ids and receipts
+  - Users will be provided with an intuitive wallet interface to perform inter-chain transactions
+  - Developers will be provided with API/SDKs to build programmable interfaces for inter-chain transactions
 3. Movement of the assets from one chain to another will be managed at the checkpointing layer and may not require any interaction with the mainchain. Research is currently underway to facilitate faster (possibly instant) inter sidechain transfers.
 
 ## Interoperability {#interoper}
