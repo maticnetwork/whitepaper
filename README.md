@@ -110,7 +110,7 @@ The ecosystem of The Matic Network will have the following actors :
 
 1. End Users
 2. DApp developers : Developers are expected to use the Matic Network to scale their applications and provide a better UI/UX to their end users
-3. Stakers : Stakers need to deposit/stake tokens to qualify and play a very important role in the Matic Network . They validate the transactions and propose checkpoints on the mainchain using PoS consensus mechanism with a ⅔ majority. They also choose Block Producers amongst themselves, who satisfy a certain criteria, to produce blocks on the sidechains.
+3. Stakers : Stakers need to deposit/stake tokens to qualify and play a very important role in the Matic Network. They validate the transactions and propose checkpoints on the mainchain using PoS consensus mechanism with a ⅔ majority. They also choose Block Producers amongst themselves, who satisfy a certain criteria, to produce blocks on the sidechains.
 4. Block Producers : These are block producers chosen by Stakers who in turn enable faster blockchain generation times. They have to provide a significant stake to be nominated.
 
 ## Consensus {#con}
@@ -206,7 +206,7 @@ There are mainly 3 different approaches that the team has been researching on:
 - State transition verification through zk-snarks
 - State transition verification using an EVM-in-an-EVM construction
 
-One of the main approaches that the Matic Development Team has been researching on is the Stateful object programming model for Plasma. The main problem with the applying the Plasma model to contracts on a sidechain is of the "ownership" of states/assets on the sidechain. One fundamental property of Plasma is that state represented on a Plasma chain must be able to be withdrawn to the root chain (e.g. Ethereum) in a way that maintains the integrity of that state. You should be able to freely move assets/state from the Plasma chain to the root chain, and vice versa. This functionality is particularly important when a consensus mechanism on the sidechain goes “bad” and users are forced to withdraw their assets/states from the Plasma chain.
+One of the main approaches that the Matic Development Team has been researching on is the Stateful object programming model for Plasma. The main problem with applying the Plasma model to contracts on a sidechain is of the "ownership" of states/assets on the sidechain. One fundamental property of Plasma is that state represented on a Plasma chain must be able to be withdrawn to the root chain (e.g. Ethereum) in a way that maintains the integrity of that state. You should be able to freely move assets/state from the Plasma chain to the root chain, and vice versa. This functionality is particularly important when a consensus mechanism on the sidechain goes “bad” and users are forced to withdraw their assets/states from the Plasma chain.
 
 States/assets belonging to a user (Externally Owned Accounts) are easy to deposit/enter and withdraw/exit from the mainchain to the sidechain and vice versa. However, in terms of contracts, it is not easy to identify the ownership of the state - because the state might be owned/controlled by multiple parties. The most promising approach to solving this problem is basically separating state and code.
 
@@ -214,7 +214,7 @@ What this approach entails is to enable writing code which reads/writes into "st
 
 The second approach entails the usage of zk-snarks for verifying state transitions for a sidechain. Basically one could operate a [roll-up](https://github.com/barryWhiteHat/roll_up) style chain, which can perform any state transitions, and a zk-proof can be submitted. 
 
-A valid state transition is proven within the snark by opening one or several leaves of the `merkle tree` describing the current state, checking the user’s signatures, doing predefined operations, updating the leaf and finally recalculate the stateRootHash. DApp-specific roll-up style chains on the plasma chain can allow developers to have secure, high-throughput DApps without worrying about liveliness, data-availability issues or withdraw issues. We can store any information we want in `merkle` leaves of the trees and write the snark logic on how they should be updated, since invalid snark proofs cannot be pushed and so it's inherently secure and simple. We are actively researching on this area and trying to come up with a secure and scalable construction. 
+A valid state transition is proven within the snark by opening one or several leaves of the `merkle tree` describing the current state, checking the user’s signatures, doing predefined operations, updating the leaf and finally recalculating the stateRootHash. DApp-specific roll-up style chains on the plasma chain can allow developers to have secure, high-throughput DApps without worrying about liveliness, data-availability issues or withdraw issues. We can store any information we want in `merkle` leaves of the trees and write the snark logic on how they should be updated, since invalid snark proofs cannot be pushed and so it's inherently secure and simple. We are actively researching on this area and trying to come up with a secure and scalable construction. 
 
 The third approach involves a Plasma sidechain implementation that can run EVM-compatible smart contracts - i.e. the Matic Virtual Machine. Since the philosophy of the Matic Network heavily revolves around an incentive mechanism of security deposits on the main chain, it can be instructive to think about an efficient way of identifying the data involved in fraud challenges.
 
@@ -366,9 +366,9 @@ Details to be updated in a later version of the whitepaper
   - Let's say, a single Matic sidechain aims to achieve ~35k Tx/sec on a chain. If node through-put is the bottleneck, then blocksize would be 70k~105k Tx/Block.
 
 5. Checkpoint duration
-  - A checkpoint duration of ~360sec (256 blocks on sidechain) has been determined to be optimum.
+  - A checkpoint duration of ~300sec (256 blocks on sidechain) has been determined to be optimum.
   - A shorter duration means faster Maliciousness detection, but it also means a higher committed Gas fee.
-  - If a Byzantine behavior (e.g. Double Spend through Tx deletion) occurs just after checkpoint creation, this duration is the worst-case time until the Ceremony. If some Block Producers delete transactions, the Matic Network can recover the cancelled Tx, and the double spend attack would be foiled.
+  - If a Byzantine behavior (e.g. Double Spend through Tx deletion) occurs just after checkpoint creation, this duration is the worst-case time until the Ceremony. If some Block Producers delete transactions, the Matic Network can recover the cancelled transaction, and the double spend attack would be foiled.
 
 # Focus on User Experience {#usere}
 
@@ -485,7 +485,7 @@ https://medium.com/matic-network/ethereum-in-realtime-dagger-98ee2d717c76<br/>
 and check how it works:<br/>
 https://medium.com/matic-network/understanding-dagger-453d90480c51
 
-### Matic Wallet
+### Matic Wallet {#mwallet}
 
 The Matic development team is working on building an easy-to-use Plasma wallet mobile app, integrated with WalletConnect, to ensure secure storage of keys, intuitive access to the features provided by the Matic Network, as well as a seamless mechanism to connect browser-based DApps to the mobile app. Users can interact with DApps on browsers and in the future many more devices, while still keeping their keys secure in their mobile wallet.
 
