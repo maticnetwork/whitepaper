@@ -198,11 +198,11 @@ Judging from the proliferation of Layer 1 blockchains, it is a given that there 
 
 ## Generalized State Scaling on Plasma {#genscaling}
 
-Generalized State scaling is the next frontier for the Matic Network, once the Matic Development Team is done with implementing micropayments, asset transfers and swaps in the first phase of development of the Matic Network. The team is working along side leading partner firms to solve this problem as well. This is a research problem, and it will take time and effort to accomplish a breakthrough here. 
+Generalized State scaling is the next frontier for the Matic Network, once the Matic Development Team is done with implementing micropayments, asset transfers and swaps in the first phase of development of the Matic Network. This is a research problem, and it will take time and effort to accomplish a breakthrough here. 
 
 There are mainly 3 different approaches that the team has been researching on:
 
-- Stateful object programming model (separting code and state)
+- Stateful object programming model (separating code and state)
 - State transition verification through zk-snarks
 - State transition verification using an EVM-in-an-EVM construction
 
