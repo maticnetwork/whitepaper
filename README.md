@@ -100,7 +100,7 @@ Here is how the Matic Network will function: <br/>
 4. Whenever the user wishes to, they can withdraw tokens to the main Ethereum chain by establishing proof of remaining tokens on Root contract (contract deployed on Ethereum chain).
 
 The same method will work for any ERC-20 token or other fungible crypto assets on the Ethereum blockchain.
-The Matic Development Team has already created a demo version, available at: https://github.com/maticnetwork/contracts
+The Matic Development Team has already created a demo version, available at: https://github.com/maticnetwork/contracts.
 
 We expect the alpha version of the mainnet to go live very soon.
 
@@ -109,8 +109,8 @@ We expect the alpha version of the mainnet to go live very soon.
 The ecosystem of The Matic Network will have the following actors :
 
 1. End Users
-2. DApp developers : Developers are expected to use The Matic Network to scale their applications and provide a better UI/UX to their end users
-3. Stakers : Stakers will play a very important role in the Matic Network. They validate the transactions and propose checkpoints on the mainchain using PoS consensus mechanism with a ⅔ majority. They also choose Block Producers amongst themselves, who satisfy a certain criteria, to produce blocks on the sidechains.
+2. DApp developers : Developers are expected to use the Matic Network to scale their applications and provide a better UI/UX to their end users
+3. Stakers : Stakers need to deposit/stake tokens to qualify and play a very important role in the Matic Network. They validate the transactions and propose checkpoints on the mainchain using PoS consensus mechanism with a ⅔ majority. They also choose Block Producers amongst themselves, who satisfy a certain criteria, to produce blocks on the sidechains.
 4. Block Producers : These are block producers chosen by Stakers who in turn enable faster blockchain generation times. They have to provide a significant stake to be nominated.
 
 ## Consensus {#con}
@@ -127,7 +127,7 @@ Basically, anyone can stake their Matic Tokens on root contract to become a Stak
 
 ## Block Producers
 
-At the blockchain layer of the Matic Network, there are Block Producers selected by PoS Stakers on the base layer with Proof of Solvency who will be creating the Matic Blocks. To achieve faster block generation times, these Block Producers will be low in number. **This layer is expected to achieve ~1 second block generation times at extremely low to negligible transaction fees.**
+At the blockchain layer of the Matic Network, there are Block Producers, selected by PoS Stakers on the base layer, who will be creating the Matic Blocks. To achieve faster block generation times, these Block Producers will be low in number. **This layer is expected to achieve ~1 second block generation times at extremely low to negligible transaction fees.**
 
 ## Checkpointing Mechanism
 
@@ -183,9 +183,9 @@ The Matic Network public checkpointing layer supports multiple side chains by de
 Key factors influencing design of this sharding process are expected to be:
 1. Scheduling of checkpointing layer to periodically propose checkpoints for different side chains
 2. Movement of assets across multiple side chains
-   2.1 User will be able to send assets across side chains using chain ids and receipts
-   2.2 Users will be provided with an intuitive wallet interface to perform inter-chain transactions
-   2.3 Developers will be provided with API/SDKs to build programmable interfaces for inter-chain transactions
+  - User will be able to send assets across side chains using chain ids and receipts
+  - Users will be provided with an intuitive wallet interface to perform inter-chain transactions
+  - Developers will be provided with API/SDKs to build programmable interfaces for inter-chain transactions
 3. Movement of the assets from one chain to another will be managed at the checkpointing layer and may not require any interaction with the mainchain. Research is currently underway to facilitate faster (possibly instant) inter sidechain transfers.
 
 ## Interoperability {#interoper}
@@ -196,11 +196,27 @@ It can also provide a strong foundation for large DEXs (Decentralized exchanges)
 
 Judging from the proliferation of Layer 1 blockchains, it is a given that there might be more than 2-3 public blockchains that will be adopted by the mainstream eventually, rather than only a single winning blockchain platform. Therefore, the Matic Development Team expects to see hitherto unseen use-cases, arising from the Decentralized application movement across these blockchains. The vision of the Matic Development Team is to provide infrastructure and interfaces such that anyone who wishes to build decentralized applications on any blockchain, will be able to do it easily - and communicate and transfer value across multiple blockchains.
 
-## Generalized State Scaling {#genscaling}
+## Generalized State Scaling on Plasma {#genscaling}
 
-Generalized State scaling is the next frontier for the Matic Network, once the Matic Development Team is done with implementing micropayments, asset transfers and swaps in the first phase of development of the Matic Network. The team is working along side leading partner firms to solve this problem as well. This is a research problem, and it will take time and effort to accomplish a breakthrough here. However, one of the approaches that the team has been following is very promising.
+Generalized State scaling is the next frontier for the Matic Network, once the Matic Development Team is done with implementing micropayments, asset transfers and swaps in the first phase of development of the Matic Network. This is a research problem, and it will take time and effort to accomplish a breakthrough here. 
 
-One of the main approaches that the Matic Development Team have taken involves a Plasma sidechain implementation that can run EVM-compatible smart contracts - i.e. the Matic Virtual Machine. Since the philosophy of the Matic Network heavily revolves around an incentive mechanism of security deposits on the main chain, it can be instructive to think about an efficient way of identifying the data involved in fraud challenges.
+There are mainly 3 different approaches that the team has been researching on:
+
+- Stateful object programming model (separating code and state)
+- State transition verification through zk-snarks
+- State transition verification using an EVM-in-an-EVM construction
+
+One of the main approaches that the Matic Development Team has been researching on is the Stateful object programming model for Plasma. The main problem with applying the Plasma model to contracts on a sidechain is of the "ownership" of states/assets on the sidechain. One fundamental property of Plasma is that state represented on a Plasma chain must be able to be withdrawn to the root chain (e.g. Ethereum) in a way that maintains the integrity of that state. You should be able to freely move assets/state from the Plasma chain to the root chain, and vice versa. This functionality is particularly important when a consensus mechanism on the sidechain goes “bad” and users are forced to withdraw their assets/states from the Plasma chain.
+
+States/assets belonging to a user (Externally Owned Accounts) are easy to deposit/enter and withdraw/exit from the mainchain to the sidechain and vice versa. However, in terms of contracts, it is not easy to identify the ownership of the state - because the state might be owned/controlled by multiple parties. The most promising approach to solving this problem is basically separating state and code.
+
+What this approach entails is to enable writing code which reads/writes into "stateful" objects. Stateful objects are representation of states which have a clear owner. For example, a contract has a set of states controlled by n parties, then stateful objects will be derived by encapsulating state into non-fungible tokens having clear ownership - this way a stateful programing model is introduced that enables these objects to be exitable and therefore Plasma-ficable.
+
+The second approach entails the usage of zk-snarks for verifying state transitions for a sidechain. Basically one could operate a [roll-up](https://github.com/barryWhiteHat/roll_up) style chain, which can perform any state transitions, and a zk-proof can be submitted. 
+
+A valid state transition is proven within the snark by opening one or several leaves of the `merkle tree` describing the current state, checking the user’s signatures, doing predefined operations, updating the leaf and finally recalculating the stateRootHash. DApp-specific roll-up style chains on the plasma chain can allow developers to have secure, high-throughput DApps without worrying about liveliness, data-availability issues or withdraw issues. We can store any information we want in `merkle` leaves of the trees and write the snark logic on how they should be updated, since invalid snark proofs cannot be pushed and so it's inherently secure and simple. We are actively researching on this area and trying to come up with a secure and scalable construction. 
+
+The third approach involves a Plasma sidechain implementation that can run EVM-compatible smart contracts - i.e. the Matic Virtual Machine. Since the philosophy of the Matic Network heavily revolves around an incentive mechanism of security deposits on the main chain, it can be instructive to think about an efficient way of identifying the data involved in fraud challenges.
 
 Validation of consensus rules can be enforced through a system of challenges, using a [TrueBit](https://truebit.io/)-like verification. The main motivation is to run software in a similar manner as we currently do on the Ethereum mainchain. The security deposit makes it easier to estimate the security of the sidechain in monetary terms. When working correctly, the stakers will frequently commit the sidechain blocks to the root chain.
 
@@ -342,17 +358,17 @@ Details to be updated in a later version of the whitepaper
 3. Number of Checkpoint stakers
   - If number of stakers is 10,000, then it will be expensive to structure incentives.
   - 100-150 stakers will result in an optimum transaction fee.
-  - Fewer stakers are better, but decentralization in such a setup is slightly lower.
+  - Having fewer stakers than this is better, but decentralization in such a setup is lower.
 
 4. Block Time
   - The Matic Development team could assign 2~3sec for block time.
   - 0.5sec block time still works with regards to block propagation, and it has no effect on user experience.
-  - Let's say, a single Matic sidechain aims to achieve ~35k Tx/sec on a chain. If node through-put is the bottleneck, then blocksize would be 70k~105k Tx/Block. This is about ~10MB/Block.
+  - Let's say, a single Matic sidechain aims to achieve ~35k Tx/sec on a chain. If node through-put is the bottleneck, then blocksize would be 70k~105k Tx/Block.
 
 5. Checkpoint duration
-  - A checkpoint duration of 3600sec has been determined to be optimum.
+  - A checkpoint duration of ~300sec (256 blocks on sidechain) has been determined to be optimum.
   - A shorter duration means faster Maliciousness detection, but it also means a higher committed Gas fee.
-  - If a Byzantine behavior (e.g. Double Spend through Tx deletion) occurs just after checkpoint creation, this duration is the worst-case time until the Ceremony. If some Block Producers delete transactions, The Matic Network can recover the cancelled Tx, and the double spend attack would be foiled.
+  - If a Byzantine behavior (e.g. Double Spend through Tx deletion) occurs just after checkpoint creation, this duration is the worst-case time until the Ceremony. If some Block Producers delete transactions, the Matic Network can recover the cancelled transaction, and the double spend attack would be foiled.
 
 # Focus on User Experience {#usere}
 
@@ -360,25 +376,29 @@ The Matic Development Team is developing a wallet by implementing the [WalletCon
 
 This wallet will help users to interact with DApps and sign transactions easily, while still helping users keep their private keys safe on their mobile. This should go a long way in making blockchains accessible to mainstream users.
 
-Other than this, the team is also looking at Context specific ether less accounts and Gas relay abstraction on identity to enable ether-less sign transactions, which can be a huge boost for mainstream user adoption.
+Other than this, the team is also looking at context specific ether-less accounts and Gas relay abstraction on identity to enable ether-less sign transactions, which can be a huge boost for mainstream user adoption.
 
 # Matic Stack {#stack}
 
 This section details out various parts of the Matic chain and components in the Ethereum chain.
 
-## Matic Deposit Bridge {#mdb}
+### Matic contracts on mainchain {#mcontracts}
+
+The Matic smart contracts on the mainchain provide the core logic for the Matic Network. The contracts contain various mechanisms such as deposit and exits from the mainchain to the sidechain and vice versa. They also contain the exit priority queue, the periodic state commitments from the Validator layer, fraud proof mechanisms, bonded exit challenge logic and various other components. The Stake Manager also resides here. 
+
+### Matic Deposit Bridge {#mdb}
 
 The bridge(s) of the Matic Network are part of Block Producer nodes that listen to the RootContract events on the mainchain and monitor any token/ether transfer events happening to the RootContract. This bridge utilizes Matic Network’s famous tool named [Dagger](https://github.com/maticnetwork/eth-dagger.js). Once the bridge detects a deposit on the mainchain, it fires a Deposit event on the Matic chain and the user’s address on the Matic Network is allocated the deposited amount.
 
 ### Matic PoS {#mpos}
 
-The checkpointing mechanism of the Matic Network is a PoS enabled layer which has Stakers who propose the checkpoints to the mainchain. There will be about 100-150 Stakers at the checkpointing layer. In future with the advent of more efficient signatures on Ethereum blockchain, The Matic Network will be able to significantly increase its number of stakers on the checkpointing layer which is expected to further increase its degree of decentralization, perhaps rivalling that of the leading public blockchains like Ethereum and Bitcoin.
+The checkpointing mechanism of the Matic Network is a PoS enabled layer which has Stakers who propose the checkpoints to the mainchain. There will be about 100-150 Stakers at the checkpointing layer to start with. In future with the advent of more efficient signature mechanisms on the Ethereum blockchain, the Matic Network will be able to significantly increase its number of stakers on the checkpointing layer which is expected to further increase its degree of decentralization, perhaps rivalling that of the leading public blockchains like Ethereum and Bitcoin.
 
 More details of the PoS checkpoint layers will be given in a later version of the Whitepaper.
 
 ### Block Producer Layer {#bplay}
 
-At the base layer, The Matic Network has Block Producer nodes chosen by the Stakers of the PoS layer through voting for every checkpointing interval. These Block Producers will be required to have Proof of Solvency. These Block Producers will also run the Matic Deposit bridge.
+At the base layer, the Matic Network has Block Producer nodes chosen by the Stakers of the PoS layer through voting for every checkpointing interval. These Block Producers will also run the Matic Deposit bridge.
 
 Block Producers accept transactions through the Matic VM and are expected to create a block every ~1 second.
 
@@ -445,16 +465,9 @@ Decentralized apps need a way to sign transactions, but that must happen without
 
 This system will also provide a way to auto-approve certain kind of transactions depending upon the criteria chosen by the users. This will drive the recurring payments on the Matic Network.
 
-### Securing Personal Data {#spd}
+### Games {#games}
 
-Building upon the Identity feature of the Matic Network, users will be able to secure their personal data on the Identity chain. This data will be encrypted and queried using zero-knowledge proofs only, thereby limiting access to sensitive, personal data by external services.
-
-Currently, each third-party service stores data in their servers for each customer, which poses a tremendous security risk for the users in case of a data breach, as well as huge reputational risks for the service. The Matic Network is expected to reduce the need to have user's personal data shared with each service, and provide a tiered, auditable mechanism to track sharing of personal data. Businesses will also find that storing less personal data reduces the overall cost of maintaining user data securely.
-
-Currently, most users do not even know the extent of data that is shared with publishers and how much value they lose in trading convenience or free application usage for their personal data. The Matic Network expects to enable easy porting of data from third-party services to the Identity chain, wherein even the Matic Network itself will not have access to the personal data.
-
-Users can also choose to share their data with publishers in a much more transparent manner and can also look to monetize the usage of their data by charging a sharing fee. This could be done via a multi-tier sharing mechanism, with data such as location tracking being offered a higher fee, etc.
-
+We expect games to be a big part of the Matic Network. In-game assets represented as NFTs (ERC721) are expected to be bought, sold and traded in huge numbers on our sidechains. Developers will also be able to save game state on the sidechains, if they choose to. Along with the NFT marketplace that we will enable, developers and users will truly have a fast, efficient and secure sidechain to build and play games on.
 
 ### Infrastructure {#infrastructure}
 
@@ -472,12 +485,18 @@ https://medium.com/matic-network/ethereum-in-realtime-dagger-98ee2d717c76<br/>
 and check how it works:<br/>
 https://medium.com/matic-network/understanding-dagger-453d90480c51
 
+### Matic Wallet {#mwallet}
+
+The Matic development team is working on building an easy-to-use Plasma wallet mobile app, integrated with WalletConnect, to ensure secure storage of keys, intuitive access to the features provided by the Matic Network, as well as a seamless mechanism to connect browser-based DApps to the mobile app. Users can interact with DApps on browsers and in the future many more devices, while still keeping their keys secure in their mobile wallet.
+
+The Matic wallet will be act as a ready tool for DApp developers to get their users onboarded and working with Matic sidechains quickly and efficiently.
+
 # Matic Tokens
 The native digital cryptographically-secured utility token of the Matic Network (Matic Token) is a major component of the ecosystem on the Matic Network, and is designed to be adopted for use as the primary token on the network. Matic Token will be issued as ERC-20 standard compliant digital tokens on the Ethereum blockchain.<br/>
 
 Matic Token is designed to be a utility token which functions as the unit of payment and settlement between participants who interact within the ecosystem on the Matic Network. Matic Token does not in any way represent any shareholding, participation, right, title, or interest in the Governing body, the Issuer, its affiliates, or any other company, enterprise or undertaking, nor will Matic Token entitle token holders to any promise of fees, dividends, revenue, profits or investment returns, and are not intended to constitute securities in Singapore or any relevant jurisdiction. Ownership of Matic Token carries no rights, express or implied, other than that which may be afforded by the Matic Network and/or any other third parties whom may use such Tokens.<br/>
 
-Matic Tokens are expected to provide the economic incentives to encourage participants to contribute and maintain the ecosystem on the Matic Network. Computational resources are required for performing various functions on the Matic Network such as validating blocks and publishing proofs), thus providers of these services / resources would be rewarded with Matic tokens for providing these resources to the network (i.e. "mining" on the Matic Network) to maintain network integrity. Matic Token will be used as the unit of exchange to quantify and pay the costs of the consumed computational resources. Matic Token is an integral and indispensable part of the Matic Network, because without Matic Token, there would be no incentive for users to expend resources to participate in activities or provide services for the benefit of the entire ecosystem on the Matic Network. Only users which have actually contributed to network maintenance would receive token incentives. Users of the Matic Network and/or holders of Matic Token which did not actively participate will not receive any Matic Token as rewards.<br/>
+Matic Tokens are expected to provide the economic incentives to encourage participants to contribute and maintain the ecosystem on the Matic Network. Computational resources are required for performing various functions on the Matic Network such as validating blocks and publishing proofs, thus providers of these services / resources would be rewarded with Matic tokens for providing these resources to the network (i.e. "mining" on the Matic Network) to maintain network integrity. Matic Token will be used as the unit of exchange to quantify and pay the costs of the consumed computational resources. Matic Token is an integral and indispensable part of the Matic Network, because without the Matic Token, there would be no incentive for users to expend resources to participate in activities or provide services for the benefit of the entire ecosystem on the Matic Network. Only users which have actually contributed to network maintenance would receive token incentives. Users of the Matic Network and/or holders of Matic Token which did not actively participate will not receive any Matic Token as rewards.<br/>
 
 In order to participate in the consensus process on the Matic Network, users would be required to stake Matic Token as an indication of that user's commitment to the process. Matic Token would thus also be used as a deterrent for punishing stakers for various offences (e.g. invalid blocks, illegally verifying blocks, or invalid transaction execution) by requiring them to first put up a stake of Matic Token before being entitled to participate in the ecosystem. Matic Token would be deducted in the event that an offence was committed by a staker.<br/>
 
@@ -490,96 +509,6 @@ In particular, it is highlighted that Matic Token:<br/>
 6. does not provide the token holder with any ownership or other interest in the Governing body, the Issuer or any of its affiliates.
 
 The contributions in the token sale will be held by the Issuer(or its affiliate) after the token sale, and contributors will have no economic or legal right over or beneficial interest in these contributions or the assets of that entity after the token sale. To the extent a secondary market or exchange for trading Matic Token does develop, it would be run and operated wholly independently of the Governing body, the Issuer, the sale of Matic Token and the Matic Network. Neither the Governing body nor the Issuer will create such secondary markets nor will either entity act as an exchange for Matic Token.
-
-# Challenges, security concerns and mitigation {#challenges}
-
-1. Block withholding after deposit or deposit is not processed by a Block Producer due to unavailability of the Matic bridge
-
-  - Each deposit will create new id (uint256 counter) associated with a Deposit event
-
-  - Block Producer must process deposit within the next 5 checkpoints
-
-  - If not processed, deposit amount will be eligible for Withdrawal
-
-2. Block withholding after deposit, relay and before transfer
-
-  There are two ways this can be solved:
-
-  - "Withdraw only" mode: The Matic Network can go into withdraw only mode after a certain time with no checkpoints (~ around 2 days). All users must start the exit process (ref #13) by proving their token holdings from last known checkpoints. The problem with this approach would be the "loss of valid transactions from the last checkpoints"
-
-  - Start ceremony (ref #12) to choose next set of Block Producers: Ceremony will start to select next round of Block Producers and selected Block Producers will resume chain from last checkpoints and start validating pending transactions (if any)
-
-3. Checkpoint withholding after burning (withdrawing) tokens from the Matic Network
-
-  This will only happen when there is fraud on Matic chain. Mitigation would be the same as 2.
-
-4. A Block Producer changes token balance while relaying deposits.
-
-  Mitigation would be the same as 2.
-
-5. A Block Producer changes token balance during transfer.
-
-  Mitigation would be the same as 2.
-
-6. A Block Producer generates tokens for particular address
-
-  Mitigation would be the same as 2.
-
-7. A Block Producer generates, transfers and burns (withdraws) tokens between two checkpoints
-
-  Mitigation would be the same as 2.
-
-8. A rationale of how a Block Producer can be a trustless entity
-
-  - Use appcoin security for Block Producer collateral and discourage Matic Token damaging + short selling
-
-  - Make Solvency Proof mandatory before assigning one as a Block Producer. A wealthy entity can game with this Solvency Proof but appcoin above will mitigate the attack
-
-  - Validator-level censorship can be mitigated via forcing Block Producers to include TX in next 5 (or so) checkpoints
-
-  - If a government gets to know who is maintaining the Matic chain and bans that entity’s activity, slash that node and choose alternative from outside of that country
-
-9. Discrepancy between balances of users and total balances of the root contract
-
-   At any given point in time, what if there is a discrepancy between total of users’ balances and root contract’s total balances? What if the root contract allows certain users to withdraw more tokens than intended (possible hack)? How one can detect that there has been a hack or fraud on the Matic Network?
-
-   Solvency proof of balances comes handy in this case. For more info on solvency proof and single use seals, see
-   https://petertodd.org/2016/commitments-and-single-use-seals
-
-10. Transaction censorship
-
-    To resolve this, a possible solution could be following:
-
-    Anyone can add transaction data directly to the main chain contract. That transaction must be added in next 5 checkpoints by Block Producers.
-
-    The following might happen next -
-
-      - If a Block Producer does not include Tx within the next 5 checkpoints, the Tx owner can start a challenge through locking some ETH as a bond (staked value) to prevent frivolous challenges. After a certain amount of time, the Block Producer would not be able to produce inclusion proof, and this results in the Block Producers' getting slashed and the transaction owner will receive the slashed amount + bond (Locked to initiate challenge)
-
-      - If a Block Producer includes the transaction, but the transaction owner decides to initiate a challenge anyway - in this case, the Block Producer produces a inclusion proof and gets bond amount put as collateral by the transaction owner.
-
-11. DDoS
-
-  - One way to prevent DDoS is to check state validation when the user submits the transaction (before tx goes to pending pool)
-  - Node must handle the state validation check portion while accepting transactions. If any node decides to skip this implementation, other nodes will ignore all future transactions from particular node.
-
-12. Ceremony
-
-  - The Matic Network has the same level of security as Ethereum until the latest checkpoint. But after the latest checkpoint, some blocks will not be as robust in terms of security as Ethereum. Now, if a Byzantine party controls 51% of Block Producers by locking a large amount of collateral, he can cancel his specific deposit transaction to deceive centralized exchanges (e.g. updating 10~20 confirmations).
-
-  - The Matic Network is able to detect withholding, censorship, or any fraudulent activity via checkpoint voting. These voters are independent of the byzantine Block Producers.
-
-  -Byzantine Block Producer are slashed and removed, while their staked funds are redistributed to the community.
-
-  - In order to make the ceremony smooth, online Block Producers must be queued in the event that multiple Byzantine Block Producers have to be removed.
-
-  - The frequency of ceremony could be mitigated through fast restarts, fraudulent record recovery, and collateral/stake slashing. Furthermore, once the Matic Network gains popularity, security of Matic chain is going to be robust as well.
-
-13. Exit
-
-  - As mentioned in #2, The Matic Network only uses exit procedures when a checkpoint is not signed by enough checkpoint-stakers as a form of anomaly handling. Otherwise it is a normal system and hence one is able to use "Simple Fast Withdrawal"-esque construction (a.k.a. Matic Withdrawal Bridge).
-
-  - As mentioned in #2, when the checkpoint-stakers are Byzantine, the Matic Network will go to "withdraw only mode". It means that the Matic Network does need to conduct Mass Exits as defined in the Plasma security model. When Transaction-chain's Block Producers are byzantine, the Ceremony will be conducted, and it is seamless compared to the "withdraw only mode". This 2-phase construction is virtue of the simple and seamless design philosophy of the Matic Network.
 
 # Features on our development roadmap {#future}
 
