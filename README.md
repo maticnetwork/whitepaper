@@ -489,7 +489,7 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 
 The Matic development team is working on building an easy-to-use Plasma wallet mobile app, integrated with WalletConnect, to ensure secure storage of keys, intuitive access to the features provided by the Matic Network, as well as a seamless mechanism to connect browser-based DApps to the mobile app. Users can interact with DApps on browsers and in the future many more devices, while still keeping their keys secure in their mobile wallet.
 
-The Matic wallet will be act as a ready tool for DApp developers to get their users onboarded and working with Matic sidechains quickly and efficiently.
+The Matic wallet will act as a ready tool for DApp developers to get their users onboarded and working with Matic sidechains quickly and efficiently.
 
 # Matic Tokens
 The native digital cryptographically-secured utility token of the Matic Network (Matic Token) is a major component of the ecosystem on the Matic Network, and is designed to be adopted for use as the primary token on the network. Matic Token will be issued as ERC-20 standard compliant digital tokens on the Ethereum blockchain.<br/>
