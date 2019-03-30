@@ -117,7 +117,7 @@ The ecosystem of The Matic Network will have the following actors :
 
 The Matic Network uses a dual strategy of Proof of Stake at the checkpointing layer and Block Producers at the block producer layer to achieve faster blocktimes while ensuring a **high degree of decentralization by achieving finality on the main chains using the checkpoints and fraud proof mechanisms.**
 
-![Matic checkpoints](matics.png)
+![Matic checkpoints](matic-architecture.png)
 
 Through this mechanism, The Matic Network achieves high transcation speed with a high degree of decentralization and finality on Mainchain. In the first version which has Ethereum only as the base chain, Ethereum root contract enforces solvency and finality through header block(checkpoints) very efficiently. The various elements and mechanisms of the system are described below:
 
@@ -489,7 +489,7 @@ https://medium.com/matic-network/understanding-dagger-453d90480c51
 
 The Matic development team is working on building an easy-to-use Plasma wallet mobile app, integrated with WalletConnect, to ensure secure storage of keys, intuitive access to the features provided by the Matic Network, as well as a seamless mechanism to connect browser-based DApps to the mobile app. Users can interact with DApps on browsers and in the future many more devices, while still keeping their keys secure in their mobile wallet.
 
-The Matic wallet will be act as a ready tool for DApp developers to get their users onboarded and working with Matic sidechains quickly and efficiently.
+The Matic wallet will act as a ready tool for DApp developers to get their users onboarded and working with Matic sidechains quickly and efficiently.
 
 # Matic Tokens
 The native digital cryptographically-secured utility token of the Matic Network (Matic Token) is a major component of the ecosystem on the Matic Network, and is designed to be adopted for use as the primary token on the network. Matic Token will be issued as ERC-20 standard compliant digital tokens on the Ethereum blockchain.<br/>
