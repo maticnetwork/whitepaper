@@ -119,7 +119,7 @@ The Matic Network uses a dual strategy of Proof of Stake at the checkpointing la
 
 ![Matic checkpoints](matic-architecture.png)
 
-Through this mechanism, The Matic Network achieves high transcation speed with a high degree of decentralization and finality on Mainchain. In the first version which has Ethereum only as the base chain, Ethereum root contract enforces solvency and finality through header block(checkpoints) very efficiently. The various elements and mechanisms of the system are described below:
+Through this mechanism, The Matic Network achieves high transaction speed with a high degree of decentralization and finality on Mainchain. In the first version which has Ethereum only as the base chain, Ethereum root contract enforces solvency and finality through header block(checkpoints) very efficiently. The various elements and mechanisms of the system are described below:
 
 ## Checkpointing Layer {#checklayer}
 
